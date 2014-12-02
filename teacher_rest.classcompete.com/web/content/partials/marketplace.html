@@ -1,0 +1,101 @@
+    <div class="left-sidebar">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">Available Challenges</div>
+            </div>
+            <div class="widget-body">
+                <span class="marketplace_caption">Grade:</span>
+                <ul class="nav nav-tabs no-margin myTabBeauty marketplace_my_tab">
+                    <li class="active">
+                        <a target="_self" ng-ng-href="#grade_1" data-toggle="tab" data-original-title="" ng-click="getChallenges('pre_k')">Pre k</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-ng-href="#grade_2" data-toggle="tab" data-original-title="" ng-click="getChallenges('k')">K</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-ng-href="#grade_3" data-toggle="tab" data-original-title="" ng-click="getChallenges('first')">1</a>
+                    </li>
+                    <li class="">
+                        <a ng-ng-href="#grade_4" data-toggle="tab" data-original-title="" ng-click="getChallenges('second')">2</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_5" data-toggle="tab" data-original-title="" ng-click="getChallenges('third')">3</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_6" data-toggle="tab" data-original-title="" ng-click="getChallenges('fourth')">4</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_7" data-toggle="tab" data-original-title="" ng-click="getChallenges('fifth')">5</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_8" data-toggle="tab" data-original-title="" ng-click="getChallenges('sixth')">6</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_9" data-toggle="tab" data-original-title="" ng-click="getChallenges('seventh')">7</a>
+                    </li>
+                    <li class="">
+                        <a target="_self" ng-href="#grade_10" data-toggle="tab" data-original-title="" ng-click="getChallenges('eight')">8</a>
+                    </li>
+                </ul>
+                <span class="marketplace_caption">Subject: </span>
+                <div class="row-fluid">
+                    <select ng-model="subject" ng-options="s.subject_name for s in subjects" ng-change="hideChallenge(subject)">{{ subject }}
+                        <option value="">All subjects</option>
+                    </select>
+                </div>
+
+                <div id="myTabContent" class="tab-content marketplace_tab_content">
+                    <div class="tab-pane fade active in">
+                        <div class="container-fluid">
+                            <div class="span2 challenge repeat-item" ng-repeat="challenge in challenges" ng-hide="selected_subject !== challenge.subject_id && selected_subject !== false">
+                                <div class="thumbnail_challenge" power-tip-marketplace>
+                                    <img ng-src="{{ challenge.teacher_image }}" image-reloader>
+                                </div>
+                                <h5 class="text_align_center market_ch_name">{{ challenge.challenge_name }}</h5>
+
+                                <button class="btn btn-mini btn-success btn-align-center install_challenge" ng-click="installChallenge($index,challenge.challenge_id)">Add to class</button>
+                                <div class="tooltip_content" style="display: none">
+                                    <h3 class="text_align_center overflow_text"><strong>{{ challenge.challenge_name }}</strong></h3>
+
+                                    <div class="tooltip_author">
+                                        <span>by:</span>
+                                        <div>
+                                            <span class="text_align_center">{{ challenge.author_name }}</span>
+                                            <img class="tooltip_img" ng-src="{{ challenge.teacher_image }}" image-reloader/>
+                                        </div>
+                                    </div>
+
+                                    <dl class="inline">
+                                        <dt>Subject:</dt>
+                                        <dd>{{ challenge.subject_name}}</dd>
+                                        <dt>Topic:</dt>
+                                        <dd>{{ challenge.skill_name }}</dd>
+                                        <dt>Subtopic:</dt>
+                                        <dd>{{ challenge.subskill_name }}</dd>
+                                        <dt>Grade:</dt>
+                                        <dd>{{ challenge.level }}</dd>
+                                        <dt>Environment:</dt>
+                                        <dd>{{ challenge.game_name }}</dd>
+                                        <dt>Questions:</dt>
+                                        <dd>{{ challenge.number_of_questions }}</dd>
+                                        <dt>Played times:</dt>
+                                        <dd>{{ challenge.played_times }}</dd>
+                                    </dl>
+
+                                    <div class="tooltip_description" ng-show="challenge.description">
+                                        <span>Description</span>
+                                        <p>{{ challenge.description }}</p>
+                                    </div>
+                                    <div class="tooltip_description" ng-show="challenge.teacher_biography">
+                                        <span>Teacher biography</span>
+                                        <p>{{ challenge.teacher_biography }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

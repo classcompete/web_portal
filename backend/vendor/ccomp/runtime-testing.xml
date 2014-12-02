@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <propel>
+        <datasources default="classcompete">
+            <datasource id="classcompete">
+                <adapter>mysql</adapter> <!-- sqlite, mysql, mssql, oracle, or pgsql -->
+                <connection>
+                    <dsn>mysql:host=127.0.0.1;dbname=classcompete</dsn>
+                    <user>ccomp</user>
+                    <password>ccomp2013</password>
+                </connection>
+            </datasource>
+        </datasources>
+    </propel>
+</config>

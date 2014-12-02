@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3>Student stats details</h3>
+</div>
+<div class="modal-body">
+    <div ng-show="pagedChallenges.length > 0" class="widget-body clearfix">
+        <select ng-model="selectedChallengePerPage" ng-options="p.per_page for p in viewPerPage" ng-change="changeItemPerPage(selectedChallengePerPage)" class="span3">{{ p }}</select>
+
+        <div id="dt_example" class="example_alt_pagination">
+            <table class="table table-condensed table-striped table-hover table-bordered dataTable">
+                <thead>
+                <tr tole="row">
+                    <th class="challenge_name sorting" ng-click="sort_by('challenge_name')">Challenge name</th>
+                    <th class="number_of_played_times sorting" ng-click="sort_by('number_of_played_times')">Played times</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in pagedChallenges[currentPage] | orderBy:sortingOrder:reverse" ng-class-odd="'success odd'" ng-class-even="'info even'">
+                    <td>{{data.challenge_name}}</td>
+                    <td>{{data.number_of_played_times}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <ul class="pull-right">
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="prevPage()">Prev</a>
+                    </li>
+                    <li ng-click="setPage()" ng-class="{active: n == currentPage}" ng-repeat="n in range(pagedChallenges.length)">
+                        <a href ng-bind="n + 1">1</a>
+                    </li>
+                    <li ng-class="{disabled: currentPage == pagedChallenges.length - 1}">
+                        <a href ng-click="nextPage()">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-show="!pagedChallenges.length > 0" class="widget-body">
+        <h4 class="text-info">There is no corresponding data!</h4>
+    </div>
+</div>

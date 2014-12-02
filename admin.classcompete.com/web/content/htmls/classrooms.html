@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en">
+
+<![endif]-->
+<!--[if IE 7]>
+
+<html class="lt-ie9 lt-ie8" lang="en">
+
+<![endif]-->
+<!--[if IE 8]>
+
+<html class="lt-ie9" lang="en">
+
+<![endif]-->
+<!--[if gt IE 8]>
+<!-->
+
+<html lang="en">
+  
+  <!--
+<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Class Compete - Teacher Homepage
+    </title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <!-- bootstrap css -->
+    <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+    </script>
+    <link href="icomoon/style.css" rel="stylesheet">
+    <!--[if lte IE 7]>
+    <script src="css/icomoon-font/lte-ie7.js">
+    </script>
+    <![endif]-->
+  <link href="css/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet">
+  <link href="css/wysiwyg/wysiwyg-color.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet"> <!-- Important. For Theming change primary-color variable in main.css  -->
+  <link href="css/charts-graphs.css" rel="stylesheet">
+    <script>
+
+
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">
+        <img src="img/logo.png" alt="Logo"/>
+      </a>
+      <div class="user-profile">
+        <a data-toggle="dropdown" class="dropdown-toggle">
+          <img src="img/profile1.png" alt="Profile-Image">
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li>
+            <a href="user_profile.html">
+              Edit Profile
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Account Settings
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+      <ul class="mini-nav">
+        <li>
+          <a href="#">
+            <div class="fs1" aria-hidden="true"data-icon=""></div>
+          </a>
+        </li>         
+        <li>
+          <a href="#">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
+            <span class="info-label">
+              3
+            </span>
+          </a>
+        </li>
+      </ul>
+    </header>
+    <div class="container-fluid">
+      <div class="dashboard-container">
+        <div class="top-nav">
+          <ul>
+            <li>
+              <a href="index.html">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe0a0;"></div>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="classrooms.html" class="selected">
+                <div class="fs1" aria-hidden="true" data-icon=""></div>
+                Classrooms
+              </a>
+            </li>
+            <li>
+              <a href="challenges.html">
+                <div class="fs1" aria-hidden="true" data-icon=""></div>
+                Challenges
+              </a>
+            </li>
+            <li>
+              <a href="reporting.html">
+                <div class="fs1" aria-hidden="true" data-icon=""></div>
+                Reporting
+              </a>
+            </li>
+            <li>
+              <a href="marketplace.html">
+                <div class="fs1" aria-hidden="true" data-icon=""></div>
+                Marketplace
+              </a>
+            </li>
+            <li>
+              <a href="content_builder.html">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe14a;"></div>
+                Content Builder
+              </a>
+            </li>
+          </ul>
+          <div class="clearfix">
+          </div>
+        </div>
+        <div class="sub-nav">
+         <!-- <ul>
+            <li><a href="" class="heading">Dashboard</a></li>
+            <li>
+              <a href="#mailbox">
+                Mailbox
+              </a>
+            </li>
+            <li>
+              <a href="#todo">
+                ToDos
+              </a>
+            </li>
+            <li>
+              <a href="#chats">
+                Chats
+              </a>
+            </li>
+            <li>
+              <a href="#notifications">
+                Notifications
+              </a>
+            </li>
+          </ul>
+         -->
+          <div class="btn-group pull-right">
+            <button class="btn btn-warning2">
+              Main Navigation
+            </button>
+            <button data-toggle="dropdown" class="btn btn-warning2 dropdown-toggle">
+              <span class="caret">
+              </span>
+            </button>
+            <ul class="dropdown-menu pull-right">
+              <li>
+              <a href="index.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="classrooms.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Classrooms
+              </a>
+            </li>
+            <li>
+              <a href="challenges.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Challenges
+              </a>
+            </li>
+            <li>
+              <a href="reporting.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Reporting
+              </a>
+            </li>
+            <li>
+              <a href="marketplace.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Marketplace
+              </a>
+            </li>
+            <li>
+              <a href="content_builder.html">
+                <div class="fs1" aria-hidden="true"></div>
+                Content Builder
+              </a>
+            </li>
+            </ul>
+          </div>
+        </div>
+        <div class="dashboard-wrapper">
+          
+          <div class="left-sidebar">
+            
+            <div class="row-fluid">
+              <div class="span9">
+
+
+                <div class="widget">
+                  <div class="widget-header">
+                    <div class="title">
+                      Class Management
+                    </div>
+                    <span class="tools">
+                      <a style="color:black" class="btn btn-small" href="#" data-original-title="" data-target="#addClass" data-toggle="modal">Add New Class</a>
+                    </span>
+
+                  </div>
+                  <div class="widget-body">
+                    <div id="accordion1" class="accordion no-margin">
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                          <a href="#collapseOne" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle">
+                            <i class="icon-user">
+                            </i>
+                            1st Period Math
+                          </a>
+                        <span class="tools">
+                          <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""  data-target="#editClass" data-toggle="modal"></a>
+                        </span>
+
+                        </div>
+                        <div class="accordion-body in collapse" id="collapseOne" style="height: auto;">
+                          <div class="accordion-inner">
+                            
+                            <div class="span9">
+                              <h5>9 Students Enrolled</h5>
+                            <ul>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li> 
+                            </ul>
+                          </div>
+                          <div class="span3">
+              <h5>&nbsp</h5>
+              <button class="btn btn-block" type="button">
+                Add Students
+              </button>
+               <button class="btn btn-block" type="button">
+                View Requests
+              </button>             
+              <button class="btn btn-block" type="button">
+                Messages
+              </button>
+              <button class="btn btn-block" type="button">
+                Class Stats
+              </button> 
+                          </div>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                          <a href="#collapseTwo" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle">
+                            <i class="icon-user">
+                            </i>
+                            2nd Period Math
+                          </a>
+                        <span class="tools">
+                          <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""  data-target="#editClass" data-toggle="modal"></a>
+                        </span>
+                        </div>
+                        <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">
+                          <div class="accordion-inner">
+                            <div class="span9">
+                            <h5>9 Students Enrolled</h5>
+                            <ul>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li> 
+                            </ul>
+                           </div>
+                           <div class="span3">
+<h5>&nbsp</h5>
+              <button class="btn btn-block" type="button">
+                Add Students
+              </button>
+               <button class="btn btn-block" type="button">
+                View Requests
+              </button>             
+              <button class="btn btn-block" type="button">
+                Messages
+              </button>
+              <button class="btn btn-block" type="button">
+                Class Stats
+              </button> 
+                           </div> 
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                          <a href="#collapseThree" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle">
+                            <i class="icon-user">
+                            </i>
+                           3rd Period Math
+                          </a>
+                        <span class="tools">
+                          <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""  data-target="#editClass" data-toggle="modal"></a>
+                        </span>                          
+                        </div>
+                        <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">
+                          <div class="accordion-inner">
+                            <div class="span9">
+                            <h5>27 Students Enrolled</h5>
+                            <ul>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li> 
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>
+                                            <li>Some Name 
+                                            <div class="buttons pull-right">
+                                              <a data-target="#studentInfo" data-toggle="modal" class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>    <a class="fs1" aria-hidden="true" data-icon="">&nbsp;</a>
+                                            </div>
+                                            </li>                                                                                          
+                            </ul>
+                           </div>
+                           <div class="span3">
+<h5>&nbsp</h5>
+              <button class="btn btn-block" type="button">
+                Add Students
+              </button>
+               <button class="btn btn-block" type="button">
+                View Requests
+              </button>             
+              <button class="btn btn-block" type="button">
+                Messages
+              </button>
+              <button class="btn btn-block" type="button">
+                Class Stats
+              </button> 
+
+                           </div> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="span3">
+
+<div class="wrapper">
+              <ul class="progress-statistics">
+                <li>
+                  <div class="details">
+                    <span>
+                      Item 1
+                    </span>
+                    <span class="pull-right">
+                      32%
+                    </span>
+                  </div>
+                  <div class="progress progress-success">
+                    <div class="bar" style="width: 32%;">
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="details">
+                    <span>
+                      Item 2
+                    </span>
+                    <span class="pull-right">
+                      84%
+                    </span>
+                  </div>
+                  <div class="progress progress-warning">
+                    <div class="bar" style="width: 84%;">
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="details">
+                    <span>
+                      Item 3
+                    </span>
+                    <span class="pull-right">
+                      44%
+                    </span>
+                  </div>
+                  <div class="progress progress-danger">
+                    <div class="bar" style="width: 44%;">
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="details">
+                    <span>
+                      Item 4
+                    </span>
+                    <span class="pull-right">
+                      67%
+                    </span>
+                  </div>
+                  <div class="progress progress-info">
+                    <div class="bar" style="width: 67%;">
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="details">
+                    <span>
+                      Item 5
+                    </span>
+                    <span class="pull-right">
+                      78%
+                    </span>
+                  </div>
+                  <div class="progress">
+                    <div class="bar" style="width: 78%;">
+                    </div>
+                  </div>
+                </li>                
+              </ul>
+            </div>
+
+              </div>
+
+
+            </div>
+            
+            
+          </div>
+          <div class="right-sidebar">
+                <div class="action1"></div>
+            <hr class="hr-stylish-1">
+            <div class="action2"></div>        
+
+                        
+          </div>
+
+        </div>
+      </div>
+      <!--/.fluid-container-->
+    </div>
+    <footer>
+      <p>
+        &copy; Class Compete 2013
+      </p>
+    </footer>
+
+    <div class="modal hide fade classmodal" id="addClass" tabindex="-1" role="dialog" aria-labelledby="addClassLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Add New Class</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal no-margin">
+        <div class="control-group">
+          <label class="control-label" for="className">
+            Class Name
+          </label>
+          <div class="controls">
+            <input type="text" id="className" placeholder="Enter Class Name">
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <input type="checkbox" value="d">
+              Auto Accept Students
+            </label>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="className">
+            Class Code
+          </label>
+          <div class="controls">
+            <input type="text" id="className" value="CLASSCODE022" disabled="disabled">
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
+
+    <div class="modal hide fade classmodal" id="editClass" tabindex="-1" role="dialog" aria-labelledby="editClassLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Edit Class</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal no-margin">
+        <div class="control-group">
+          <label class="control-label" for="className">
+            Class Name
+          </label>
+          <div class="controls">
+            <input type="text" id="className" value="Some Class Name">
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <input type="checkbox" value="d">
+              Auto Accept Students
+            </label>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="className">
+            Class Code
+          </label>
+          <div class="controls">
+            <input type="text" id="className" value="CLASSCODE022" disabled="disabled">
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Delete Class</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>      
+
+
+    <div style="" class="modal fade hide" id="studentInfo" tabindex="-1" role="dialog" aria-labelledby="studentInfoLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="studentInfoLabel">Student Information</h3>
+      </div>
+      <div class="modal-body">
+
+        <ul class="nav nav-tabs no-margin myTabBeauty">
+          <li class="active">
+            <a data-toggle="tab" href="#profile" data-original-title="">
+              Profile
+            </a>
+          </li>
+          <li class="">
+            <a data-toggle="tab" href="#challenges" data-original-title="">
+              Challenges
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div id="profile" class="tab-pane fade active in">
+
+            <div class="row-fluid">
+              <div class="span4">
+
+                <img id="profilepic" src="img/profilepic.png">
+
+            <h5>User Name : Jana Doe</h5>
+            <h5>Full Name : Jana Doe</h5>
+            <h5>Email* : Jana Doe</h5>
+            <p>*Students K-12 Restricted To Parents Email Only</p>                
+
+              </div>
+
+              <div class="span8">
+
+<div class="widget">
+                  <div class="widget-body">
+                    <div id="line_chart" style="position: relative;"><div style="position: relative; width: 644px; height: 160px;" dir="ltr"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;"><svg width="644" height="160" style="overflow: hidden;"><defs id="defs"><clipPath id="_ABSTRACT_RENDERER_ID_46"><rect x="60" y="10" width="496" height="128"/></clipPath></defs><g><rect x="568" y="10" width="64" height="31" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"/><g><rect x="568" y="10" width="64" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"/><g><text text-anchor="start" x="585" y="20.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Visitors</text></g><rect x="568" y="10" width="12" height="12" stroke="none" stroke-width="0" fill="#ed6d49"/></g><g><rect x="568" y="29" width="64" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"/><g><text text-anchor="start" x="585" y="39.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Orders</text></g><rect x="568" y="29" width="12" height="12" stroke="none" stroke-width="0" fill="#0daed3"/></g></g><g><rect x="60" y="10" width="496" height="128" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"/><g clip-path="url(file:///home/xippi/wrk/blue-moonV1.0.2/graphs.html#_ABSTRACT_RENDERER_ID_46)"><g><rect x="60" y="137" width="496" height="1" stroke="none" stroke-width="0" fill="#cccccc"/><rect x="60" y="105" width="496" height="1" stroke="none" stroke-width="0" fill="#cccccc"/><rect x="60" y="74" width="496" height="1" stroke="none" stroke-width="0" fill="#cccccc"/><rect x="60" y="42" width="496" height="1" stroke="none" stroke-width="0" fill="#cccccc"/><rect x="60" y="10" width="496" height="1" stroke="none" stroke-width="0" fill="#cccccc"/></g><g><rect x="60" y="137" width="496" height="1" stroke="none" stroke-width="0" fill="#333333"/></g><g><path d="M95.85714285714286,14.195700000000002L166.57142857142856,120.1391L237.28571428571428,51.241600000000005L308,121.4091L378.71428571428567,16.35470000000001L449.4285714285714,128.99099999999999L520.1428571428571,13.535300000000007" stroke="#ed6d49" stroke-width="1" fill-opacity="1" fill="none"/><path d="M95.85714285714286,127.8353L166.57142857142856,27.886300000000006L237.28571428571428,125.1683L308,42.3643L378.71428571428567,114.7416L449.4285714285714,18.539100000000005L520.1428571428571,128.4957" stroke="#0daed3" stroke-width="1" fill-opacity="1" fill="none"/></g></g><g><circle cx="95.85714285714286" cy="14.195700000000002" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="166.57142857142856" cy="120.1391" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="237.28571428571428" cy="51.241600000000005" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="308" cy="121.4091" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="378.71428571428567" cy="16.35470000000001" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="449.4285714285714" cy="128.99099999999999" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="520.1428571428571" cy="13.535300000000007" r="4" stroke="none" stroke-width="0" fill="#ed6d49"/><circle cx="95.85714285714286" cy="127.8353" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="166.57142857142856" cy="27.886300000000006" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="237.28571428571428" cy="125.1683" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="308" cy="42.3643" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="378.71428571428567" cy="114.7416" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="449.4285714285714" cy="18.539100000000005" r="4" stroke="none" stroke-width="0" fill="#0daed3"/><circle cx="520.1428571428571" cy="128.4957" r="4" stroke="none" stroke-width="0" fill="#0daed3"/></g><g><g><text text-anchor="middle" x="95.85714285714286" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Sun</text></g><g><text text-anchor="middle" x="166.57142857142856" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Mon</text></g><g><text text-anchor="middle" x="237.28571428571428" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Tue</text></g><g><text text-anchor="middle" x="308" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Wed</text></g><g><text text-anchor="middle" x="378.71428571428567" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Thu</text></g><g><text text-anchor="middle" x="449.4285714285714" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Fri</text></g><g><text text-anchor="middle" x="520.1428571428571" y="153.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">Sat</text></g><g><text text-anchor="end" x="49" y="141.7" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">0</text></g><g><text text-anchor="end" x="49" y="109.95" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">2,500</text></g><g><text text-anchor="end" x="49" y="78.2" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">5,000</text></g><g><text text-anchor="end" x="49" y="46.45" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">7,500</text></g><g><text text-anchor="end" x="49" y="14.7" font-family="Arial" font-size="12" stroke="none" stroke-width="0" fill="#000000">10,000</text></g></g></g><g/></svg></div></div><div style="display: none; position: absolute; top: 170px; left: 654px; white-space: nowrap; font-family: Arial; font-size: 11px; font-weight: bold;">761</div><div></div></div>
+                  </div>
+                </div>
+
+
+
+              </div>              
+            </div>
+
+
+          </div>
+          <div id="challenges" class="tab-pane">
+<div id="dt_example" class="example_alt_pagination">
+                      <div id="data-table_wrapper" class="dataTables_wrapper" role="grid"><div id="data-table_length" class="dataTables_length"><label>Show <select size="1" name="data-table_length" aria-controls="data-table"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div class="dataTables_filter" id="data-table_filter"><label>Search: <input type="text" aria-controls="data-table"></label></div><table class="table table-condensed table-striped table-hover table-bordered pull-left dataTable" id="data-table" aria-describedby="data-table_info">
+                        
+                        <thead>
+                          <tr role="row"><th style="width: 111px;" class="sorting_asc" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                              Month
+                            : activate to sort column descending">
+                              Month
+                            </th><th style="width: 133px;" class="sorting" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="
+                              Internet Explorer
+                            : activate to sort column ascending">
+                              Internet Explorer
+                            </th><th style="width: 104px;" class="sorting" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="
+                              Firefox
+                            : activate to sort column ascending">
+                              Firefox
+                            </th><th style="width: 104px;" class="hidden-phone sorting" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="
+                              Chrome
+                            : activate to sort column ascending">
+                              Chrome
+                            </th><th style="width: 103px;" class="hidden-phone sorting" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="
+                              Safari
+                            : activate to sort column ascending">
+                              Safari
+                            </th><th style="width: 96px;" class="hidden-phone sorting" role="columnheader" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="
+                              Opera
+                            : activate to sort column ascending">
+                              Opera
+                            </th></tr>
+                        </thead>
+                        
+                      <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="gradeA error odd">
+                            <td class="  sorting_1">
+                              April
+                            </td>
+                            <td class=" ">
+                              18.3 %
+                            </td>
+                            <td class=" ">
+                              35.8 %
+                            </td>
+                            <td class="hidden-phone ">
+                              38.3 %
+                            </td>
+                            <td class="hidden-phone ">
+                              4.5 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.3 %
+                            </td>
+                          </tr><tr class="gradeA even">
+                            <td class="  sorting_1">
+                              April
+                            </td>
+                            <td class=" ">
+                              24.3 %
+                            </td>
+                            <td class=" ">
+                              42.9 %
+                            </td>
+                            <td class="hidden-phone ">
+                              25.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              4.1 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.6 %
+                            </td>
+                          </tr><tr class="gradeA success odd">
+                            <td class="  sorting_1">
+                              April
+                            </td>
+                            <td class=" ">
+                              33.4 %
+                            </td>
+                            <td class=" ">
+                              46.4 %
+                            </td>
+                            <td class="hidden-phone ">
+                              13.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              3.7 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.2 %
+                            </td>
+                          </tr><tr class="gradeA even">
+                            <td class="  sorting_1">
+                              April
+                            </td>
+                            <td class=" ">
+                              33.4 %
+                            </td>
+                            <td class=" ">
+                              46.4 %
+                            </td>
+                            <td class="hidden-phone ">
+                              13.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              3.7 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.2 %
+                            </td>
+                          </tr><tr class="gradeA success odd">
+                            <td class="  sorting_1">
+                              April
+                            </td>
+                            <td class=" ">
+                              33.4 %
+                            </td>
+                            <td class=" ">
+                              46.4 %
+                            </td>
+                            <td class="hidden-phone ">
+                              13.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              3.7 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.2 %
+                            </td>
+                          </tr><tr class="gradeA warning even">
+                            <td class="  sorting_1">
+                              August
+                            </td>
+                            <td class=" ">
+                              16.2 %
+                            </td>
+                            <td class=" ">
+                              32.8 %
+                            </td>
+                            <td class="hidden-phone ">
+                              43.7 %
+                            </td>
+                            <td class="hidden-phone ">
+                              4.0 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.2 %
+                            </td>
+                          </tr><tr class="gradeA error odd">
+                            <td class="  sorting_1">
+                              August
+                            </td>
+                            <td class=" ">
+                              22.4 %
+                            </td>
+                            <td class=" ">
+                              40.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              30.3 %
+                            </td>
+                            <td class="hidden-phone ">
+                              3.8 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.3 %
+                            </td>
+                          </tr><tr class="gradeU info even">
+                            <td class="  sorting_1">
+                              August
+                            </td>
+                            <td class=" ">
+                              30.7 %
+                            </td>
+                            <td class=" ">
+                              45.8 %
+                            </td>
+                            <td class="hidden-phone ">
+                              17.0 %
+                            </td>
+                            <td class="hidden-phone ">
+                              3.5 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.3 %
+                            </td>
+                          </tr><tr class="gradeX warning odd">
+                            <td class="  sorting_1">
+                              December
+                            </td>
+                            <td class=" ">
+                              14.7 %
+                            </td>
+                            <td class=" ">
+                              31.1 %
+                            </td>
+                            <td class="hidden-phone ">
+                              46.9 %
+                            </td>
+                            <td class="hidden-phone ">
+                              4.2 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.1 %
+                            </td>
+                          </tr><tr class="gradeA info even">
+                            <td class="  sorting_1">
+                              December
+                            </td>
+                            <td class=" ">
+                              20.2 %
+                            </td>
+                            <td class=" ">
+                              37.7 %
+                            </td>
+                            <td class="hidden-phone ">
+                              34.6 %
+                            </td>
+                            <td class="hidden-phone ">
+                              4.2 %
+                            </td>
+                            <td class="hidden-phone ">
+                              2.5 %
+                            </td>
+                          </tr></tbody></table><div class="dataTables_info" id="data-table_info">Showing 1 to 10 of 40 entries</div><div class="dataTables_paginate paging_full_numbers" id="data-table_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="data-table_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="data-table_previous">Previous</a><span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a><a tabindex="0" class="paginate_button">4</a></span><a tabindex="0" class="next paginate_button" id="data-table_next">Next</a><a tabindex="0" class="last paginate_button" id="data-table_last">Last</a></div></div>
+                      <div class="clearfix">
+                      </div>
+                    </div>
+          </div>
+
+        </div>                    
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>    
+    
+    <script src="js/wysiwyg/wysihtml5-0.3.0.js">
+    </script>
+    <script src="js/jquery.min.js">
+    </script>
+    <script src="js/bootstrap.js">
+    </script>
+    <script src="js/wysiwyg/bootstrap-wysihtml5.js">
+    </script>
+    <script src="js/jquery.scrollUp.js">
+    </script>
+    
+    
+    <!-- Google Visualization JS -->
+    <script type="text/javascript" src="https://www.google.com/jsapi">
+    </script>
+    
+    <!-- Easy Pie Chart JS -->
+    <script src="js/jquery.easy-pie-chart.js">
+    </script>
+    
+    <!-- Sparkline JS -->
+    <script src="js/jquery.sparkline.js">
+    </script>
+    
+    <!-- Tiny Scrollbar JS -->
+    <script src="js/tiny-scrollbar.js">
+    </script>
+    
+    
+    
+    <script type="text/javascript">
+      //ScrollUp
+      $(function () {
+        $.scrollUp({
+          scrollName: 'scrollUp', // Element ID
+          topDistance: '300', // Distance from top before showing element (px)
+          topSpeed: 300, // Speed back to top (ms)
+          animation: 'fade', // Fade, slide, none
+          animationInSpeed: 400, // Animation in speed (ms)
+          animationOutSpeed: 400, // Animation out speed (ms)
+          scrollText: 'Scroll to top', // Text for element
+          activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+        });
+      });
+
+      $(document).ready(function () {
+        pie_chart();
+      });
+      //Animated Pie Charts
+      function pie_chart() {
+        $(function () {
+          //create instance
+          $('.chart1').easyPieChart({
+            animate: 2000,
+            barColor: '#74b749',
+            trackColor: '#dddddd',
+            scaleColor: '#74b749',
+            size: 140,
+            lineWidth: 6,
+          });
+          //update instance after 5 sec
+          setTimeout(function () {
+            $('.chart1').data('easyPieChart').update(50);
+          }, 5000);
+          setTimeout(function () {
+            $('.chart1').data('easyPieChart').update(70);
+          }, 10000);
+          setTimeout(function () {
+            $('.chart1').data('easyPieChart').update(30);
+          }, 15000);
+          setTimeout(function () {
+            $('.chart1').data('easyPieChart').update(90);
+          }, 19000);
+          setTimeout(function () {
+            $('.chart1').data('easyPieChart').update(40);
+          }, 32000);
+        });
+
+        $(function () {
+          //create instance
+          $('.chart2').easyPieChart({
+            animate: 2000,
+            barColor: '#ed6d49',
+            trackColor: '#dddddd',
+            scaleColor: '#ed6d49',
+            size: 140,
+            lineWidth: 6,
+          });
+          //update instance after 5 sec
+          setTimeout(function () {
+            $('.chart2').data('easyPieChart').update(90);
+          }, 10000);
+          setTimeout(function () {
+            $('.chart2').data('easyPieChart').update(40);
+          }, 18000);
+          setTimeout(function () {
+            $('.chart2').data('easyPieChart').update(70);
+          }, 28000);
+          setTimeout(function () {
+            $('.chart2').data('easyPieChart').update(50);
+          }, 32000);
+          setTimeout(function () {
+            $('.chart2').data('easyPieChart').update(80);
+          }, 40000);
+        });
+
+        $(function () {
+          //create instance
+          $('.chart3').easyPieChart({
+            animate: 2000,
+            barColor: '#0daed3',
+            trackColor: '#dddddd',
+            scaleColor: '#0daed3',
+            size: 140,
+            lineWidth: 6,
+          });
+          //update instance after 5 sec
+          setTimeout(function () {
+            $('.chart3').data('easyPieChart').update(20);
+          }, 9000);
+          setTimeout(function () {
+            $('.chart3').data('easyPieChart').update(59);
+          }, 20000);
+          setTimeout(function () {
+            $('.chart3').data('easyPieChart').update(38);
+          }, 35000);
+          setTimeout(function () {
+            $('.chart3').data('easyPieChart').update(79);
+          }, 49000);
+          setTimeout(function () {
+            $('.chart3').data('easyPieChart').update(96);
+          }, 52000);
+        });
+
+        $(function () {
+          //create instance
+          $('.chart4').easyPieChart({
+            animate: 2000,
+            barColor: '#ffb400',
+            trackColor: '#dddddd',
+            scaleColor: '#ffb400',
+            size: 140,
+            lineWidth: 6,
+          });
+          //update instance after 5 sec
+          setTimeout(function () {
+            $('.chart4').data('easyPieChart').update(40);
+          }, 6000);
+          setTimeout(function () {
+            $('.chart4').data('easyPieChart').update(67);
+          }, 14000);
+          setTimeout(function () {
+            $('.chart4').data('easyPieChart').update(43);
+          }, 23000);
+          setTimeout(function () {
+            $('.chart4').data('easyPieChart').update(80);
+          }, 36000);
+          setTimeout(function () {
+            $('.chart4').data('easyPieChart').update(66);
+          }, 41000);
+        });
+
+
+        $(function () {
+          //create instance
+          $('.chart5').easyPieChart({
+            animate: 3000,
+            barColor: '#F63131',
+            trackColor: '#dddddd',
+            scaleColor: '#F63131',
+            size: 140,
+            lineWidth: 6,
+          });
+          //update instance after 5 sec
+          setTimeout(function () {
+            $('.chart5').data('easyPieChart').update(30);
+          }, 9000);
+          setTimeout(function () {
+            $('.chart5').data('easyPieChart').update(87);
+          }, 19000);
+          setTimeout(function () {
+            $('.chart5').data('easyPieChart').update(28);
+          }, 27000);
+          setTimeout(function () {
+            $('.chart5').data('easyPieChart').update(69);
+          }, 39000);
+          setTimeout(function () {
+            $('.chart5').data('easyPieChart').update(99);
+          }, 47000);
+        });
+      }
+
+
+      //Tooltip
+      $('a').tooltip('hide');
+      $('i').tooltip('hide');
+
+
+      //Tiny Scrollbar
+      $('#scrollbar').tinyscrollbar();
+      $('#scrollbar-one').tinyscrollbar();
+      $('#scrollbar-two').tinyscrollbar();
+      $('#scrollbar-three').tinyscrollbar();
+
+
+
+      //Tabs
+      $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      })
+
+      // SparkLine Graphs-Charts
+      $(function () {
+        $('#unique-visitors').sparkline('html', {
+          type: 'bar',
+          barColor: '#ed6d49',
+          barWidth: 6,
+          height: 30,
+        });
+        $('#monthly-sales').sparkline('html', {
+          type: 'bar',
+          barColor: '#74b749',
+          barWidth: 6,
+          height: 30,
+        });
+        $('#current-balance').sparkline('html', {
+          type: 'bar',
+          barColor: '#ffb400',
+          barWidth: 6,
+          height: 30,
+        });
+        $('#registrations').sparkline('html', {
+          type: 'bar',
+          barColor: '#0daed3',
+          barWidth: 6,
+          height: 30,
+        });
+        $('#site-visits').sparkline('html', {
+          type: 'bar',
+          barColor: '#f63131',
+          barWidth: 6,
+          height: 30,
+        });
+      });
+
+      //wysihtml5
+      $('#wysiwyg').wysihtml5();
+    </script>
+    
+    
+  </body>
+</html>

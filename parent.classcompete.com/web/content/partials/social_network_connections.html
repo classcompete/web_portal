@@ -1,0 +1,57 @@
+<div id="social_connection_grant" class="left-sidebar" dashboardstyleadd>
+    <div class="span6" ng-show="!avaiable_social_networks.google.added || !avaiable_social_networks.facebook.added || !avaiable_social_networks.linkedin.added">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">Enable social network login</div>
+            </div>
+            <div class="widget-body">
+                <div ng-show="!avaiable_social_networks.google.added" style="width: 240px">
+                    <span id="signinButton">
+                      <span
+                              class="g-signin"
+                              data-callback="googleConnectCallback"
+                              data-clientid="886463280515-je5dqtahrp6hm7cqaqnr208286rg957b"
+                              data-cookiepolicy="single_host_origin"
+                              data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                              data-scope="https://www.googleapis.com/auth/plus.login" googleconnect>
+                      </span>
+                    </span>
+
+                </div>
+                <div class="clearfix"></div>
+                <div ng-show="!avaiable_social_networks.facebook.added" style="margin-bottom: 15px;">
+                    <button class="btn_facebook" ng-click="facebook_connect()"></button>
+                </div>
+                <div class="clearfix"></div>
+                <!--<div id="linkedinconnect" linkedinconnect ng-show="!avaiable_social_networks.linkedin.added"></div>-->
+            </div>
+        </div>
+    </div>
+    <div class="span6" ng-show="avaiable_social_networks.google || avaiable_social_networks.facebook || avaiable_social_networks.linkedin">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">Remove social network login</div>
+            </div>
+            <div class="widget-body">
+                <table class="table table-striped table-bordered no-margin">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">No.</th>
+                            <th style="width: 60%">Name</th>
+                            <th style="width: 20%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="social in avaiable_social_networks" ng-show="social.added == true">
+                            <td>{{$index}}</td>
+                            <td>{{social.name}}</td>
+                            <td>
+                                <a data-icon="&#xe0a8" ng-click="removeSocial(social.name, $index)" >&nbsp;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

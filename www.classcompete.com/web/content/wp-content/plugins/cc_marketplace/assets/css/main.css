@@ -1,0 +1,76 @@
+.tooltip_img {
+    width: 32px;
+    height: 32px;
+}
+
+.tooltip_content {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.tooltip_author {
+    float: right;
+}
+
+.tooltip_author span {
+    margin: 5px 5px 0 0;
+    float: left;
+}
+
+.tooltip_author img {
+    margin-left: 5px;
+    float: left;
+}
+
+.tooltip_author div {
+    float: left;
+}
+
+.tooltip_description{
+    padding: 10px 0;
+    margin: auto;
+    white-space:normal;
+    border-top: 1px solid #dddddd;
+    float: left;
+    width: 100%;
+}
+
+.tooltip_description span {
+    font-weight: bold;
+}
+
+dl.inline {
+    padding: 10px 0;
+    float: left;
+    width: 100%;
+    border-top: 1px solid #dddddd;
+}
+
+dl.inline dt, dl.inline dd {
+    float: left;
+    margin: 0 0.5em 0 0;
+}
+
+dl.inline dd + dt, dl.inline dd + dd {
+    clear: left
+}
+
+dl.inline dd + dd {
+    float: none
+}
+
+dl.inline dt {
+    font-weight: bold;
+    width: 130px;
+}
+
+dl.inline dd {
+    /*width: 85px;*/
+    width: 265px;
+    white-space: normal;
+}
+
+.text_align_center{
+    text-align: center;
+}

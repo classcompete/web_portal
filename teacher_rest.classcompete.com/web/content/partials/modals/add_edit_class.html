@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3>{{ title }}</h3>
+</div>
+<form id="add_edit_form" class="form-horizontal no-margin" name="add_edit_form">
+    <div class="modal-body">
+            <div class="control-group" ng-class="{error:ErrorService.errorMessage.name}">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text" id="name" ng-model="new_class.name" name="name" class="validate" data-rules="required" data-display="Name"/>
+                    <div class="help-inline" >{{ErrorService.errorMessage.name}}</div>
+                </div>
+            </div>
+            <div class="control-group" ng-class="{error:ErrorService.errorMessage.class_code}">
+                <label class="control-label">Class Code</label>
+                <div class="controls">
+                    <input type="text" id="class_code" name="class_code" ng-model="new_class.class_code" class="validate" data-display="Class Code" data-rules="required"/>
+                    <div class="help-inline" >{{ErrorService.errorMessage.class_code}}</div>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="add(add_edit_form)">Save changes</button>
+        <button type="button" class="btn btn-info" ng-click="cancel()">Close</button>
+    </div>
+</form>

@@ -1,0 +1,195 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+      <title>classcompete</title>
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <link rel="shortcut icon" href="favicon.png">
+      <link rel="apple-touch-icon" href="touch-icon.png">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animation.css"/>
+      <link rel="stylesheet" href="styles/bootstrap.css"/>
+    <!-- endbuild -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <script src="https://checkout.stripe.com/checkout.js"></script>
+
+  </head>
+  <body ng-app="ccompparentApp" ng-controller="MainCtrl" ng-class="{'dashboard':loggedIn(),'menu-open':showMenu}">
+    <!--[if lt IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <header-navigation></header-navigation>
+
+    <main-navigation></main-navigation>
+
+    <div ng-view class="reveal-animation"></div>
+    <!--[if IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/chosen/chosen.jquery.js"></script>
+    <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+    <script src="bower_components/angular-easyfb/angular-easyfb.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angularytics/dist/angularytics.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/config.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/mainController.js"></script>
+
+        <script src="scripts/signup/signup.js"></script>
+        <script src="scripts/signup/signup-login/login.js"></script>
+        <script src="scripts/signup/signup-login/loginController.js"></script>
+        <script src="scripts/signup/signup-login/credentialValidation.js"></script>
+        <script src="scripts/signup/signup-registration/registration.js"></script>
+        <script src="scripts/signup/signup-login/loginValidation.js"></script>
+        <script src="scripts/signup/signup-registration/registration.js"></script>
+        <script src="scripts/signup/signup-registration/registrationController.js"></script>
+        <script src="scripts/signup/signup-registration/registrationValidation.js"></script>
+        <script src="scripts/signup/signup-social/social.js"></script>
+        <script src="scripts/signup/signup-social/socialController.js"></script>
+        <script src="scripts/signup/signup-social/directive/googleSignInDirective.js"></script>
+        <script src="scripts/signup/signup-steps/steps.js"></script>
+        <script src="scripts/signup/signup-steps/setupstudent/setupstudent.js"></script>
+        <script src="scripts/signup/signup-steps/setupstudent/setupStudentController.js"></script>
+        <script src="scripts/signup/signup-steps/setupstudent/setupStudentValidation.js"></script>
+        <script src="scripts/signup/signup-steps/setupstudent/setupStudentAnimation.js"></script>
+        <script src="scripts/signup/signup-steps/intro/intro.js"></script>
+        <script src="scripts/signup/signup-steps/intro/introController.js"></script>
+
+        <script src="scripts/account-recovery/recovery.js"></script>
+        <script src="scripts/account-recovery/account-recovery-password/recoveryPassword.js"></script>
+        <script src="scripts/account-recovery/account-recovery-password/forgotPasswordController.js"></script>
+        <script src="scripts/account-recovery/accounte-recovery-username/recoveryUsername.js"></script>
+        <script src="scripts/account-recovery/accounte-recovery-username/forgotUsernameController.js"></script>
+
+        <script src="scripts/navigation/navigation.js"></script>
+        <script src="scripts/navigation/navigationController.js"></script>
+        <script src="scripts/navigation/navigationAnimation.js"></script>
+
+        <script src="scripts/header/header.js"></script>
+        <script src="scripts/header/headerController.js"></script>
+        <script src="scripts/header/headerAnimation.js"></script>
+
+        <script src="scripts/security/security.js"></script>
+        <script src="scripts/security/service.js"></script>
+        <script src="scripts/security/interceptor.js"></script>
+
+        <script src="scripts/home/home.js"></script>
+        <script src="scripts/home/homeController.js"></script>
+        <script src="scripts/home/detailStatAnimation.js"></script>
+
+        <script src="scripts/classcodes/classcode.js"></script>
+        <script src="scripts/classcodes/classcodeController.js"></script>
+
+        <script src="scripts/students/students.js"></script>
+        <script src="scripts/students/studentController.js"></script>
+        <script src="scripts/students/studentValidation.js"></script>
+        <script src="scripts/students/studentConnectionValidation.js"></script>
+
+        <script src="scripts/support/support.js"></script>
+        <script src="scripts/support/supportController.js"></script>
+        <script src="scripts/support/supportCommentValidation.js"></script>
+
+        <script src="scripts/account/account.js"></script>
+        <script src="scripts/account/accountController.js"></script>
+        <script src="scripts/account/accountValidation.js"></script>
+
+        <script src="scripts/shop/shop.js"></script>
+        <script src="scripts/shop/shopController.js"></script>
+        <script src="scripts/shop/shoppingCart.js"></script>
+        <script src="scripts/shop/shoppingCartItem.js"></script>
+        <script src="scripts/shop/shopModalController.js"></script>
+        <script src="scripts/shop/connectionModalController.js"></script>
+        <script src="scripts/shop/shopDetailModalController.js"></script>
+
+        <script src="scripts/shop/checkout/checkout.js"></script>
+        <script src="scripts/shop/checkout/checkoutController.js"></script>
+
+        <script src="scripts/common/validation/validation.js"></script>
+        <script src="scripts/common/notification/notificationservice.js"></script>
+        <script src="scripts/common/interceptors/ngProgressInterceptor.js"></script>
+        <script src="scripts/common/interceptors/httpInterceptor.js"></script>
+        <script src="scripts/common/directives/directives.js"></script>
+        <script src="scripts/common/directives/datepickerDirective.js"></script>
+        <script src="scripts/common/directives/easypiechart.js"></script>
+        <script src="scripts/common/directives/accordion.js"></script>
+        <script src="scripts/common/directives/accordion.js"></script>
+
+        <script src="scripts/common/resources/students.js"></script>
+        <script src="scripts/common/resources/parentStudent.js"></script>
+        <script src="scripts/common/resources/grades.js"></script>
+        <script src="scripts/common/resources/statistic.js"></script>
+        <script src="scripts/common/resources/statisticList.js"></script>
+        <script src="scripts/common/resources/credentials.js"></script>
+        <script src="scripts/common/resources/account.js"></script>
+        <script src="scripts/common/resources/supportFactory.js"></script>
+        <script src="scripts/common/resources/class.js"></script>
+        <script src="scripts/common/resources/checkout.js"></script>
+        <script src="scripts/common/resources/classConnection.js"></script>
+        <script src="scripts/common/jquery.device.js"></script>
+        <script src="scripts/common/resources/country.js"></script>
+        <script src="scripts/common/navigationService.js"></script>
+        <script src="scripts/common/ui-bootstrap-custom-0.10.0.js"></script>
+        <script src="scripts/common/ui-bootstrap-custom-tpls-0.10.0.js"></script>
+        <!-- endbuild -->
+
+    <!-- HEAP Analytics Code -->
+    <script type="text/javascript">
+        window.heap=window.heap||[],heap.load=function(t,e){window.heap.appid=t,window.heap.config=e;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.heapanalytics.com/js/heap.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(t){return function(){heap.push([t].concat(Array.prototype.slice.call(arguments,0)))}},p=["identify","track"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+        heap.load("3919050866");
+    </script>
+
+    <!-- Google Analytics Code -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-44651829-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+</html>
+

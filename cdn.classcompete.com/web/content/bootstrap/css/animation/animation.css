@@ -1,0 +1,76 @@
+.loading-holder{
+    width: 100%; text-align: center; line-height: 100px; vertical-align: middle;
+}
+.repeat-item.ng-enter{
+    -webkit-transition:0.2s linear all;
+    -moz-transition:0.2s linear all;
+    -o-transition:0.2s linear all;
+    transition:0.2s linear all;
+}
+.repeat-item.ng-leave{
+    -webkit-transition:0s linear all;
+    -moz-transition:0s linear all;
+    -o-transition:0s linear all;
+    transition:0s linear all;
+}
+.repeat-item.ng-enter,
+.repeat-item.ng-leave.ng-leave-active {
+    opacity:0;
+}
+.repeat-item.ng-leave,
+.repeat-item.ng-enter.ng-enter-active {
+    opacity:1;
+}
+
+.fader.ng-hide-add {
+    -webkit-transition:1.5s linear all;
+    -moz-transition:1.5s linear all;
+    -o-transition:1.5s linear all;
+    transition:1.5s linear all;
+    display: block !important;
+}
+
+.fader.ng-hide-add-active {
+    opacity: 0;
+}
+.reveal-animation.ng-enter {
+    -webkit-animation: Fade-Enter-Anime 1s;
+    -moz-animation: Fade-Enter-Anime 1s;
+    animation: Fade-Enter-Anime 1s;
+}
+.reveal-animation.ng-leave {
+    -webkit-animation: Fade-Leave-Anime 0s;
+    -moz-animation: Fade-Leave-Anime 0s;
+    animation: Fade-Leave-Anime 0s;
+}
+
+@keyframes Fade-Enter-Anime {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes Fade-Leave-Anime {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+
+@-webkit-keyframes Fade-Enter-Anime {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes Fade-Leave-Anime {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-moz-keyframes Fade-Enter-Anime {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-moz-keyframes Fade-Leave-Anime {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

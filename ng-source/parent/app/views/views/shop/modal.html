@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <span class="pull-right" ng-click="cancel()">&times;</span>
+    <h3 class="modal-title" style="font-size: 20px;">{{cart.className}}</h3>
+</div>
+<div class="modal-body">
+    <select ng-model="cart.student" ng-options="student.studentId as student.getFullName() for student in students" multiple chosen disable-search="true" data-placeholder="Select student"></select>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary pull-right" ng-click="backToShop()">Close</button>
+    <button class="btn btn-warning pull-right" ng-disabled="cart.student == 0" ng-click="gotToCheckout()">Checkout</button>
+</div>

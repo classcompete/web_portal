@@ -1,0 +1,60 @@
+<div class="left-sidebar no-margin" dashboardstyleadd>
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">Add child</div>
+                </div>
+                <div class="widget-body">
+                    <form class="form-horizontal text-align-right no-margin" id="add_children" name="add_children">
+                        <div class="control-group">
+                            <label class="control-label">Username</label>
+                            <div class="controls">
+                                <input type="text" ng-model="children.username" name="username" id="username" class="validate" data-display="Username" data-rules="required">
+                                <span class="help-inline"></span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Password</label>
+                            <div class="controls">
+                                <input type="password" ng-model="children.password" name="password" id="password" class="validate" data-display="Password" data-rules="required">
+                                <span class="help-inline"></span>
+                            </div>
+                        </div>
+                        <div class="form-actions no-margin">
+                            <button type="submit" class="button btn-primary pull-right"  ng-click="addChild(add_children)">Add child</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="widget no-margin" >
+                <div class="widget-header">
+                    <div class="title">Added children</div>
+                </div>
+                <div class="widget-body" style="min-height: 204px;">
+                    <table class="table table-striped table-bordered no-margin" ng-hide="loadingTableData">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="child in added_childrens">
+                                <td>{{$index}}</td>
+                                <td>{{child.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loadingChildStats" ng-show="loadingTableData">
+                        <img alt="" src="../img/loading-blue.gif">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

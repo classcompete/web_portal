@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="classcompete" defaultIdMethod="native">
+
+    <table name="admin" phpName = "PropAdmin">
+        <column name="username" type="VARCHAR" size="255" required="true" primaryString="true"/>
+        <column name="first_name" type="VARCHAR" size="100" required="false"/>
+        <column name="last_name" type="VARCHAR" size="100" required="false"/>
+        <column name="email" type="VARCHAR" size="255" required="true"/>
+        <column name="password" type="VARCHAR" size="50" required="true"/>
+        <column name="last_login_time" type="TIMESTAMP" required="false"/>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+        <behavior name="sluggable"/>
+    </table>
+
+    <table name ="admin_token" phpName="PropAdminToken">
+        <column name="admin_id" type="INTEGER" required="true"/>
+        <column name="token" type="VARCHAR" required="true" size="100" />
+        <column name="ttl" type="INTEGER" required="true" size="5" />
+        <column name="type" type="ENUM" required="true" valueSet="teacher_autologin, admin_autologin, activation, password_recovery" />
+        <index>
+            <index-column name="admin_id"/>
+        </index>
+        <index>
+            <index-column name="token"/>
+        </index>
+        <index>
+            <index-column name="type"/>
+        </index>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="games" phpName="PropGames">
+        <column name="game_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="45" required="true" />
+        <column name="game_code" type="VARCHAR" size="45"/>
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="game_levels" phpName="PropGameLevels">
+        <column name="gamelevel_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="game_id" type="INTEGER" size="11" required="true"/>
+        <column name="name" type="VARCHAR" size="45" required="true"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="games">
+            <reference local="game_id" foreign="game_id" />
+        </foreign-key>
+    </table>
+
+    <table name="subjects" phpName="PropSubjects">
+        <column name="subject_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="VARCHAR" size="45" required="true" />
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="skills" phpName="PropSkills">
+        <column name="skill_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="45" required="true"/>
+        <column name="subject_id" type="INTEGER" size="11" required="true"/>
+        <foreign-key foreignTable="subjects">
+            <reference local="subject_id" foreign="subject_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="topics" phpName="PropTopic">
+        <column name="topic_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="45" required="true"/>
+        <column name="skill_id" type="INTEGER" size="11" required="true"/>
+        <foreign-key foreignTable="skills">
+            <reference local="skill_id" foreign="skill_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="users" phpName="PropUser">
+        <column name="user_id" type="INTEGER" size="11" primaryKey="true" autoIncrement="true" />
+        <column name="created" type="TIMESTAMP" required="true" />
+        <column name="modified" type="TIMESTAMP" required="false" />
+        <column name="login" type="VARCHAR" size="45" required="true" />
+        <column name="password" type="VARCHAR" size="45" required="true" />
+        <column name="first_name" type="VARCHAR" size="45" required="true" />
+        <column name="last_name" type="VARCHAR" size="45" required="true" />
+        <column name="email" type="VARCHAR" size="45" required="false" />
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="teachers" phpName="PropTeacher">
+        <column name="teacher_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="user_id" type="INTEGER" size="11" required="true" primaryKey="true"  />
+        <column name="created" type="TIMESTAMP" required="true" />
+        <column name="modified" type="TIMESTAMP" required="false" />
+        <column name="image_thumb" type="BLOB" required="false" />
+        <column name="school_id" type="INTEGER" size="15"/>
+        <column name="school" type="VARCHAR" size="150"/>
+        <column name="biography" type="LONGVARCHAR" />
+        <column name="auth_code" type="VARCHAR" size="100"/>
+        <column name="time_diff" type="VARCHAR" size="3" default="0"/>
+        <column name="publisher" type="ENUM" required="true" valueSet="private, public" default="private"/>
+        <column name="country" type="VARCHAR" size="2"/>
+        <foreign-key foreignTable="users" onDelete="CASCADE">
+            <reference local="user_id" foreign="user_id" />
+        </foreign-key>
+        <foreign-key foreignTable="school">
+            <reference local="school_id" foreign="school_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="teacher_grades" phpName="PropTeacherGrade">
+        <column name="teacher_grade_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="teacher_id" type="INTEGER" size="11" required="true"/>
+        <column name="grade" type="INTEGER" size="11" required="true"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="teachers">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+    </table>
+
+    <table name ="teachers_token" phpName="PropTeacherToken">
+        <column name="teacher_id" type="INTEGER" required="true"/>
+        <column name="token" type="VARCHAR" required="true" size="100" />
+        <column name="ttl" type="INTEGER" required="true" size="5" />
+        <column name="type" type="ENUM" required="true" valueSet="teacher_autologin, admin_autologin, activation, password_recovery" />
+        <index>
+            <index-column name="teacher_id"/>
+        </index>
+        <index>
+            <index-column name="token"/>
+        </index>
+        <index>
+            <index-column name="type"/>
+        </index>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="students" phpName="PropStudent">
+        <column name="student_id" type="INTEGER" size="11" primaryKey="true" required="true"/>
+        <column name="created" type="TIMESTAMP" required="true" />
+        <column name="modified" type="TIMESTAMP" required="false" />
+        <column name="user_id" type="INTEGER" size="11" required="true" primaryKey="true" />
+        <column name="avatar_settings" type="VARCHAR" size="1000" required="false" />
+        <column name="avatar_image" type="BLOB" required="false" />
+        <column name="image_thumb" type="BLOB" required="false" />
+        <column name="avatar_thumbnail" type="BLOB" required="false" />
+        <column name="parent_email" type="VARCHAR" size="45" required="false" />
+        <column name="dob" type="VARCHAR" size="45"/>
+        <column name="grade_id" type="INTEGER" size="11" default="0"/>
+        <column name="gender" type="ENUM" size="2" required="true" valueSet="male,female" default="male"/>
+        <foreign-key foreignTable="users">
+            <reference local="user_id" foreign="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="grades">
+            <reference local="grade_id" foreign="id"/>
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="classes" phpName="PropClas">
+        <column name="class_id"  type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="name" type="VARCHAR" size="45" required="true"/>
+        <column name="auth_code" type="VARCHAR" size="45" required="true"/>
+        <column name="price" type="FLOAT" default="0"/>
+        <column name="limit" type="INTEGER" default="0"/>
+
+        <foreign-key foreignTable="teachers">
+            <reference local="teacher_id" foreign="teacher_id"/>
+        </foreign-key>
+
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="class_details" phpName="PropClassDetail">
+        <column name="class_id" type="INTEGER" size="11" required="true"/>
+        <column name="class_details_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="description" type="LONGVARCHAR"/>
+        <column name="image" type="BLOB"/>
+
+        <foreign-key foreignTable="classes">
+            <reference local="class_id" foreign="class_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="class_students" phpName="PropClass_student">
+        <column name="classstud_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="class_id" type="INTEGER" size="11" required="true" primaryKey="true"/>
+        <column name="student_id" type="INTEGER" size="11" required="true" primaryKey="true"/>
+        <column name="is_deleted" type="ENUM" size="4" required="true" valueSet="no, yes" default="no"/>
+        <column name="is_active" type="ENUM" size="4" required="true" valueSet="no, yes" default="yes"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="classes">
+            <reference local="class_id" foreign="class_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="students">
+            <reference local="student_id" foreign="student_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="challenges" phpName="PropChallenge">
+        <column name="challenge_id" type="INTEGER" size="11" required="true" autoIncrement="true" primaryKey="true"/>
+        <column name="name" type="VARCHAR" size="45" required="true" />
+        <column name="subject_id" type="INTEGER" size="11" required="true" />
+        <column name="skill_id" type="INTEGER" size="11" required="true" />
+        <column name="topic_id" type="INTEGER" size="11"/>
+        <column name="level" type="INTEGER" size="11" required="true"/>
+        <column name="game_id" type="INTEGER" size="11" />
+        <column name="gamelevel_id" type="INTEGER" size="11"/>
+        <column name="user_id" type="INTEGER" size="11"/>
+        <column name="import_id" type="INTEGER" size="11"/>
+        <column name="description" type="CLOB"/>
+        <column name="is_public" type="ENUM" required="true" valueSet="no, yes" default="no"/>
+        <column name="desc" size="1024"/>
+        <column name="read_title" type="VARCHAR" size="45" required="false" />
+        <column name="read_text" type="CLOB" required="false" />
+        <column name="read_image" type="BLOB" required="false" />
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="subjects">
+            <reference local="subject_id" foreign="subject_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="skills">
+            <reference local="skill_id" foreign="skill_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="topics">
+            <reference local="topic_id" foreign="topic_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="games">
+            <reference local="game_id" foreign="game_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="game_levels">
+            <reference local="gamelevel_id" foreign="gamelevel_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="challenge_classes" phpName="PropChallengeClass">
+        <column name="challclass_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="challenge_id" type="INTEGER" size="11" required="true"/>
+        <column name="class_id" type="INTEGER" size="11" required="true"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="challenges">
+            <reference local="challenge_id" foreign="challenge_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="classes">
+            <reference local="class_id" foreign="class_id"/>
+        </foreign-key>
+    </table>
+    <table name="challenge_questions" phpName="PropChallengeQuestion">
+        <column name="chalquest_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="challenge_id" type="INTEGER" size="11" required="true"/>
+        <column name="question_id" type="INTEGER" size="11" required="true"/>
+        <column name="seq_num" type="INTEGER" size="11" required="true"/>
+        <column name="import_id" type="INTEGER" size="11"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="challenges">
+            <reference local="challenge_id" foreign="challenge_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="questions">
+            <reference local="question_id" foreign="question_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="questions" phpName="PropQuestion">
+        <column name="question_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="subject_id" type="INTEGER" size="11" required="true"/>
+        <column name="skill_id" type="INTEGER" size="11" required="true"/>
+        <column name="topic_id" type="INTEGER" size="11" required="true"/>
+        <column name="level" type="INTEGER" size="11" required="true"/>
+        <column name="type" type="VARCHAR" size="45" required="true"/>
+        <column name="text" type="VARCHAR" size="200" required="true"/>
+        <column name="image" type="BLOB"/>
+        <column name="image_type" type="VARCHAR" size="50"/>
+        <column name="correct_choice_id" type="INTEGER" size="11"/>
+        <column name="correct_text" type="VARCHAR" size="45"/>
+        <column name="is_deleted" type="ENUM" valueSet="no, yes" default="no"/>
+        <column name="import_id" type="INTEGER" size="11"/>
+        <column name="read_text" type="CLOB"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="subjects">
+            <reference local="subject_id" foreign="subject_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="skills">
+            <reference local="skill_id" foreign="skill_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="question_choices" phpName="PropQuestionChoice">
+        <column name="choice_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="question_id" type="INTEGER" size="11" required="true"/>
+        <column name="text" type="VARCHAR" size="45"/>
+        <column name="image" type="BLOB"/>
+        <column name="import_id" type="INTEGER" size="11"/>
+    </table>
+
+    <table name="connections" phpName="PropConnection">
+        <column name="conn_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="from_user_id" type="INTEGER" size="11" required="true"/>
+        <column name="to_user_id" type="INTEGER" size="11" required="true"/>
+        <column name="created" type="TIMESTAMP" required="true"/>
+        <column name="modified" type="TIMESTAMP"/>
+        <column name="status" type="VARCHAR" size="100"/>
+        <foreign-key foreignTable="users">
+            <reference local="from_user_id" foreign="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="users">
+            <reference local="to_user_id" foreign="user_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="shop_categories" phpName="PropShopCategory" >
+        <column name="shopcat_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="256" />
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="shop_items" phpName="PropShopItem" >
+        <column name="shopitem_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="shopcat_id" type="INTEGER" size="11" />
+        <column name="name" type="VARCHAR" size="45"/>
+        <column name="asset_bundle_name" type="VARCHAR" size="256"/>
+        <column name="asset_bundle_version" type="INTEGER" size="11" required="true"/>
+        <column name="icon" type="BLOB"/>
+        <column name="icon_url" type="VARCHAR" size="1024"/>
+        <column name="num_coins" type="INTEGER" size="11"/>
+        <column name="gender" type="VARCHAR" size="45"/>
+
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="shop_categories">
+            <reference local="shopcat_id" foreign="shopcat_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="shop_transactions" phpName="PropShopTransaction">
+        <column name="shoptran_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="student_id" type="INTEGER" size="11" required="true"/>
+        <column name="created" type="TIMESTAMP" required="true"/>
+        <column name="type" type="ENUM" required="true" valueSet="credit,debit"/>
+        <column name="shopitem_id" type="INTEGER" size="11"/>
+        <column name="num_coins" type="INTEGER" size="11" required="true"/>
+        <column name="description" type="VARCHAR" size="256"/>
+        <column name="class_id" type="INTEGER" size="11"/>
+        <column name="challenge_id" type="INTEGER" size="11"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="shop_items">
+            <reference local="shopitem_id" foreign="shopitem_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="students">
+            <reference local="student_id" foreign="student_id"/>
+        </foreign-key>
+     </table>
+
+    <table name="student_tokens" phpName="PropStudentToken">
+        <column name="token_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="student_id" type="INTEGER" size="11" required="true"/>
+        <column name="created" type="TIMESTAMP" required="true"/>
+        <column name="modified" type="TIMESTAMP"/>
+        <column name="auth_key" type="VARCHAR" size="45" required="true"/>
+        <column name="auth_secret" type="VARCHAR" size="45" required="true"/>
+        <column name="status" type="VARCHAR" required="true"/>
+        <behavior name="auto_add_pk" />
+        <foreign-key foreignTable="students">
+            <reference local="student_id" foreign="student_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="scores" phpName="PropScore">
+        <column name="score_id" type="INTEGER" size="11" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="created" type="TIMESTAMP" />
+        <column name="challenge_id" type="INTEGER" size="11" required="true"/>
+        <column name="student_id" type="INTEGER" size="11" required="true"/>
+        <column name="total_duration" type="TIME" required="true"/>
+        <column name="total_duration_secs" type="FLOAT" required="true"/>
+        <column name="game_event_data" type="VARCHAR" size="1024"/>
+        <column name="class_id" type="INTEGER" size="11"/>
+        <column name="score_average" type="FLOAT"/>
+        <column name="num_coins" type="INTEGER" size="11"/>
+        <column name="num_total_questions" type="INTEGER" size="11"/>
+        <column name="num_correct_questions" type="INTEGER" size="11"/>
+        <behavior name="auto_add_pk"/>
+            <foreign-key foreignTable="classes">
+            <reference local="class_id" foreign="class_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="challenges">
+            <reference local="challenge_id" foreign="challenge_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="students">
+            <reference local="student_id" foreign="student_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="score_answers" phpName="PropScoreAnswer">
+        <column name="answer_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="score_id" type="INTEGER" size="11" required="true"/>
+        <column name="question_id" type="INTEGER" size="11" required="true"/>
+        <column name="choice_id" type="INTEGER" size="11"/>
+        <column name="text" type="VARCHAR" size="45"/>
+        <column name="game_event_data" type="VARCHAR" size="100"/>
+        <behavior name="auto_add_pk"/>
+        <foreign-key foreignTable="scores">
+            <reference local="score_id" foreign="score_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="questions">
+            <reference local="question_id" foreign="question_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="question_choices">
+            <reference local="choice_id" foreign="choice_id"/>
+        </foreign-key>
+    </table>
+
+    <table name="school" phpName="PropSchool">
+        <column name="school_id" type="INTEGER" size="11" primaryKey="true" required="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="256" required="true"/>
+        <column name="state" type="VARCHAR" size="2"/>
+        <column name="county" type="VARCHAR" size="50" default="US"/>
+        <column name="country" type="VARCHAR" size="2"/>
+        <column name="city" type="VARCHAR" size="50"/>
+        <column name="zip_code" type="VARCHAR" size="10"/>
+        <column name="approved" type="ENUM" size="4" valueSet="not_approved, approved" default="approved"/>
+        <column name="is_public" type="ENUM" size="2" valueSet="private, public" default="public"/>
+        <behavior name="auto_add_pk"/>
+    </table>
+
+    <table name="parents" phpName="PropParent">
+        <column name="parent_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="user_id" type="INTEGER" size="11" required="true" />
+        <column name="created" type="TIMESTAMP" required="true" />
+        <column name="modified" type="TIMESTAMP" required="false" />
+        <column name="image_thumb" type="BLOB" required="false" />
+        <column name="auth_code" type="VARCHAR" size="100"/>
+        <column name="time_diff" type="VARCHAR" size="3" default="0"/>
+        <column name="country" type="VARCHAR" size="20" />
+        <column name="postal_code" type="VARCHAR" size="20" />
+        <column name="view_intro" type="ENUM" default="false" valueSet="false, true"/>
+        <foreign-key foreignTable="users" onDelete="CASCADE">
+            <reference local="user_id" foreign="user_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="parents_social_google" phpName="PropParentsGoogle">
+        <column name="soc_google_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="parent_id" type="INTEGER" size="11" required="true"/>
+        <column name="google_auth_code" type="VARCHAR" size="255"/>
+        <foreign-key foreignTable="parents">
+            <reference local="parent_id" foreign="parent_id"/>
+        </foreign-key>
+        <behavior name="auto_add_pk"/>
+    </table>
+
+    <table name="parents_social_facebook" phpName="PropParentsFacebook">
+        <column name="soc_facebook_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="parent_id" type="INTEGER" size="11" required="true"/>
+        <column name="facebook_auth_code" type="VARCHAR" size="255"/>
+        <foreign-key foreignTable="parents">
+            <reference local="parent_id" foreign="parent_id"/>
+        </foreign-key>
+        <behavior name="auto_add_pk"/>
+    </table>
+
+    <table name="parents_social_linkedin" phpName="PropParentsLinkedIn">
+        <column name="soc_linkedin_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="parent_id" type="INTEGER" size="11" required="true"/>
+        <column name="linkedin_auth_code" type="VARCHAR" size="255"/>
+        <foreign-key foreignTable="parents">
+            <reference local="parent_id" foreign="parent_id"/>
+        </foreign-key>
+        <behavior name="auto_add_pk"/>
+    </table>
+
+    <table name="parent_students" phpName="PropParentStudents">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="parent_id" type="INTEGER" size="11" required="true" />
+        <column name="student_id" type="INTEGER" size="11" required="true" />
+        <foreign-key foreignTable="parents" onDelete="CASCADE">
+            <reference local="parent_id" foreign="parent_id" />
+        </foreign-key>
+        <foreign-key foreignTable="students" onDelete="CASCADE">
+            <reference local="student_id" foreign="student_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="subscriber" phpName="PropSubscriber">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="email" type="VARCHAR" size="45" required="true" />
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="timezone" phpName="PropTimeZone">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="100" required="true"/>
+        <column name="difference" type="VARCHAR" size="3" required="true"/>
+    </table>
+
+    <table name="grades" phpName="PropGrade">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="VARCHAR" size="100" required="true"/>
+    </table>
+
+    <table name="parent_activation" phpName="PropParentActivation">
+        <column name="parent_id" type="INTEGER" size="11" required="true" />
+        <column name="class_id" type="INTEGER" size="11" required="true" />
+        <column name="quantity" type="INTEGER" size="11" />
+        <foreign-key foreignTable="parents" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="parent_id" foreign="parent_id" />
+        </foreign-key>
+        <foreign-key foreignTable="classes" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="class_id" foreign="class_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="parent_order" phpName="PropParentOrder">
+        <column name="parent_id" type="INTEGER" size="11" required="true" />
+        <column name="live" type="ENUM" required="true" valueSet="false,true" default="false" />
+        <column name="payment_id" type="VARCHAR" size="50" />
+        <column name="amount" type="FLOAT"/>
+        <column name="status" type="ENUM" valueSet="undefined,pending,success,error" default="undefined"/>
+        <foreign-key foreignTable="parents" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="parent_id" foreign="parent_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="parent_bucket" phpName="PropParentBucket">
+        <column name="order_id" type="INTEGER" size="11" required="true"/>
+        <column name="parent_id" type="INTEGER" size="11" required="true" />
+        <column name="class_id" type="INTEGER" size="11" required="true"/>
+        <column name="student_id" type="INTEGER" size="11" required="true"/>
+        <column name="price" type="FLOAT" required="true"/>
+        <foreign-key foreignTable="parent_order" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="order_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="classes" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="class_id" foreign="class_id" />
+        </foreign-key>
+        <foreign-key foreignTable="students" onDelete="CASCADE">
+            <reference local="student_id" foreign="student_id" />
+        </foreign-key>
+        <foreign-key foreignTable="parents" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="parent_id" foreign="parent_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="parent_pay_log" phpName="PropParentPayLog">
+        <column name="order_id" type="INTEGER" size="11" required="true"/>
+        <column name="parent_id" type="INTEGER" size="11" required="true" />
+        <column name="status" type="ENUM" valueSet="undefined,success,error" default="undefined"/>
+        <column name="token_id" type="VARCHAR" size="50"/>
+        <column name="raw_response" type="CLOB" />
+        <foreign-key foreignTable="parent_order" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="order_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="parents" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="parent_id" foreign="parent_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="challenge_import" phpName="PropChallengeImport">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="name" type="VARCHAR" size="100" required="true" />
+        <column name="file" type="BLOB" required="true"/>
+        <column name="importer" type="VARCHAR" size="50" required="true" />
+        <column name="use_ftp" type="ENUM" default="no" valueSet="no,yes" required="true" />
+        <column name="ftp_username" type="VARCHAR" size="100" required="false"/>
+        <column name="ftp_password" type="VARCHAR" size="100" required="false" />
+        <foreign-key foreignTable="teachers" onDelete="CASCADE">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+    </table>
+
+    <table name="country" phpName="PropCountry">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="iso2code" type="VARCHAR" size="2" required="true"/>
+        <column name="status" type="ENUM" valueSet="pending,active,disabled" default="pending"/>
+        <column name="name" type="VARCHAR" size="100" required="true"/>
+        <behavior name="timestampable" />
+    </table>
+
+</database>

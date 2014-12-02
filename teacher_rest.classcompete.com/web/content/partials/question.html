@@ -1,0 +1,508 @@
+<div class="left-sidebar no-margin">
+        <div class="widget">
+            <div class="widget-header" ng-class="{widgetHeaderChangeHeight: !searchCollapsed || !filterCollapsed}" >
+                <div class="title">Challenge Questions</div>
+                <span class="tools">
+                    <a class="btn btn-info" ng-href="" data-icon="&#xe07f" title="Search" ng-click="collapseFilters('search')" ng-class="{disabled:!searchCollapsed}"></a>
+                    <a class="btn btn-info" ng-href="" data-icon="&#xe13f" title="Filter" ng-click="collapseFilters('filter')"  ng-class="{disabled:!filterCollapsed}"></a>
+                    <a class="btn btn btn-info" ng-click="addNewQuestion()">+ Add new question</a>
+                </span>
+                <div class="clearfix"></div>
+                <div class="pull-right" style="padding: 5px; width: 290px">
+                    <div ng-hide="searchCollapsed">
+                        <input class="search-query input-large pull-right" type="text" placeholder="Search by question name" ng-change="search()" ng-model="query_questions">
+                    </div>
+                    <div ng-hide="filterCollapsed" class="question_filter_toggle">
+                        <select ng-model="selectedItemsPerPage" ng-options="p.per_page for p in viewPerPage" ng-change="changeItemPerPage(selectedItemsPerPage)" class="span3">{{ p }}</select>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-body clearfix">
+                <div class="container-fluid mod-challenge-quesiton">
+                    <div class="span2 margin_bottom challenge_question repeat-item" ng-repeat="question in pagedQuestions[currentPage] | orderBy:sortingOrder:reverse">
+                        <div class="text_align_center">
+                            <p class="margin_bottom_0 one_line_text">{{question.question_name}}</p>
+                            <span class="overflow_text">
+                                <span>{{question.question_title.title}}</span>
+                                <span ng-show="!question.question_title.title">&nbsp;</span>
+                                <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                            </span>
+                        </div>
+                        <div class="thumbnail_challenge_question" power-tip-question>
+                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                        </div>
+                        <div class="text_align_center">
+                            <p class="margin_bottom_0">
+                                <button class="bnt btn-warning btn-mini" ng-click="editQuestion(question)">Edit</button>
+                                <button class="btn btn-danger btn-mini" ng-click="deleteQuestion(question)">Delete</button>
+                            </p>
+                        </div>
+                        <div class="tooltip_content" style="display: none">
+                            <ng-switch on="question.question_type">
+                                <div ng-switch-when="question_type_1">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                <span>{{question.question_title.title}}</span>
+                                                <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size clearfix">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_1">
+                                                    <div class="question previewed_question_style">
+                                                        <div class="controls">
+                                                            {{question.data.question_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer previewed_answer_image_styles" ng-repeat="answer in question.data.answers">
+                                                        <div class="controls">
+                                                            <div ng-if="$index == 0" class="answer previewed_answer_styles a1" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="controls">
+                                                                    {{answer.text}}
+                                                                </div>
+                                                            </div>
+                                                            <div ng-if="$index == 1" class="answer previewed_answer_styles a2" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="controls">
+                                                                    {{answer.text}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_2">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                <span>{{question.question_title.title}}</span>
+                                                <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size clearfix">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_2">
+                                                    <div class="question previewed_question_style">
+                                                        <div class="controls">
+                                                            {{question.data.question_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="answer in question.data.answers">
+                                                        <div ng-if="$index == 0" class="answer previewed_answer_styles a1" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 1" class="answer previewed_answer_styles a2" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 2" class="answer previewed_answer_styles a3" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 3" class="answer previewed_answer_styles a4" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_3">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                           <span class="overflow_text">
+                                                <span>{{question.question_title.title}}</span>
+                                                <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size clearfix">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_3 clearfix">
+                                                    <div class="question previewed_question_style">
+                                                        {{question.data.question_text}}
+                                                    </div>
+                                                    <div class="question_image previewed_question_image_style pic1">
+                                                        <div class="image_holder">
+                                                            <img src="" ng-src="{{question_image}}/question/{{question.question_id}}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="answer in question.data.answers">
+                                                        <div ng-if="$index == 0" class="answer previewed_answer_styles a1" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 1" class="answer previewed_answer_styles a2" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 2" class="answer previewed_answer_styles a3" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 3" class="answer previewed_answer_styles a4" ng-class="{correct_answer: answer.correct}">
+                                                            <div class="controls">
+                                                                {{answer.text}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_4">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                <span class="overflow_text">
+                                                    <span>{{question.question_title.title}}</span>
+                                                    <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                    <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                    <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_4 clearfix">
+                                                    <div class="question previewed_question_style">
+                                                        <div class="controls">
+                                                            {{question.data.question_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="answer in question.data.answers">
+                                                        <div ng-if="$index == 0"  class="answer_holder a1">
+                                                            <div class="answer previewed_answer_image_styles a1" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 1"  class="answer_holder a2">
+                                                             <div class="answer previewed_answer_image_styles a2" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                             </div>
+                                                        </div>
+                                                        <div ng-if="$index == 2"  class="answer_holder a3">
+                                                            <div class="answer previewed_answer_image_styles a3" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 3"  class="answer_holder a4">
+                                                            <div class="answer previewed_answer_image_styles a4" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_5">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                 <span class="overflow_text">
+                                                    <span>{{question.question_title.title}}</span>
+                                                    <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                    <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                    <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_5 clearfix">
+                                                    <div class="question previewed_question_style">
+                                                        {{question.data.question_text}}
+                                                    </div>
+
+                                                    <div class="question_image previewed_question_image_style pic1">
+                                                        <div class="image_holder_5_question">
+                                                            <img src="" ng-src="{{question_image}}/question/{{question.question_id}}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="answer in question.data.answers">
+                                                        <div ng-if="$index == 0"  class="answer_holder a1">
+                                                            <div class="answer previewed_answer_image_styles a1" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 1"  class="answer_holder a2">
+                                                            <div class="answer previewed_answer_image_styles a2" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 2"  class="answer_holder a3">
+                                                            <div class="answer previewed_answer_image_styles a3" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="$index == 3"  class="answer_holder a4">
+                                                            <div class="answer previewed_answer_image_styles a4" ng-class="{correct_answer: answer.correct}">
+                                                                <div class="image_holder_4 answer_image_holder">
+                                                                    <img src="" ng-src="{{choice_image}}/choice/{{answer.answer_image}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /Form 5 -->
+                                            </div> <!-- /Form holder -->
+                                        </div> <!-- /Tooltip Size Modal -->
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_6">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                <span class="overflow_text">
+                                                    <span>{{question.question_title.title}}</span>
+                                                    <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                    <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                    <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size clearfix">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_6">
+                                                    <div  class="question previewed_question_style">
+                                                        <div class="controls">
+                                                            {{question.data.question_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer_holder" ng-repeat="answer in question.data.answers">
+                                                        <div ng-if="$index == 0" class="answer previewed_answer_styles a1">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 1" class="answer previewed_answer_styles a2">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 2" class="answer previewed_answer_styles a3">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 3" class="answer previewed_answer_styles a4">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 4" class="answer previewed_answer_styles a5">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 5" class="answer previewed_answer_styles a6">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 6" class="answer previewed_answer_styles a7">
+                                                            {{answer.text}}
+                                                        </div>
+                                                        <div ng-if="$index == 7" class="answer previewed_answer_styles a8">
+                                                            {{answer.text}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_7">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                 <span class="overflow_text">
+                                                    <span>{{question.question_title.title}}</span>
+                                                    <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                    <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                    <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_7 clearfix">
+                                                    <div class="question previewed_question_style">
+                                                        {{question.data.question_text}}
+                                                    </div>
+                                                    <div class="answer previewed_answer_styles_preview">
+                                                        <div class="controls">
+                                                            {{question.data.correct_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer previewed_answer_styles_ok">ok</div>
+
+                                                    <div class="answer previewed_answer_styles a1">1</div>
+                                                    <div class="answer previewed_answer_styles a2">2</div>
+                                                    <div class="answer previewed_answer_styles a3">3</div>
+                                                    <div class="answer previewed_answer_styles a4">4</div>
+                                                    <div class="answer previewed_answer_styles a5">5</div>
+                                                    <div class="answer previewed_answer_styles a6">6</div>
+                                                    <div class="answer previewed_answer_styles a7">7</div>
+                                                    <div class="answer previewed_answer_styles a8">8</div>
+                                                    <div class="answer previewed_answer_styles a9">9</div>
+                                                    <div class="answer previewed_answer_styles a10">.</div>
+                                                    <div class="answer previewed_answer_styles a11">0</div>
+                                                    <div class="answer previewed_answer_styles a12">del</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_8">
+                                    <div class="tooltip_question_left_column">
+                                        <div class="thumbnail_challenge_question tooltip_question_type_image">
+                                            <img ng-src="{{images_url}}{{question.question_image}}.png" src="">
+                                        </div>
+                                        <div class="text_align_center">
+                                            <span class="overflow_text">
+                                                <span class="overflow_text">
+                                                    <span>{{question.question_title.title}}</span>
+                                                    <span ng-show="!question.question_title.title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title">{{question.question_title.sub_title}}</span>
+                                                    <span ng-show="!question.question_title.sub_title">&nbsp;</span>
+                                                    <span ng-show="question.question_title.sub_title_two">{{question.question_title.sub_title_two}}</span>
+                                                    <span ng-show="!question.question_title.sub_title_two">&nbsp;</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="tooltip_question_right_column">
+                                        <div class="modal_tooltip_size">
+                                            <div class="form_holder">
+                                                <div class="question_form_holder form_8 clearfix">
+                                                    <div class="question previewed_question_style">
+                                                        {{question.data.question_text}}
+                                                    </div>
+                                                    <div class="question_image previewed_question_image_style pic1">
+                                                        <div class="image_holder_8_question">
+                                                            <img src="" ng-src="{{question_image}}/question/{{question.question_id}}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer previewed_answer_styles_preview">
+                                                        <div class="controls">
+                                                            {{question.data.correct_text}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="answer previewed_answer_styles_ok">ok</div>
+
+                                                    <div class="answer previewed_answer_styles a1">1</div>
+                                                    <div class="answer previewed_answer_styles a2">2</div>
+                                                    <div class="answer previewed_answer_styles a3">3</div>
+                                                    <div class="answer previewed_answer_styles a4">4</div>
+                                                    <div class="answer previewed_answer_styles a5">5</div>
+                                                    <div class="answer previewed_answer_styles a6">6</div>
+                                                    <div class="answer previewed_answer_styles a7">7</div>
+                                                    <div class="answer previewed_answer_styles a8">8</div>
+                                                    <div class="answer previewed_answer_styles a9">9</div>
+                                                    <div class="answer previewed_answer_styles a10">.</div>
+                                                    <div class="answer previewed_answer_styles a11">0</div>
+                                                    <div class="answer previewed_answer_styles a12">del</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="question_type_9">TBD</div>
+                            </ng-switch>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="pagination pull-right no-margin">
+                        <ul>
+                            <li ng-class="{disabled: currentPage == 0}">
+                                <a href ng-click="prevPage()">Prev</a>
+                            </li>
+                            <li ng-click="setPage()" ng-class="{active: n == currentPage}" ng-repeat="n in range(pagedQuestions.length)">
+                                <a href ng-bind="n + 1">1</a>
+                            </li>
+                            <li ng-class="{disabled: currentPage == pagedQuestions.length - 1}">
+                                <a href ng-click="nextPage()">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

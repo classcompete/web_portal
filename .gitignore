@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+backend/vendor/ccomp/runtime-conf.xml
+backend/vendor/ccomp/buildtime-conf.xml
+backend/vendor/ccomp/build/conf/classcompete-conf.php
+backend/vendor/ccomp/build/conf/classmap-classcompete-conf.php
+backend/vendor/ccomp/build/classes/classcompete/map/
+backend/vendor/ccomp/build/classes/classcompete/om/
+
+admin.classcompete.com/web/content/env.inc.php
+ccapi.classcompete.com/web/content/env.inc.php
+cdn.classcompete.com/web/content/env.inc.php
+parent.classcompete.com/web/content/env.inc.php
+teacher.classcompete.com/web/content/env.inc.php

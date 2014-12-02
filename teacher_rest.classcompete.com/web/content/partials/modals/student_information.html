@@ -1,0 +1,114 @@
+    <div class="modal-header">
+        <button aria-hidden="true" class="close" type="button" ng-click="cancel()">×</button>
+        <h3 id="studentInfoLabel">Student Information</h3>
+    </div>
+    <div class="modal-body">
+
+        <ul class="nav nav-tabs no-margin myTabBeauty">
+            <li class="active">
+                <a data-original-title="" href="#profile" data-toggle="tab">
+                    Profile
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- student profile info -->
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="profile">
+
+                <div class="row-fluid">
+                    <div class="span3">
+
+                        <img id="profilepic" title="avatar" alt="avatar" width="227px" height="175px" ng-src="{{ student_info.student_image }}">
+
+                        <h5>User Name : <span id="username">{{student_info.username}}</span></h5>
+                        <h5>Full Name : <span id="full_name">{{student_info.first_name}} {{student_info.last_name}}</span></h5>
+                        <h5>Email* : <span id="email">{{student_info.student_email}}</span></h5>
+                        <h5 ng-show="student_info.parent_email">Parent Email : <span id="parent_email">{{student_info.parent_email}}</span></h5>
+
+                    </div>
+
+                    <div class="example_alt_pagination span9" id="dt_example">
+                        <div class="row-fluid column_chart_user_info">
+                            <div class="span12">
+                                <div class="widget chart_widget">
+                                    <div class="widget-header">
+                                        <div class="title">Column Chart</div>
+                                        <span class="tools"></span>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div ng-show="chartData.stats.length > 0" google-chart data="chartData" type="ColumnChart" width="auto" height="160" style="position: relative" ></div>
+                                        <div ng-show="!table_info.length > 0">
+                                            <h4 class="text-info">Student didn't play eny game!</h4>
+                                        </div>
+                                        <div ng-show="chartData.error && table_info.length > 0">
+                                            <h4 class="text-warning">{{chartData.error}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid column_chart_user_info">
+                            <div class="span12">
+                                <div class="widget chart_widget">
+                                    <div class="widget-header">
+                                        <div class="title">Student statistic</div>
+                                        <span class="tools"></span>
+                                    </div>
+                                    <div ng-show="table_info.length > 0" class="widget-body clearfix">
+                                        <div class="span3">
+                                                Show <select ng-model="selectedItemsPerPage" ng-options="p.per_page for p in viewPerPage" ng-change="changeItemPerPage(selectedItemsPerPage)">{{ p }}</select> entries
+                                        </div>
+
+                                        <table class="table table-condensed table-striped table-hover table-bordered dataTable">
+                                                <thead>
+                                                <tr tole="row">
+                                                    <th class="date sorting" ng-click="sort_by('date')">Date</th>
+                                                    <th class="challenge_name sorting" ng-click="sort_by('challenge_name')">Challenge name</th>
+                                                    <th class="percentage sorting" ng-click="sort_by('percentage')">Percentage</th>
+                                                    <th class="correct_answers sorting" ng-click="sort_by('correct_answers')">Correct answers</th>
+                                                    <th class="incorrect_answers sorting" ng-click="sort_by('incorrect_answers')">Incorrect answers</th>
+                                                    <th class="time_on_course sorting" ng-click="sort_by('time_on_course')">Time on Course</th>
+                                                    <th class="coins_collected sorting" ng-click="sort_by('coins_collected')">Coins Collected</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="data in pagedData[currentPage] | orderBy:sortingOrder:reverse" ng-class-odd="'success odd'" ng-class-even="'info even'">
+                                                    <td>{{data.date}}</td>
+                                                    <td>{{data.challenge_name}}</td>
+                                                    <td>{{data.percentage}}</td>
+                                                    <td>{{data.correct_answers}}</td>
+                                                    <td>{{data.incorrect_answers}}</td>
+                                                    <td>{{data.time_on_course}}</td>
+                                                    <td>{{data.coins_collected}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <div class="pagination">
+                                                <ul class="pull-right">
+                                                    <li ng-class="{disabled: currentPage == 0}">
+                                                        <a href ng-click="prevPage()">Prev</a>
+                                                    </li>
+                                                    <li ng-click="setPage()" ng-class="{active: n == currentPage}" ng-repeat="n in range(pagedData.length)">
+                                                        <a href ng-bind="n + 1">1</a>
+                                                    </li>
+                                                    <li ng-class="{disabled: currentPage == pagedData.length - 1}">
+                                                        <a href ng-click="nextPage()">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                    </div>
+                                    <div ng-show="!table_info.length > 0" class="widget-body">
+                                        <h4 class="text-info">Student didn't play eny game!</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

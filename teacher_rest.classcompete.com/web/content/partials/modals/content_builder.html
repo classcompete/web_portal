@@ -1,0 +1,836 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3>Create new challenge</h3>
+</div>
+
+<div class="modal-body no-padding">
+    <div class="navbar no-margin">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li ng-class="{active:current_tab[0]}">
+                        <a class="selected">Challenge info</a>
+                    </li>
+                    <li ng-class="{active:current_tab[1]}">
+                        <a>Question type</a>
+                    </li>
+                    <li ng-class="{active:current_tab[2]}">
+                        <a>Question</a>
+                    </li>
+                    <li ng-class="{active:current_tab[3]}">
+                        <a>Marketplaces</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="progress progress-warning progress-striped no-margin">
+        <div class="bar" ng-style="calculateBarWidth()"> </div>
+    </div>
+</div>
+    <div class="modal-body">
+        <ng-switch on="selectedTab">
+            <div ng-switch-default class="tab-content">
+                <form id="challengeBuilder" name="challengeBuilder" class="form-horizontal no-margin">
+                    <div class="modal_left_column">
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.challenge_name}">
+                                <label class="control-label">Challenge name</label>
+                                <div class="controls">
+                                    <input type="text" name="Challenge name" id="challenge_name" ng-model="challenge.challenge_name" data-rules="required" class="validate" >
+                                </div>
+                            </div>
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.subject_id}">
+                                <label class="control-label">Subject</label>
+                                <div class="controls">
+                                    <select ng-model="challenge.subject"
+                                            ng-options="value.subject_id as value.subject_name for (key,value) in subjects" ng-change="selectSubject(challenge.subject)"
+                                            name="Subject" id="subject" data-rules="required|integer" class="validate">
+                                        <option value="" disabled>-- Choose Subject --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.skill_id}">
+                                <label class="control-label">Skill</label>
+                                <div class="controls">
+                                    <select ng-model="challenge.skill"
+                                            ng-options="value.skill_id as value.skill_name for (key,value) in skills" ng-change="selectSkill(challenge.skill)" ng-disabled="!challenge.subject"
+                                            name="Skill" id="skill" data-rules="required|integer" class="validate" >
+                                        <option value="" disabled>-- Choose Skill --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal_right_column">
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.topic_id}">
+                                <label class="control-label">Subtopic</label>
+                                <div class="controls">
+                                    <select ng-model="challenge.topic"
+                                            ng-options="value.topic_id as value.topic_name for (key,value) in topics" ng-change="selectTopic(challenge.topic)" ng-disabled="!challenge.skill"
+                                            name="Subtopic" id="topic" data-rules="required|integer" class="validate">
+                                        <option value="" disabled>-- Choose Topic --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.grade_id}">
+                                <label class="control-label">Grade</label>
+                                <div class="controls">
+                                    <select ng-model="challenge.grade"
+                                            ng-options="value.grade_id as value.grade_name for (key,value) in grades" ng-change="selectGrade(challenge.grade)"
+                                            name="Grade" id="grade" data-rules="required|integer" class="validate">
+                                        <option value="" disabled>-- Choose Grade --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge.game_id}">
+                                <label class="control-label">Environment</label>
+                                <div class="controls">
+                                    <select ng-model="challenge.game_code"
+                                            ng-options="value.game_code as value.game_name for (key,value) in games" ng-change="selectGame(challenge.game)"
+                                            name="Environment" id="environment" data-rules="required" class="validate">
+                                        <option value="" disabled>-- Choose Environment --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal_down">
+                            <label class="control-label">Description</label>
+                            <div class="controls">
+                                <textarea rows="5" cols="30" name="description" ng-model="challenge.description"></textarea>
+                            </div>
+                        </div>
+                    <div class="clearfix"></div>
+                    <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                            <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                            <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, challengeBuilder)">Next</button>
+                            <a class="button" ng-show="active_tab === current_tab.length - 1">Save & Add question</a>
+                            <button type="submit" class="button submit"  ng-show="active_tab === current_tab.length - 1" ng-click="saveClose()">Save & Close</button>
+                        </div>
+                </form>
+            </div>
+            <div class="tab-pane" ng-switch-when="question_type">
+                <ng-switch on="selectedEnvironment">
+                    <div ng-switch-when="running_game" class="thumbnails question_thumbs" >
+                        <ul class="thumbnails question_thumbs">
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_1'}">
+                                    <img ng-src="{{ images_url }}question_type_1.png" ng-click="changeTab(active_tab + 1,null,'question_type_1')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_2'}">
+                                    <img ng-src="{{ images_url }}question_type_2.png" ng-click="changeTab(active_tab + 1,null,'question_type_2')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_3'}">
+                                    <img ng-src="{{ images_url }}question_type_3.png" ng-click="changeTab(active_tab + 1,null,'question_type_3')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_4'}">
+                                    <img ng-src="{{ images_url }}question_type_4.png" ng-click="changeTab(active_tab + 1,null,'question_type_4')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_5'}">
+                                    <img ng-src="{{ images_url }}question_type_5.png" ng-click="changeTab(active_tab + 1,null,'question_type_5')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_6'}">
+                                    <img ng-src="{{ images_url }}question_type_6.png" ng-click="changeTab(active_tab + 1,null,'question_type_6')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_7'}">
+                                    <img ng-src="{{ images_url }}question_type_7.png" ng-click="changeTab(active_tab + 1,null,'question_type_7')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_8'}">
+                                    <img ng-src="{{ images_url }}question_type_8.png" ng-click="changeTab(active_tab + 1,null,'question_type_8')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_9'}">
+                                    <img ng-src="{{ images_url }}question_type_9.png" ng-click="changeTab(active_tab + 1,null,'question_type_9')">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-switch-when="brain_runner" class="thumbnails question_thumbs">
+                        <ul class="thumbnails question_thumbs">
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_1'}">
+                                    <img ng-src="{{ images_url }}question_type_1.png" ng-click="changeTab(active_tab + 1,null,'question_type_1')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_2'}">
+                                    <img ng-src="{{ images_url }}question_type_2.png" ng-click="changeTab(active_tab + 1,null,'question_type_2')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_3'}">
+                                    <img ng-src="{{ images_url }}question_type_3.png" ng-click="changeTab(active_tab + 1,null,'question_type_3')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_4'}">
+                                    <img ng-src="{{ images_url }}question_type_4.png" ng-click="changeTab(active_tab + 1,null,'question_type_4')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_5'}">
+                                    <img ng-src="{{ images_url }}question_type_5.png" ng-click="changeTab(active_tab + 1,null,'question_type_5')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_6'}">
+                                    <img ng-src="{{ images_url }}question_type_6.png" ng-click="changeTab(active_tab + 1,null,'question_type_6')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_7'}">
+                                    <img ng-src="{{ images_url }}question_type_7.png" ng-click="changeTab(active_tab + 1,null,'question_type_7')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_8'}">
+                                    <img ng-src="{{ images_url }}question_type_8.png" ng-click="changeTab(active_tab + 1,null,'question_type_8')">
+                                </a>
+                            </li>
+                            <li class="span">
+                                <a class="thumbnail" ng-class="{selected_question:question.question_type === 'question_type_9'}">
+                                    <img ng-src="{{ images_url }}question_type_9.png" ng-click="changeTab(active_tab + 1,null,'question_type_9')">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-switch-when="darko" class="thumbnails question_thumbs">TBD</div>
+                    <div ng-switch-when="lazic" class="thumbnails question_thumbs">TBD</div>
+                    <div ng-switch-when="12" class="thumbnails question_thumbs">TBD</div>
+                    <div ng-switch-default class="thumbnails question_thumbs">
+                        TBD
+                    </div>
+                </ng-switch>
+                <div class="clearfix"></div>
+                <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                    <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                    <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-disabled="true">Next</button>
+                </div>
+            </div>
+            <div class="tab-pane" ng-switch-when="question">
+                <ng-switch on="question.question_type">
+                    <div class="tab-pane" ng-switch-when="question_type_1">
+                        <form name="question_type_1" id="question_type_1">
+                            <div class="modal_full_size clearfix">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_1">
+                                        <div id="question_type_1_question_preview" class="question question_styles">
+                                            <div class="controls">
+                                                <textarea placeholder="Enter your question here" id="question_type_1_question" name="Question" maxlength="100"
+                                                          ng-model="question.question_type_1_question" data-rules="required|max_length[100]" class="validate"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div id="question_type_1_answer_1_preview" class="answer answer_styles a1">
+                                            <div class="controls">
+                                                <input type="text" name="question_type_answer[1]" maxlength="45" ng-model="question.question_type_1_answer_1"
+                                                        data-rules="required|max_length[45]" data-display="Answer 1" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" class="validate question_type_1_correct"
+                                                   name="question_type_1_correct" value="1" ng-model="question.question_type_1_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+
+                                        <div id="question_type_1_answer_2_preview" class="answer answer_styles a2">
+
+                                            <div class="controls">
+                                                <input type="text" id="question_type_1_answer_2" name="question_type_1_answer[2]" maxlength="45" ng-model="question.question_type_1_answer_2"
+                                                        data-rules="required|max_length[45]" data-display="Answer 2" class="validate"/>
+                                            </div>
+
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_1_correct_1" class="validate question_type_1_correct"
+                                                   name="question_type_1_correct" value="2" ng-model="question.question_type_1_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_1)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_2">
+                        <form name="question_type_2" id="question_type_2">
+                            <div class="modal_full_size clearfix">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_2">
+                                        <div id="question_type_2_question_preview" class="question question_styles">
+                                            <div class="controls">
+                                                <textarea id="question_type_2_question" name="question_type_2_question" placeholder="Enter your question here" maxlength="100"
+                                                          ng-model="question.question_type_2_question" data-rules="required|max_length[100]" data-display="Question" class="validate"></textarea>
+                                            </div>
+                                        </div>
+                                        <div id="question_type_2_answer_1_preview" class="validate answer answer_styles a1">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_2_answer_1" name="question_type_2_answer_1" maxlength="45"
+                                                       ng-model="question.question_type_2_answer_1" data-rules="required|max_length[45]" data-display="Answer 1" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_2_correct_1" class="validate question_type_2_correct"
+                                                   name="question_type_2_correct" value="1" ng-model="question.question_type_2_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_2_answer_2_preview" class="validate answer answer_styles a2">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_2_answer_2" name="question_type_2_answer_2" maxlength="45" ng-model="question.question_type_2_answer_2"
+                                                        data-rules="required|max_length[45]" data-display="Answer 2" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_2_correct_2" class="validate question_type_2_correct"
+                                                   name="question_type_2_correct" value="2" ng-model="question.question_type_2_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_2_answer_3_preview" class="validate answer answer_styles a3">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_2_answer_3" name="question_type_2_answer_3" maxlength="45" ng-model="question.question_type_2_answer_3"
+                                                        data-rules="required|max_length[45]" data-display="Answer 3" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_2_correct_3" class="validate question_type_2_correct"
+                                                   name="question_type_2_correct" value="3" ng-model="question.question_type_2_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_2_answer_4_preview" class="answer answer_styles a4">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_2_answer_4" name="question_type_2_answer_4" maxlength="45" ng-model="question.question_type_2_answer_4"
+                                                        data-rules="required|max_length[45]" data-display="Answer 4" class="validate"/>
+                                            </div>
+
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_2_correct_4" class="validate question_type_2_correct"
+                                                   name="question_type_2_correct" value="4" ng-model="question.question_type_2_correct"
+                                                    data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_2)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_3">
+                        <form id="question_type_3_form" name="question_type_3_form">
+                            <div class="modal_full_size clearfix">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_3 clearfix">
+                                        <div id="question_type_3_question_preview" class="question question_styles">
+                                            <textarea id="question_type_3_question" name="question_type_3_question" placeholder="Enter your question here" maxlength="100"
+                                                    ng-model="question.question_type_3_question" data-rules="required|max_length[100]" data-display="Question" class="validate"></textarea>
+                                        </div>
+                                        <div id="question_type_3_image_preview" class="question_image question_image_style pic1">
+                                            <div id="question_type_3_image" class="image_holder">
+                                                <img src="" ng-src="{{question.question_type_3_created_image_url}}" ng-model="question.question_type_3_image"/>
+                                                <input type="hidden" name="question_type_3_image" class="validate image_name" id="question_type_3_image_name"
+                                                        ng-model="question.question_type_3_image" data-rules="required" data-display="Image" value="{{question.question_type_3_image}}"/>
+                                                <button class="btn btn-warning set_image_btn" ng-click="setImage('question_type_3_image', 'question_type_3_created_image', 'question_type_3_created_image_url','big_size')">Set image</button>
+                                            </div>
+                                        </div>
+                                        <div id="question_type_3_answer_1_preview" class="answer answer_styles a1">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_3_answer_1" name="question_type_3_answer_1" maxlength="45"
+                                                        ng-model="question.question_type_3_answer_1" data-rules="required|max_length[45]" data-display="Answer 1" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_3_correct_1" class="validate question_type_3_correct" name="question_type_3_correct" value="1"
+                                                    ng-model="question.question_type_3_correct" data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_3_answer_2_preview" class="answer answer_styles a2">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_3_answer_2" name="question_type_3_answer_2" maxlength="45"
+                                                        ng-model="question.question_type_3_answer_2" data-rules="required|max_length[45]" data-display="Answer 2" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_3_correct_2" class="validate question_type_3_correct" name="question_type_3_correct" value="2"
+                                                    ng-model="question.question_type_3_correct" data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_3_answer_3_preview" class="answer answer_styles a3">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_3_answer_3" name="question_type_3_answer_3" maxlength="45"
+                                                        ng-model="question.question_type_3_answer_3" data-rules="required|max_length[45]" data-display="Answer 3" class="validate" />
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_3_correct_3" class="validate question_type_3_correct" name="question_type_3_correct" value="3"
+                                                    ng-model="question.question_type_3_correct" data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                        <div id="question_type_3_answer_4_preview" class="answer answer_styles a4">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_3_answer_4" name="question_type_3_answer_4" maxlength="45"
+                                                        ng-model="question.question_type_3_answer_4" data-rules="required|max_length[45]" data-display="Answer 4" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span>Correct?</span>
+                                            <input type="radio" id="question_type_3_correct_4" class="validate question_type_3_correct" name="question_type_3_correct" value="4"
+                                                    ng-model="question.question_type_3_correct" data-rules="required" data-display="Correct answer"/>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_3_form)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_4">
+                        <form id="question_type_4_form" name="question_type_4_form">
+                            <div class="modal_full_size">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_4 clearfix">
+                                        <div id="question_type_4_question_preview" class="question question_styles">
+                                            <div class="controls">
+                                                <textarea id="question_type_4_question" name="question_type_4_question" placeholder="Enter your question here" maxlength="100"
+                                                        ng-model="question.question_type_4_question" data-rules="required|max_length[100]" data-display="Question" class="validate"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="answer_holder a1">
+                                            <div id="question_type_4_answer_1_preview" class="answer answer_image_style a1">
+                                                <div id="question_type_4_image_answer_1" class="image_holder_4 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_4_image_answer_1_created_image_url}}" ng-model="question.question_type_4_image_1" data-rules="required" data-display="Image 1" />
+                                                    <input type="hidden" class="validate" name="question_type_4_image_1" ng-model="question.question_type_4_image_1" data-rules="required" data-display="Image 1" value="{{question.question_type_4_image_1}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_4_image_1', 'question_type_4_created_image_1', 'question_type_4_image_answer_1_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_4_correct_1" class="validate question_type_4_correct" name="question_type_4_correct" value="1"
+                                                        ng-model="question.question_type_4_correct" data-display="Correct answer" data-rules="required"/>
+                                            </label>
+                                        </div>
+
+                                        <div class="answer_holder a2">
+                                            <div id="question_type_4_answer_2_preview" class="answer answer_image_style a2">
+                                                <div id="question_type_4_image_answer_2" class="image_holder_4 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_4_image_answer_2_created_image_url}}" class="validate" id="question_type_4_image_2_name"
+                                                            ng-model="question.question_type_4_image_2" data-rules="required" data-display="Image 2"/>
+                                                    <input type="hidden" name="question_type_4_image_2" class="validate image_name" data-rules="required" data-display="Image 2" ng-model="question.question_type_4_image_2" value="{{question.question_type_4_image_2}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_4_image_2', 'question_type_4_created_image_2', 'question_type_4_image_answer_2_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_4_correct_2" class="validate question_type_4_correct" name="question_type_4_correct" value="2"
+                                                       ng-model="question.question_type_4_correct" data-display="Correct answer" data-rules="required"/>
+                                            </label>
+                                        </div>
+
+                                        <div class="answer_holder">
+                                            <div id="question_type_4_answer_3_preview" class="answer answer_image_style a3">
+                                                <div id="question_type_4_image_answer_3" class="image_holder_4 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_4_image_answer_3_created_image_url}}" class="validate" id="question_type_4_image_3_name"
+                                                            ng-model="question.question_type_4_image_3" data-rules="required" data-display="Image 3"/>
+                                                    <input type="hidden" name="question_type_4_image_3" class="validate image_name" data-rules="required" data-display="Image 3" ng-model="question.question_type_4_image_3" value="{{question.question_type_4_image_3}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_4_image_3', 'question_type_4_created_image_3', 'question_type_4_image_answer_3_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_4_correct_3" class="validate question_type_4_correct" name="question_type_4_correct" value="3"
+                                                       ng-model="question.question_type_4_correct" data-display="Correct answer" data-rules="required"/>
+                                            </label>
+                                        </div>
+
+                                        <div class="answer_holder">
+                                            <div id="question_type_4_answer_4_preview" class="answer answer_image_style a4">
+                                                <div id="question_type_4_image_answer_4" class="image_holder_4 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_4_image_answer_4_created_image_url}}" class="validate" id="question_type_4_image_4_name"
+                                                         ng-model="question.question_type_4_image_4" data-rules="required" data-display="Image 4"/>
+                                                    <input type="hidden" name="question_type_4_image_4" class="validate image_name" data-rules="required" data-display="Image 4" ng-model="question.question_type_4_image_4" value="{{question.question_type_4_image_4}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_4_image_4', 'question_type_4_created_image_4', 'question_type_4_image_answer_4_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_4_correct_4" class="question_type_4_correct" name="question_type_4_correct" value="4"
+                                                       ng-model="question.question_type_4_correct" data-display="Correct answer" data-rules="required"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                            <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                            <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_4_form)">Next</button>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_5">
+                        <form id="question_type_5_form" name="question_type_5_form">
+                            <div class="modal_full_size">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_5 clearfix">
+                                        <div id="question_type_5_question_preview" class="question question_styles">
+                                            <textarea id="question_type_5_question" name="question_type_5_question" placeholder="Enter your question here" maxlength="100"
+                                                ng-model="question.question_type_5_question" data-rules="required|max_length[100]" data-display="Question" class="validate"></textarea>
+                                        </div>
+                                        <div id="question_type_5_image_preview" class="question_image question_image_style pic1">
+                                            <div  class="image_holder_5_question">
+                                                <img src="" ng-src="{{question.question_type_5_created_image_url}}" ng-model="question.question_type_5_question_image"/>
+                                                <input type="hidden" name="question_type_5_question_image" class="validate image_name" id="question_type_5_question_image"
+                                                       ng-model="question.question_type_5_question_image" data-rules="required" data-display="Question image" value="{{question.question_type_5_question_image}}"/>
+                                                <button class="btn btn-warning set_image_btn" ng-click="setImage('question_type_5_question_image', 'question_type_5_created_image_5', 'question_type_5_created_image_url','big_size')">Set image</button>
+
+                                            </div>
+                                        </div>
+                                        <div class="answer_holder a1">
+                                            <div id="question_type_5_answer_1_preview" class="answer answer_image_style a1">
+                                                <div id="question_type_5_image_answer_1" class="image_holder_5 answer_image_holder">
+                                                    <img src="" alt="">
+                                                    <input type="hidden" name="question_type_5_answer_image[1]" class="image_name" id="question_type_5_image_1_name"/>
+                                                    <button class="btn btn-warning set_small_image_btn">Set image</button>
+
+                                                    <img src="" ng-src="{{question.question_type_5_image_answer_1_created_image_url}}" class="validate"
+                                                         ng-model="question.question_type_5_answer_image_1" data-rules="required" data-display="Answer image 1"/>
+                                                    <input type="hidden" name="question_type_5_answer_image_1" class="validate image_name" data-rules="required" data-display="Image answer 1" ng-model="question.question_type_5_answer_image_1" value="{{question.question_type_5_answer_image_1}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_5_answer_image_1', 'question_type_5_created_answer_image_1', 'question_type_5_image_answer_1_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_5_correct_1" class="validate question_type_5_correct" name="question_type_5_correct" value="1"
+                                                        ng-model="question.question_type_5_correct" data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div> <!-- /Answer Holder 1-->
+                                        <div class="answer_holder a2">
+                                            <div id="question_type_5_answer_2_preview" class="answer answer_image_style a2">
+                                                <div id="question_type_5_image_answer_2" class="image_holder_5 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_5_image_answer_2_created_image_url}}" class="validate"
+                                                         ng-model="question.question_type_5_answer_image_2" data-rules="required" data-display="Answer image 2"/>
+                                                    <input type="hidden" name="question_type_5_answer_image_2" class="validate image_name" data-rules="required" data-display="Image answer 2" ng-model="question.question_type_5_answer_image_2" value="{{question.question_type_5_answer_image_2}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_5_answer_image_2', 'question_type_5_created_answer_image_2', 'question_type_5_image_answer_2_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_5_correct_2" class="validate question_type_5_correct" name="question_type_5_correct" value="2"
+                                                        ng-model="question.question_type_5_correct" data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div> <!-- /Answer Holder 2-->
+                                        <div class="answer_holder a3">
+                                            <div id="question_type_5_answer_3_preview" class="answer answer_image_style a3">
+                                                <div id="question_type_5_image_answer_3" class="image_holder_5 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_5_image_answer_3_created_image_url}}" class="validate"
+                                                         ng-model="question.question_type_5_answer_image_3" data-rules="required" data-display="Answer image 3"/>
+                                                    <input type="hidden" name="question_type_5_answer_image_3" class="validate image_name" data-rules="required" data-display="Image answer 3" ng-model="question.question_type_5_answer_image_3" value="{{question.question_type_5_answer_image_3}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_5_answer_image_3', 'question_type_5_created_answer_image_3', 'question_type_5_image_answer_3_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_5_correct_3" class="validate question_type_5_correct" name="question_type_5_correct" value="3"
+                                                        ng-model="question.question_type_5_correct" data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div> <!-- /Answer Holder 3-->
+                                        <div class="answer_holder">
+
+                                            <div id="question_type_5_answer_4_preview" class="answer answer_image_style a4">
+                                                <div id="question_type_5_image_answer_4" class="image_holder_5 answer_image_holder">
+                                                    <img src="" ng-src="{{question.question_type_5_image_answer_4_created_image_url}}" class="validate"
+                                                         ng-model="question.question_type_5_answer_image_4" data-rules="required" data-display="Answer image 4"/>
+                                                    <input type="hidden" name="question_type_5_answer_image_4" class="validate image_name" data-rules="required" data-display="Image answer 4" ng-model="question.question_type_5_answer_image_4" value="{{question.question_type_5_answer_image_4}}"/>
+                                                    <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_5_answer_image_4', 'question_type_5_created_answer_image_4', 'question_type_5_image_answer_4_created_image_url','small_size')">Set image</button>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_5_correct_4" class="validate question_type_5_correct" name="question_type_5_correct" value="4"
+                                                        ng-model="question.question_type_5_correct" data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_5_form)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_6">
+                        <form name="question_type_6" id="question_type_6">
+                            <div class="modal_full_size clearfix">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_6">
+                                        <div id="question_type_6_question_preview" class="question question_styles">
+                                            <div class="controls">
+                                                <textarea id="question_type_6_question" name="question_type_6_question" placeholder="Enter your question here" maxlength="100"
+                                                          ng-model="question.question_type_6_question" data-rules="required|max_length[100]" data-display="Question" class="validate"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_1_preview" class="answer answer_styles a1">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_1" name="question_type_6_answer_1" maxlength="45" ng-model="question.question_type_6_answer_1"
+                                                            data-rules="required|max_length[45]" data-display="Answer 1" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_1" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="1" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_2_preview" class="answer answer_styles a2">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_2" name="question_type_6_answer_2" maxlength="45" ng-model="question.question_type_6_answer_2"
+                                                            data-rules="required|max_length[45]" data-display="Answer 2" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_2" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="2" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_3_preview" class="answer answer_styles a3">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_3" name="question_type_6_answer_3" maxlength="45" ng-model="question.question_type_6_answer_3"
+                                                            data-rules="required|max_length[45]" data-display="Answer 3" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_3" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="3" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_4_preview" class="answer answer_styles a4">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_4" name="question_type_6_answer_4" maxlength="45" ng-model="question.question_type_6_answer_4"
+                                                            data-rules="required|max_length[45]" data-display="Answer 4" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_4" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="4" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_5_preview" class="answer answer_styles a5">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_5" name="question_type_6_answer_5" maxlength="45" ng-model="question.question_type_6_answer_5"
+                                                            data-rules="required|max_length[45]" data-display="Answer 5" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_5" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="5" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_6_preview" class="answer answer_styles a6">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_6" name="question_type_6_answer_6" maxlength="45" ng-model="question.question_type_6_answer_6"
+                                                            data-rules="required|max_length[45]" data-display="Answer 6" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_6" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="6" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_7_preview" class="answer answer_styles a7">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_7" name="question_type_6_answer_7" maxlength="45" ng-model="question.question_type_6_answer_7"
+                                                            data-rules="required|max_length[45]" data-display="Answer 7" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_7" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="7" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                        <div class="answer_holder">
+                                            <div id="question_type_6_answer_8_preview" class="answer answer_styles a8">
+                                                <div class="controls">
+                                                    <input type="text" id="question_type_6_answer_8" name="question_type_6_answer_8" maxlength="45" ng-model="question.question_type_6_answer_8"
+                                                            data-rules="required|max_length[45]" data-display="Answer 8" class="validate"/>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                <span>Correct?</span>
+                                                <input type="radio" id="question_type_6_correct_8" class="validate question_type_6_correct"
+                                                       name="question_type_6_correct" value="8" ng-model="question.question_type_6_correct"
+                                                        data-rules="required" data-display="Correct answer"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_6)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_7">
+                        <form name="question_type_7" id="question_type_7">
+                            <div class="modal_full_size">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_7 clearfix">
+                                        <div id="question_type_7_question_preview" class="question question_styles">
+                                            <textarea id="question_type_7_question" name="question_type_7_question" placeholder="Enter your question here" maxlength="70"
+                                                    ng-model="question.question_type_7_question" data-rules="required|max_length[70]" data-display="Question" class="validate"></textarea>
+                                        </div>
+                                        <div id="question_type_7_answer_preview" class="answer answer_styles_preview">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_7_answer" name="question_type_7_answer" maxlength="9"
+                                                    ng-model="question.question_type_7_answer" data-rules="required|max_length[9]|numeric_decimal" data-display="Answer" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <div id="question_type_7_answer_preview_ok" class="answer answer_ok">ok</div>
+
+                                        <div id="question_type_7_answer_1_preview" class="answer answer_styles a1">1</div>
+                                        <div id="question_type_7_answer_2_preview" class="answer answer_styles a2">2</div>
+                                        <div id="question_type_7_answer_3_preview" class="answer answer_styles a3">3</div>
+                                        <div id="question_type_7_answer_4_preview" class="answer answer_styles a4">4</div>
+                                        <div id="question_type_7_answer_5_preview" class="answer answer_styles a5">5</div>
+                                        <div id="question_type_7_answer_6_preview" class="answer answer_styles a6">6</div>
+                                        <div id="question_type_7_answer_7_preview" class="answer answer_styles a7">7</div>
+                                        <div id="question_type_7_answer_8_preview" class="answer answer_styles a8">8</div>
+                                        <div id="question_type_7_answer_9_preview" class="answer answer_styles a9">9</div>
+                                        <div id="question_type_7_answer_10_preview" class="answer answer_styles a10">.</div>
+                                        <div id="question_type_7_answer_11_preview" class="answer answer_styles a11">0</div>
+                                        <div id="question_type_7_answer_12_preview" class="answer answer_styles a12">del</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_7)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_8">
+                        <form id="question_type_8_form" name="question_type_8_form">
+                            <div class="modal_full_size">
+                                <div class="form_holder">
+                                    <div class="question_form_holder form_8 clearfix">
+                                        <div id="question_type_8_question_preview" class="question question_styles">
+                                            <textarea id="question_type_8_question" name="question_type_8_question" placeholder="Enter your question here" maxlength="70"
+                                                    ng-model="question.question_type_8_question" data-rules="required|max_length[70]" data-display="Question" class="validate"></textarea>
+                                        </div>
+                                        <div id="question_type_8_question_preview_image" class="question_image question_image_style pic1">
+                                            <div id="question_type_8_image" class="image_holder_8_question">
+                                                <img src="" ng-src="{{question.question_type_8_created_question_image_image_url}}" class="validate"
+                                                     ng-model="question.question_type_8_question_image" data-rules="required" data-display="Answer image 4"/>
+                                                <input type="hidden" name="question_type_8_question_image" class="validate image_name" data-rules="required" data-display="Question image" ng-model="question.question_type_8_question_image" value="{{question.question_type_8_question_image}}"/>
+                                                <button class="btn btn-warning set_small_image_btn" ng-click="setImage('question_type_8_question_image', 'question_type_8_created_question_image', 'question_type_8_created_question_image_image_url','big_size')">Set image</button>
+                                            </div>
+                                        </div>
+                                        <div id="question_type_8_answer_preview" class="answer answer_styles_preview">
+                                            <div class="controls">
+                                                <input type="text" id="question_type_8_answer" name="question_type_8_answer" maxlength="9"
+                                                       ng-model="question.question_type_8_answer" data-rules="required|max_length[9]|numeric_decimal" data-display="Answer" class="validate"/>
+                                            </div>
+                                        </div>
+                                        <div id="question_type_8_answer_preview_ok" class="answer answer_ok">ok</div>
+
+                                        <div id="question_type_8_answer_1_preview" class="answer answer_styles a1">1</div>
+                                        <div id="question_type_8_answer_2_preview" class="answer answer_styles a2">2</div>
+                                        <div id="question_type_8_answer_3_preview" class="answer answer_styles a3">3</div>
+                                        <div id="question_type_8_answer_4_preview" class="answer answer_styles a4">4</div>
+                                        <div id="question_type_8_answer_5_preview" class="answer answer_styles a5">5</div>
+                                        <div id="question_type_8_answer_6_preview" class="answer answer_styles a6">6</div>
+                                        <div id="question_type_8_answer_7_preview" class="answer answer_styles a7">7</div>
+                                        <div id="question_type_8_answer_8_preview" class="answer answer_styles a8">8</div>
+                                        <div id="question_type_8_answer_9_preview" class="answer answer_styles a9">9</div>
+                                        <div id="question_type_8_answer_10_preview" class="answer answer_styles a10">.</div>
+                                        <div id="question_type_8_answer_11_preview" class="answer answer_styles a11">0</div>
+                                        <div id="question_type_8_answer_12_preview" class="answer answer_styles a12">del</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                                <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                                <button type="submit" class="button next" ng-show="active_tab < current_tab.length - 1" ng-click="changeTab(active_tab + 1, question_type_8_form)">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" ng-switch-when="question_type_9">
+                        question type 9 TBD
+                    </div>
+                </ng-switch>
+            </div>
+            <div class="tab-pane" ng-switch-when="marketplace">
+                <form class="form-horizontal no-margin">
+                    <div class="control-group">
+                        <label class="control-label">List on marketplace?</label>
+                        <div class="controls">
+                            <input type="checkbox" name="marketplace" ng-model="challenge.marketplace">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="next-prev-btn-container pull-right" style="margin-top:10px;margin-right: 10px;">
+                        <a class="button prev" ng-show="active_tab != 0" ng-click="changeTab(active_tab - 1)">Previous</a>
+                        <button type="submit" class="button" ng-show="active_tab === current_tab.length - 1" ng-click="saveAddQuestion()">Save & Add question</button>
+                        <button type="submit" class="button submit"  ng-click="saveClose()">Save & Close</button>
+                    </div>
+                </form>
+            </div>
+        </ng-switch>
+    </div>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" >
+<head>
+    <title>Class Compete Teacher Portal</title>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="http://teacher.ccomp.local/assets/icomoon/style.css"/>
+    <link rel="stylesheet" href="http://cdn.classcompete.local/bootstrap/css/wysiwyg/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" href="http://cdn.classcompete.local/bootstrap/css/wysiwyg/wysiwyg-color.css"/>
+    <link rel="stylesheet" href="http://cdn.classcompete.local/bootstrap/css/main.css"/>
+    <link rel="stylesheet" href="http://cdn.classcompete.local/bootstrap/css/charts-graphs.css"/>
+
+    <!-- [if lte IE 8]>
+        <script src="http://cdn.classcompete.local/bootstrap/angular/lib/json3.js.js">
+    <![end if]-->
+
+    <!--[if lte IE 8]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+    </script>
+    <![endif]-->
+
+</head>
+<body ng-controller="DefaultCtrl" id="ng-app" ng-app="ccomp">
+<header ng-show="user.logged" ng-include="header_tmpl.url"></header>
+
+<div class="container-fluid">
+    <div class="dashboard-container"></div>
+    <div ng-show="user.logged" ng-include="menu_tmpl.url"></div>
+        <div ng-view></div>
+</div>
+
+
+<footer ng-show="user.logged" ng-include="footer_tmpl.url"></footer>
+<script src="http://cdn.classcompete.local/bootstrap/js/jquery.min.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/js/tiny-scrollbar.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/js/canvasRender.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/js/easyPieChart.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/js/jquery.sparkline.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/js/bootstrap.js"></script>
+
+<script src="http://cdn.classcompete.local/bootstrap/angular/lib/angular/angular.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/lib/angular/angular-webstorage.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/lib/angular/ui-bootstrap-tpls-0.6.0.min.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/lib/angular/angular-resource.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/lib/angular/angular-strap.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/app.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/services.js"></script>
+
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/AssignedChallengesCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/ClassroomCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/ContentBuilderCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/DefaultCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/HomeCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/LoginCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/MarketplaceCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/ProfileCtrl.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/controller/ReportCtrl.js"></script>
+
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/filters.js"></script>
+<script src="http://cdn.classcompete.local/bootstrap/angular/js/directives.js"></script>
+</body>
+</html>

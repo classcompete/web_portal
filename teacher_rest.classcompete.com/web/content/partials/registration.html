@@ -1,0 +1,147 @@
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="span3">&nbsp;</div>
+                <div class="span6">
+                    <div class="sign-in-container">
+                        <form id="register" class="login-wrapper" ng-submit="submit()">
+                            <div class="header">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <h3 style="color: #FF720C; font-size: 30px; font-weight: normal; line-height: 36px;" class="clearfix">
+                                            <span style="float: left; height: 40px; width: 40px; overflow: hidden; margin-right: 10px;">
+                                                <img src="http://teacher.classcompete.com/logo-new.png" alt="Logo" class="pull-left" style="max-width: inherit;">
+                                            </span>
+                                            Teacher Registration
+                                        </h3>
+
+                                        <p>Fill out the form below to make an account.</p>
+                                    </div>
+                                </div>
+
+                                <div class="content clearfix">
+                                    <div class="control-group span12 margin_left_0">
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.username}">
+                                            <input class="input span10" type="text" name="username" id="username" placeholder="Username" tabindex="1" ng-model="new_teacher.username"/>
+                                            <span class="error">*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.username}}</span>
+                                        </div>
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.password}">
+                                            <input class="input span10 password" placeholder="Password" type="password" id="password" name="password" tabindex="5" ng-model="new_teacher.password"/>
+                                            <span>*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.password}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group span12 margin_left_0">
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.first_name}">
+                                            <input class="input span10" placeholder="First name" type="text" name="first_name" id="first_name" tabindex="2" ng-model="new_teacher.first_name"/>
+                                            <span>*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.first_name}}</span>
+                                        </div>
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.re_password}">
+                                            <input class="input span10 password" placeholder="Repeat password" type="password" id="re_password" name="re_password" tabindex="6" ng-model="new_teacher.re_password"/>
+                                            <span>*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.re_password}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group span12 margin_left_0">
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.last_name}">
+                                            <input class="input span10" placeholder="Last name" type="text" name="last_name" id="last_name" tabindex="3" ng-model="new_teacher.last_name"/>
+                                            <span>*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.last_name}}</span>
+                                        </div>
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.zip_code}">
+                                            <input class="input span10" type="text" placeholder="Type zip code" id="zip_code" name="zip_code" tabindex="7" ng-model="new_teacher.zip_code"/>
+                                            <span class="help-inline">{{ ErrorService.errorMessage.zip_code }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group span12 margin_left_0" >
+                                        <div class="control-group span6" ng-class="{error:ErrorService.errorMessage.email}">
+                                            <input class="input span10" type="text" placeholder="Email" name="email" id="email" tabindex="4" ng-model="new_teacher.email"/>
+                                            <span>*</span>
+                                            <span class="help-inline">{{ErrorService.errorMessage.email}}</span>
+                                        </div>
+
+                                        <div class="control-group span6">
+                                            <input type="hidden" id="school_id" name="school_id">
+                                            <input class="input span10 password" placeholder="Type your school name" type="text" id="school_name" name="school_name" tabindex="8" autocomplete ng-model="new_teacher.school_name" data-obj="{{new_teacher}}"/>
+                                            <span>*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group span12 margin_left_0">
+                                        <div class="controls span6 register_not_listed">
+                                            <label>
+                                                <input type="checkbox" name="not_listed" tabindex="9" ng-model="new_teacher.not_listed">My school is not listed
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group grade_holder_registration">
+                                        <div class="controls clearfix">
+                                            <span class="help-inline">Select grades you are teaching</span>
+                                        </div>
+                                        <div class="controls grade_holder clearfix">
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[-2]" ng-model="new_teacher.grade.pre_k" ng-true-value="on"/>Pre - K
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[-1]" ng-model="new_teacher.grade.grade_k" ng-true-value="on"/>K
+                                            </label>
+                                        </div>
+                                        <div class="controls grade_holder clearfix">
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[1]" ng-model="new_teacher.grade.grade_first" ng-true-value="on"/>Grade 1
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[2]" ng-model="new_teacher.grade.grade_second" ng-true-value="on"/>Grade 2
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[3]" ng-model="new_teacher.grade.grade_third" ng-true-value="on"/>Grade 3
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[4]" ng-model="new_teacher.grade.grade_fourth" ng-true-value="on"/>Grade 4
+                                            </label>
+                                        </div>
+                                        <div class="controls grade_holder clearfix">
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[5]" ng-model="new_teacher.grade.grade_fifth" ng-true-value="on"/>Grade 5
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[6]" ng-model="new_teacher.grade.grade_sixth" ng-true-value="on"/>Grade 6
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[7]" ng-model="new_teacher.grade.grade_seventh" ng-true-value="on"/>Grade 7
+                                            </label>
+                                            <label class="span3">
+                                                <input class="input" type="checkbox" name="grade[8]" ng-model="new_teacher.grade.grade_eight" ng-true-value="on"/>Grade 8
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group register_accept" ng-class="{error:ErrorService.errorMessage.terms_and_policy}">
+                                        <label>
+                                            <input id="terms_and_policy" type="checkbox" name="terms_and_policy" ng-model="new_teacher.terms_and_policy">
+                                            I accept <a href="http://www.classcompete.com/privacy-policy-terms-conditions/" target="_blank">Terms and Conditions</a>
+                                            & <a href="http://www.classcompete.com/privacy-policy-terms-conditions/" target="_blank">Privacy Policy</a>
+                                        </label>
+                                        <span class="help-inline">{{ErrorService.errorMessage.terms_and_policy}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="actions">
+                                    <span>* required</span>
+                                    <button class="btn btn-primary" ng-click="signUp()">Sign up</button>
+                                    <a class="link" ng-href="/#password_recovery">Forgot Password?</a>
+                                    <a class="link" ng-href="/#login">Sign in</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

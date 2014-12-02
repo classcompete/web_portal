@@ -1,0 +1,36 @@
+/*
+Theme Name: Impreza
+Description: A Retina-Ready Responsive Creative WordPress Theme.
+Version: 1.5.4
+Author:	UpSolution
+Theme URI: http://us-themes.com/wp/Impreza/
+Author URI: http://us-themes.com/
+License: Themeforest Split Licence
+License URI: -
+*/
+
+
+.video-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+
+.video-container iframe,  
+.video-container object,  
+.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.entry-content img, 
+.entry-content iframe, 
+.entry-content object, 
+.entry-content embed {
+        max-width: 100%;
+}

@@ -1,0 +1,88 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3>Edit Challenge</h3>
+</div>
+<form id="edit_challenge_form" class="form-horizontal no-margin" novalidate name="edit_challenge_form">
+    <div class="modal-body">
+        <div class="control-group" ng-class="{error:ErrorService.errorMessage.challenge_name}">
+            <label class="control-label">Challenge Name</label>
+            <div class="controls">
+                <input type="text" id="challenge_name" class="validate" ng-model="challenge.challenge_name" name="challenge_name"
+                        data-rules="required" data-display="Challenge name"/>
+                <div class="help-inline" >{{ErrorService.errorMessage.challenge_name}}</div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-class="{error:ErrorService.errorMessage.subject_id}">
+            <label class="control-label">Select subject</label>
+            <div class="controls">
+                <select ng-model="challenge.subject_id"
+                        ng-options="value.subject_id as value.subject_name for (key,value) in subjects" ng-change="changeSubject(challenge.subject_id)"
+                        name="subject" id="subject" data-rules="required" class="validate">
+                    <option value="" disabled>-- Choose Subject --</option>
+                </select>
+                <div class="help-inline" >{{ErrorService.errorMessage.subject_id}}</div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-class="{error:ErrorService.errorMessage.skill_id}">
+            <label class="control-label">Select topic</label>
+            <div class="controls">
+                <select ng-model="challenge.skill_id"
+                        ng-options="value.skill_id as value.skill_name for (key,value) in skills" ng-change="changeTopic(challenge.skill_id)"
+                        name="topic" id="topic" data-display="Topic" data-rules="required" class="validate">
+                    <option value="" disabled>-- Choose Topic --</option>
+                </select>
+                <div class="help-inline" >{{ErrorService.errorMessage.skill_id}}</div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-class="{error:ErrorService.errorMessage.topic_id}">
+            <label class="control-label">Select subtopic</label>
+            <div class="controls">
+                <select ng-model="challenge.topic_id"
+                        ng-options="value.topic_id as value.topic_name for (key,value) in topics" ng-disabled="disableTopic"
+                        name="sub_topic" id="sub_topic" data-display="Subtopic" data-rules="required" class="validate">
+                    <option value="" disabled>-- Choose Subtopic --</option>
+                </select>
+                <div class="help-inline" >{{ErrorService.errorMessage.topic_id}}</div>
+            </div>
+        </div>
+
+        <div class="control-group"  ng-class="{error:ErrorService.errorMessage.grade_id}">
+            <label class="control-label">Grade</label>
+            <div class="controls">
+                <select ng-model="challenge.grade_id"
+                        ng-options="value.grade_id as value.grade_name for (key,value) in grades"
+                        name="grade" id="grade" data-rules="required" data-display="Grade" class="validate">
+                    <option value="" disabled>-- Choose Grade --</option>
+                </select>
+                <div class="help-inline" >{{ErrorService.errorMessage.grade_id}}</div>
+            </div>
+        </div>
+
+        <!--<div class="control-group"  ng-class="{error:ErrorService.errorMessage.game_id}">-->
+            <!--<label class="control-label">Environment</label>-->
+            <!--<div class="controls">-->
+                <!--<select ng-model="challenge.game_id"-->
+                        <!--ng-options="value.game_id as value.game_name for (key,value) in games"-->
+                        <!--name="environment" id="environment" data-rules="required" data-display="Environment">-->
+                    <!--<option value="" disabled>-- Choose Environment --</option>-->
+                <!--</select>-->
+                <!--<div class="help-inline" >{{ErrorService.errorMessage.game_id}}</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="control-group" >
+            <label class="control-label">Description</label>
+            <div class="controls">
+                <textarea class="resize_vertical" ng-model="challenge.description"></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok(edit_challenge_form)">Save changes</button>
+        <button type="button" class="btn btn-info" ng-click="cancel()">Close</button>
+    </div>
+</form>

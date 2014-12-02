@@ -1,0 +1,157 @@
+<div class="left-sidebar">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget no-margin">
+                <div class="widget-header">
+                    <div class="title">Edit Profile</div>
+                </div>
+                <div class="widget-body">
+                    <div class="container-fluid">
+                        <form id="edit_profile_form" name="edit_profile_form" class="form-horizontal no-margin">
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div class="thumbnail">
+                                        <img ng-src="{{ new_teacher.image_thumb}}">
+                                    </div>
+                                    <button type="button" class="btn btn-large btn-info btn-block" pl-upload pl-progress-model="percent" pl-auto-upload="true" pl-files-model="files"
+                                            pl-url="{{teacher_image_upload}}" on-file-uploaded="updateProfileImageView()">Upload image</button>
+
+                                    <div ng-show="percent">
+                                        <div class="progress progress-warning progress-striped no-margin">
+                                            <div id="upload_image_percent" ng-style="" class="bar"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span9">
+                                    <h5>Your Info</h5>
+                                    <hr>
+                                    <div class="control-group" ng-class="{error:ErrorService.errorMessage.first_name }">
+                                        <label class="control-label">First Name</label>
+                                        <div class="controls">
+                                            <input id="first_name" type="text" name="first_name" ng-model="new_teacher.first_name"
+                                                    data-rules="required|max_length[45]" data-display="First name" class="validate"/>
+                                            <span class="help-inline">{{ ErrorService.errorMessage.first_name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" ng-class="{error:ErrorService.errorMessage.last_name}">
+                                        <label class="control-label">Last Name</label>
+                                        <div class="controls">
+                                            <input id="last_name" type="text" name="last_name" ng-model="new_teacher.last_name"
+                                                    data-rules="required|max_length[45]" data-display="Last name" class="validate"/>
+                                            <span class="help-inline">{{ ErrorService.errorMessage.last_name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" ng-class="{error:ErrorService.errorMessage.email}">
+                                        <label class="control-label">Email</label>
+                                        <div class="controls">
+                                            <div class="input-prepend">
+                                                <span class="add-on">@</span>
+                                                <input id="email" type="text" class="validate span12" name="email" ng-model="new_teacher.email" style="width: 193px"
+                                                        data-rules="required|valid_email|max_length[45]" data-display="Email"/>
+                                                <span class="help-inline" style="font-size: 12px">{{ ErrorService.errorMessage.email }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Biography</label>
+                                        <div class="controls">
+                                            <textarea class="span6" cols="30" rows="10" name="bio" ng-model="new_teacher.biography"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="control-group grade_holder">
+                                        <div class="controls clearfix">
+                                            <label class="span2">
+                                                <input class="input" type="checkbox" name="grade[1]" ng-model="new_teacher.grades.grade_first">Grade 1
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox"  name="grade[2]" ng-model="new_teacher.grades.grade_second">Grade 2
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox"  name="grade[3]" ng-model="new_teacher.grades.grade_third"/>Grade 3
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox" name="grade[4]" ng-model="new_teacher.grades.grade_fourth"/>Grade 4
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox"  name="grade[5]" ng-model="new_teacher.grades.grade_fifth"/>Grade 5
+                                            </label>
+                                        </div>
+                                        <div class="controls clearfix">
+                                            <label class="span2">
+                                                <input class="input" type="checkbox" name="grade[6]" ng-model="new_teacher.grades.grade_sixth"/>Grade 6
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox"  name="grade[7]" ng-model="new_teacher.grades.grade_seventh"/>Grade 7
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox"  name="grade[8]" ng-model="new_teacher.grades.grade_eight"/>Grade 8
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox" name="grade[-2]" ng-model="new_teacher.grades.grade_pre_k"/>Pre - K
+                                            </label>
+                                            <label class="span2">
+                                                <input class="input" type="checkbox" name="grade[-1]" ng-model="new_teacher.grades.grade_k"/>K
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <h5>Change Password</h5>
+                                    <hr>
+                                    <div class="control-group" ng-class="{error:ErrorService.errorMessage.old_password}">
+                                        <label class="control-label">Old Password</label>
+                                        <div class="controls">
+                                            <input type="password" placeholder="Old Password" name="old_password" ng-model="new_teacher.old_password"/>
+                                            <span class="help-inline" ng-show="ErrorService.errorMessage.old_password">{{ ErrorService.errorMessage.old_password }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group" ng-class="{error: ErrorService.errorMessage.new_password}">
+                                        <label class="control-label">New Password</label>
+                                        <div class="controls">
+                                            <input type="password" placeholder="Password" name="new_password" ng-model="new_teacher.new_password"/>
+                                            <span class="help-inline" ng-show="ErrorService.errorMessage.new_password">{{ ErrorService.errorMessage.new_password }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group" ng-class="{error: ErrorService.errorMessage.re_new_password}">
+                                        <label class="control-label">Confirm Password</label>
+                                        <div class="controls">
+                                            <input type="password" placeholder="Confirm Password" name="re_new_password" ng-model="new_teacher.re_new_password"/>
+                                            <span class="help-inline" ng-show="ErrorService.errorMessage.re_new_password">{{ ErrorService.errorMessage.re_new_password }}</span>
+                                        </div>
+                                    </div>
+                                    <h5>Change School</h5>
+                                    <hr>
+                                    <span class="error_text" ng-show="new_teacher.school_id == 0">Your school is declined</span>
+                                    <div class="control-group">
+                                        <label class="control-label">Zip code</label>
+                                        <div class="controls">
+                                            <input class="input" type="text" placeholder="Type zip code" id="zip_code" name="zip_code" ng-model="new_teacher.zip_code"/>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">School name</label>
+                                        <div class="controls">
+                                            <input class="input password" placeholder="Type your school name" type="text" id="school_name" name="school_name" ng-model="new_teacher.school_name" autocomplete/>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">My school is not listed</label>
+                                        <div class="controls">
+                                            <input type="checkbox" name="not_listed" id="not_listed" ng-model="new_teacher.not_listed" >
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-info" ng-click="editProfile(edit_profile_form)">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="main-holder checkout-board">
+    <h2><span>Checkout</span></h2>
+    <p></p>
+
+    <div class="box">
+
+        <table>
+            <thead>
+            <tr>
+                <th>Class name</th>
+                <th>Student name</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="item in c_checkout.cart.items">
+                <tr ng-repeat="student in item.student">
+                    <td>{{item.className}}</td>
+                    <td>{{c_checkout.getStudent(student)}}</td>
+                    <td>${{item.price}}</td>
+                    <td ng-click="c_checkout.removeStudent(item, student)">Remove</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <td></td>
+                <td></td>
+                <td colspan="2">
+                    Total: ${{c_checkout.totalPrice}}
+                    <button class="btn" ng-click="c_checkout.buy($event)">BUY</button>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+

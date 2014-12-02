@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3>Resize and Crop image</h3>
+</div>
+<div class="modal-body">
+    <button class="btn btn-warning" id="question_image_upload" pl-upload pl-progress-model="percent" pl-auto-upload="true" pl-files-model="files"
+            pl-url="{{question_image}}" on-file-uploaded="imageUploaded()" uploaded-image="uploadedImage">Upload image</button>
+    <div id="crop_wrapper" class="clearfix">
+        <div ng-show="percent">
+            <div class="progress progress-warning progress-striped no-margin">
+                <div id="upload_image_percent" ng-style="" class="bar"> </div>
+            </div>
+        </div>
+        <div ng-show="percent == 100">
+            <small class="image_zoom_slider_caption" style="display: none">Image zoom</small>
+            <div id="image_zoom_slider" image-url="{{image}}" new-image="{{new_image}}" image-name="{{image_name}}" image-zoom-slider></div>
+        </div>
+        <small>Drag the image to adjust its position</small>
+        <div id="crop_image_wrapper">
+            <img id="crop_image" class="crop_image" ng-src="{{image}}" style="display: none"/>
+        </div>
+
+    </div>
+    <input id="background_color" colorpicker="rgb" class="span2" type="text" ng-model="background_image_color" colorpicker-position="top"/>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="reset_position">Reset position</button>
+    <button class="btn btn-primary" id="crop_image_submit" ng-click="done()">Done</button>
+</div>
+
+<input type="hidden" name="image" id="crop_image_name"/>

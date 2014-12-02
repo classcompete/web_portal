@@ -1,0 +1,18 @@
+<a class="logo" href="">
+    <img alt="Logo" src="http://teacher.classcompete.com/assets/images/logo.png">
+</a>
+
+<div class="user-profile">
+    <a class="dropdown-toggle" data-toggle="dropdown">
+        <img ng-src="{{ user.teacher_image }}"/>
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu pull-right">
+        <li>
+            <a ng-href="/#profile">Edit Profile</a>
+        </li>
+        <li>
+            <a ng-click="logout()">Logout</a>
+        </li>
+    </ul>
+</div>

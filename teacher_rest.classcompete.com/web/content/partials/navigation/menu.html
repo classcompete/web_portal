@@ -1,0 +1,115 @@
+<div class="top-nav">
+    <ul bs-navbar>
+        <li >
+            <a ng-href='#/home' href data-match-route="/home">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe0a0;"></div>
+                Home
+            </a>
+        </li>
+        <li>
+            <a ng-href='#/classes' href  data-match-route="/classes">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe021;"></div>
+                Classrooms
+            </a>
+        </li>
+        <li>
+            <a ng-href='#/assigned_challenges' href data-match-route="/challenge/assigned_challenges/content_builder/marketplace">
+                <div class="fs1 " aria-hidden="true" data-icon="&#xe0a4;"></div>
+                Challenges
+            </a>
+        </li>
+        <li>
+            <a ng-href='#/basic_report' href data-match-route="/basic_report/statistic_report">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe097;"></div>
+            Reporting
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix">
+    </div>
+</div>
+
+<div class="sub-nav">
+    <!-- challenge-->
+    <ul ng-show="subNavChallenges" bs-navbar>
+        <li>
+            <a ng-href="" class="heading">Challenge Management</a>
+        </li>
+        <li>
+            <a ng-href='#/marketplace' href data-match-route="/marketplace">View Challenges</a>
+        </li>
+        <li>
+            <a ng-href='#/assigned_challenges' href data-match-route="/assigned_challenges">Assigned Challenges</a>
+        </li>
+        <li>
+            <a ng-href='#/content_builder' href data-match-route="/content_builder">Create Challenges</a>
+        </li>
+    </ul>
+    <!-- reporting-->
+    <ul ng-show="subNavReports" bs-navbar>
+
+        <li>
+            <a ng-href="" class="heading">Reporting Management</a>
+        </li>
+        <li>
+            <a ng-href="#/basic_report" data-match-route="/basic_report">Basic</a>
+        </li>
+        <li>
+            <a ng-href="#/statistic_report" data-match-route="/statistic_report">Statistic</a>
+        </li>
+    </ul>
+
+    <div class="btn-group pull-right">
+        <button class="btn btn-warning2">
+            Main Navigation
+        </button>
+        <button data-toggle="dropdown" class="btn btn-warning2 dropdown-toggle">
+              <span class="caret">
+              </span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="#/home">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#/classes">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Classrooms
+                </a>
+            </li>
+            <li>
+                <a ng-href="/#assigned_challenges">
+                    <div class="fs1" aria-hidden="true"></div>
+                    My Challenges
+                </a>
+            </li>
+            <li>
+                <a href="#/content_builder">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Content Builder
+                </a>
+            </li>
+            <li>
+                <a href="#/marketplace">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Marketplace
+                </a>
+            </li>
+            <li>
+                <a href="#/basic_report">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Basic report
+                </a>
+            </li>
+            <li>
+                <a href="#/statistic_report">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Statistic report
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

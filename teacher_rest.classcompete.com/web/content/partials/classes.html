@@ -1,0 +1,121 @@
+
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span9">
+                <div class="widget">
+
+                    <div class="widget-header">
+                        <div class="title">Class Management</div>
+                        <span class="tools">
+                            <button class="btn btn-small btn-info" ng-click="addEditClass(null, $event)"> + Add new class </button>
+                        </span>
+                    </div>
+
+                    <div class="widget-body clearfix">
+                        <div class="accordion no-margin mod-classes" id="accordion1">
+                            <div class="accordion-group" ng-repeat="classroom in classrooms">
+                                <div class="accordion-heading" ng-click="getStudents(classroom.class_id)">
+                                    <a target="_self" class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion1"
+                                       href="#collapse{{classroom.class_id}}" data-original-title=""
+                                       id="{{classroom.class_id}}">
+                                        <i class="icon-home"
+                                           data-original-title=""></i>&nbsp;{{classroom.name}}
+                                    </a>
+                                    <span class="tools">
+                                        <a data-original-title="" data-icon="&#xe096" aria-hidden="true" title="" href="" ng-click="getStudentStatChallenges(classroom.class_id, $event)"></a>
+
+                                        <a ng-href="" class="refresh" data-icon="&#xe11c;" title="Refresh Class" ng-click="getStudents(classroom.class_id, $event)"></a>
+                                        <a ng-href="" data-icon="&#xe023"
+                                           title="Edit {{classroom.name}}"
+                                           ng-click="addEditClass($index, $event)"></a>
+                                    </span>
+                                </div>
+                                <div style="height: 0px;" id="collapse{{classroom.class_id}}" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <div class="span9">
+                                            <h5>
+                                                <span id="accordion_list_count">
+                                                    </span>{{number_of_students}} Students Enrolled</h5>
+                                            <ul id="accordion_list">
+                                               <li class="repeat-item" ng-repeat="student in students">
+                                                   <i class="icon-user" data-original-title=""></i>
+                                                   {{student.first_name}} {{student.last_name}}
+                                                   <div class="pull-right">
+                                                       <a data-icon="&#xe096" ng-click="studentInformation(classroom.class_id, student.student_id)">&nbsp;</a>
+                                                       <a data-icon="&#xe087" ng-click="changePassword($index,student.student_id)">&nbsp;</a>
+                                                       <a data-icon="&#xe0a8" ng-click="removeStudent(classroom.class_id, $index)" >&nbsp;</a>
+                                                   </div>
+                                               </li>
+                                            </ul>
+                                        </div>
+                                        <div class="span3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Your Class Averages</div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="wrapper">
+                            <ul class="progress-statistics">
+                                <li ng-repeat="classroom_average in class_statistic">
+                                    <div class="details">
+                                        <span>{{classroom_average.class_name}}</span>
+                                        <span class="pull-right">{{classroom_average.class_statistic}}%</span>
+                                    </div>
+                                    <div class="progress  progress-striped active">
+                                        <div ng-style="{width: classroom_average.class_statistic + '%'}" class="bar">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        <div class="wrapper">
+            <div  id="scrollbar" tinyscrollbar>
+                <div class="scrollbar"><div class="track"><div class="thumb" ><div class="end"></div></div></div></div>
+                <div class="viewport">
+                    <div class="overview" >
+                        <div class="featured-articles-container featured-articles-container_min_height">
+                            <h5 class="heading">Class Compete Overview</h5>
+                            <div class="articles">
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Click "Add Class"
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Create a Fun Class Name
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Give Your Class Code to Students
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Assign Challenges
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    See the Results
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,176 @@
+    <div class="left-sidebar">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-body">
+                            <div class="row-fluid">
+                                <div class="metro-nav">
+                                    <div class="metro-nav-block nav-block-orange margin_bottom_0">
+                                        <a data-original-title="" ng-href="">
+                                            <div data-icon="" aria-hidden="true" class="fs1"></div>
+                                            <div class="info">{{teacher_stats.total_students}}</div>
+                                            <div class="brand">Total Students</div>
+                                        </a>
+                                    </div>
+                                    <div class="metro-nav-block nav-block-yellow margin_bottom_0">
+                                        <a data-original-title="" ng-href="">
+                                            <div data-icon="" aria-hidden="true" class="fs1"></div>
+                                            <div class="info">{{teacher_stats.total_classes}}</div>
+                                            <div class="brand">Total Classes</div>
+                                        </a>
+                                    </div>
+                                    <div class="metro-nav-block nav-block-blue double margin_bottom_0">
+                                        <a data-original-title="" ng-href="">
+                                            <div data-icon="" aria-hidden="true" class="fs1"></div>
+                                            <div class="info">{{teacher_stats.total_challenges}}</div>
+                                            <div class="brand">Total Challenges</div>
+                                        </a>
+                                    </div>
+                                    <div class="metro-nav-block nav-block-green margin_bottom_0">
+                                        <a data-original-title="" ng-href="">
+                                            <div data-icon="" aria-hidden="true" class="fs1"></div>
+                                            <div class="info"></div>
+                                            <div class="brand">Reports</div>
+                                        </a>
+                                    </div>
+                                    <div class="metro-nav-block nav-block-red margin_bottom_0">
+                                        <a data-original-title="" ng-href="">
+                                            <div data-icon="" aria-hidden="true" class="fs1"></div>
+                                            <div class="info">{{teacher_stats.total_marketplace}}</div>
+                                            <div class="brand">Marketplace</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span9">
+                    <div class="span12 margin_left_0">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <div class="title"><span data-icon="" aria-hidden="true" class="fs1"></span> States Running
+                                    Challenges
+                                </div>
+                            </div>
+                            <div class="widget-body">
+                                <div geochart id="geo_chart" data="geoChartData" style="position: relative; height: 400px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="widget class_compete_total_fit">
+                        <div class="widget-header">
+                            <div class="title">Class Compete Total</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="wrapper">
+                                <ul class="stats">
+                                    <li>
+                                        <div class="left">
+                                            <h4>
+                                                {{class_compete_total.challenges.total_challenge}}
+                                            </h4>
+                                            <p>
+                                                Total challenges
+                                            </p>
+                                        </div>
+                                        <div class="chart">
+                                            <span id="challenges_sparkline" bulletcharksparkline data-id="challenges_sparkline" data="{{class_compete_total.challenges.total_challenge_sparkline}}"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h4>
+                                                {{class_compete_total.teachers.total_teachers}}
+                                            </h4>
+                                            <p>
+                                                Total teachers
+                                            </p>
+                                        </div>
+                                        <div class="chart">
+                                            <span id="teacher_sparkline" bulletcharksparkline data-id="teacher_sparkline" data="{{class_compete_total.teachers.total_teachers_sparkline}}"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h4>
+                                                {{class_compete_total.students.total_students}}
+                                            </h4>
+                                            <p>
+                                                Total students
+                                            </p>
+                                        </div>
+                                        <div class="chart">
+                                            <span id="students_sparkline" bulletcharksparkline data-id="students_sparkline" data="{{class_compete_total.students.total_students_sparkline}}"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h4>
+                                            </h4>
+                                            <p>
+                                            </p>
+                                        </div>
+                                        <div class="chart">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <h4>
+                                            </h4>
+                                            <p>
+                                            </p>
+                                        </div>
+                                        <div class="chart">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="right-sidebar">
+        <div class="wrapper">
+            <div  id="scrollbar" tinyscrollbar>
+                    <div class="scrollbar">
+                        <div class="track">
+                            <div class="thumb" >
+                                <div class="end">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="viewport">
+                        <div class="overview" >
+                            <div class="featured-articles-container featured-articles-container_min_height">
+                                <h5 class="heading">Class Compete Overview</h5>
+                                <div class="articles">
+                                    <a data-original-title="">
+                                        <span class="label-bullet">&nbsp;</span>
+                                        Setup Classroom
+                                    </a>
+                                    <a data-original-title="">
+                                        <span class="label-bullet">&nbsp;</span>
+                                        Lookup Challenges in Marketplace
+                                    </a>
+                                    <a data-original-title="">
+                                        <span class="label-bullet">&nbsp;</span>
+                                        Assign Challenges to Classroom
+                                    </a>
+                                    <a data-original-title="">
+                                        <span class="label-bullet">&nbsp;</span>
+                                        Watch the Results!!!
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>

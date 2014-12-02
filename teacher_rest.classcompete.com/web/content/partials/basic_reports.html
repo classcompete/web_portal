@@ -1,0 +1,116 @@
+<div class="dashboard-wrapper">
+    <div class="left-sidebar margin_right_0 reporting">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Students statistics by classroom</div>
+                        <span class="tools">
+                            <select ng-model="selectedClassStudentChallenges" ng-options="c.name for c in classrooms" ng-change="changeClassStudentChartData(selectedClassStudentChallenges)">{{ classroom }}</select>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div ng-show="chartDataStudentChallenges.stats.length > 0" google-chart data="chartDataStudentChallenges" type="ColumnChart" width="auto" height="160" style="position: relative" ></div>
+                        <div ng-show="chartDataStudentChallenges.error"><h4 class="text-info">{{chartDataStudentChallenges.error}}</h4></div>
+                    </div>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Top 3 Challenges</div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="easy-pie-charts-container" style="padding: 10px 10px; min-height: 160px">
+                            <div class="pie-chart" ng-repeat="top_challenge in top_challenges">
+                                <div easypiechart2 id="chart{{$index}}" class="chart easyPieChart" index="{{$index}}" percent="{{top_challenge.played_times_percent}}" style="width: 140px; height: 140px; line-height: 140px;">
+                                    {{top_challenge.played_times_percent}} %
+                                    <canvas width="140" height="140"></canvas>
+                                </div>
+                                <p class="name">{{top_challenge.challenge_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Top 3 Classes</div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="easy-pie-charts-container" style="padding: 10px 10px; min-height: 160px">
+                            <div class="pie-chart" ng-repeat="top_class in top_classes">
+                                <div easypiechart2 id="chartclass{{$index}}" class="chart easyPieChart" index="{{$index}}" percent="{{top_class.class_statistic}}" style="width: 140px; height: 140px; line-height: 140px;">
+                                    {{top_class.class_statistic}} %
+                                    <canvas width="140" height="140"></canvas>
+                                </div>
+                                <p class="name">{{top_class.class_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Top 3 students by classroom</div>
+                        <span class="tools">
+                            <select ng-model="selectedClassTopStudent" ng-options="c.name for c in classrooms" ng-change="changeTopStudentChartData(selectedClassTopStudent)">{{ classroom }}</select>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div ng-show="top_students.length > 0" class="easy-pie-charts-container" style="padding: 10px 10px; min-height: 160px">
+                            <div class="pie-chart" ng-repeat="top_student in top_students">
+                                <div easypiechart2 id="charttop_student{{$index}}" class="chart easyPieChart" index="{{$index}}" percent="{{top_student.result}}" style="width: 140px; height: 140px; line-height: 140px;">
+                                    {{top_student.result}} %
+                                    <canvas width="140" height="140"></canvas>
+                                </div>
+                                <p class="name">{{top_student.name}}</p>
+                            </div>
+                        </div>
+                        <div ng-show="top_students.length === 0" style="padding: 10px 10px; min-height: 160px">
+                            <h4 class="text-info">This class has no corresponding data</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">Bottom 3 students by classroom</div>
+                        <span class="tools">
+                            <select ng-model="selectedClassBottomStudent" ng-options="c.name for c in classrooms" ng-change="changeBottomStudentChartData(selectedClassBottomStudent)">{{ classroom }}</select>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div ng-show="bottom_students.length > 0" class="easy-pie-charts-container" style="padding: 10px 10px; min-height: 160px">
+                            <div class="pie-chart" ng-repeat="bottom_student in bottom_students">
+                                <div easypiechart2 id="chartbottom_student{{$index}}" class="chart easyPieChart" index="{{$index}}" percent="{{bottom_student.result}}" style="width: 140px; height: 140px; line-height: 140px;">
+                                    {{bottom_student.result}} %
+                                    <canvas width="140" height="140"></canvas>
+                                </div>
+                                <p class="name">{{bottom_student.name}}</p>
+                            </div>
+                        </div>
+                        <div ng-show="bottom_students.length === 0" style="padding: 10px 10px; min-height: 160px">
+                            <h4 class="text-info">This class has no corresponding data</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span12 margin_left_0">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title"><span data-icon="" aria-hidden="true" class="fs1"></span> States Running
+                            Challenges
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div geochart id="geo_chart" data="geoChartData" style="position: relative; height: 400px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

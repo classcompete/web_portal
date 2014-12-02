@@ -1,0 +1,86 @@
+<div class="left-sidebar" dashboardstyleadd>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget no-margin">
+                <div class="widget-header">
+                    <div class="title">Edit Profile</div>
+                </div>
+                <div class="widget-body">
+                    <div class="container-fluid">
+                        <form id="profile_form" name="profile_form" class="form-horizontal no-margin">
+                            <div class="span9">
+                                <h5>Your info</h5>
+                                <hr>
+                                <div class="control-group" ng-class="{error:ErrorService.errorMessage.fist_name}">
+                                    <label class="control-label">First Name</label>
+                                    <div class="controls">
+                                        <input id="first_name" type="text" name="first_name" ng-model="parent.first_name"
+                                                data-rules="required|max_length[45]" data-display="First name" class="validate">
+                                            <span class="help-inline">{{ErrorService.errorMessage.first_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="control-group" ng-class="{error:ErrorService.errorMessage.last_name}">
+                                    <label class="control-label">Last Name</label>
+                                    <div class="controls">
+                                        <input id="last_name" type="text" name="last_name" ng-model="parent.last_name"
+                                                data-rules="required|max_length[45]" data-display="Last name" class="validate">
+                                        <span class="help-inline">{{ErrorService.errorMessage.last_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="control-group" ng-class="{error:ErrorService.errorMessage.email}">
+                                    <label class="control-label">Email</label>
+                                    <div class="controls">
+                                        <div class="input-prepend">
+                                            <span class="add-on">@</span>
+                                            <input id="email" type="text" class="validate span12" name="email" ng-model="parent.email" style="width: 193px"
+                                                   data-rules="required|valid_email|max_length[45]" data-display="Email"/>
+                                            <span class="help-inline" style="font-size: 12px">{{ ErrorService.errorMessage.email }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>Change Password</h5>
+                                <hr>
+                                <div class="control-group" ng-class="{error:ErrorService.errorMessage.old_password}">
+                                    <label class="control-label">Old Password</label>
+                                    <div class="controls">
+                                        <input type="password" placeholder="Old Password" name="old_password" ng-model="parent.old_password"/>
+                                        <span class="help-inline" ng-show="ErrorService.errorMessage.old_password">{{ ErrorService.errorMessage.old_password }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group" ng-class="{error: ErrorService.errorMessage.new_password}">
+                                    <label class="control-label">New Password</label>
+                                    <div class="controls">
+                                        <input type="password" placeholder="Password" name="new_password" ng-model="parent.new_password"/>
+                                        <span class="help-inline" ng-show="ErrorService.errorMessage.new_password">{{ ErrorService.errorMessage.new_password }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group" ng-class="{error: ErrorService.errorMessage.re_new_password}">
+                                    <label class="control-label">Confirm Password</label>
+                                    <div class="controls">
+                                        <input type="password" placeholder="Confirm Password" name="re_new_password" ng-model="parent.re_new_password"/>
+                                        <span class="help-inline" ng-show="ErrorService.errorMessage.re_new_password">{{ ErrorService.errorMessage.re_new_password }}</span>
+                                    </div>
+                                </div>
+                                <h5>Change Time zone</h5>
+                                <hr/>
+                                <div class="control-group">
+                                    <div class="control-label">Time zone</div>
+                                    <div class="controls">
+                                        <select ng-model="selectedTimezone" ng-options="t.name for t in timezones" ng-change="selectTimezone(selectedTimezone)">
+                                            <option value="" disabled>Select time zone</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-info" ng-click="editProfile(profile_form)">Save changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

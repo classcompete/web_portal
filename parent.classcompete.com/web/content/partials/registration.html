@@ -1,0 +1,80 @@
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="span3">&nbsp;</div>
+                <div class="span6">
+                    <div class="sign-in-container">
+                        <form id="register_form" name="register_form" class="login-wrapper">
+                            <div class="header">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <h3 style="color:#3D96D0;" class="clearfix"><img src="../img/parent_login_logo.png" alt="Logo" class="pull-left"></h3>
+                                        <p>Fill out the form below to make an account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content ">
+                                <div class="row-fluid">
+                                        <div class="span6" ng-class="{error: ErrorService.errorMessage.username}">
+                                            <input id="username" class="input span12 validate" type="text" ng-model="new_parent.username" placeholder="Username" name="username"
+                                                    data-display="Username" data-rules="required" autocomplete="off">
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.username}}</span>
+                                        </div>
+                                        <div class="span6" ng-class="{error: ErrorService.errorMessage.password}">
+                                            <input id="password" name="password" class="input span12 validate" type="password" ng-model="new_parent.password" placeholder="Password"
+                                                    data-display="Password" data-rules="required" autocomplete="off"/>
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.password}}</span>
+                                        </div>
+                                </div>
+                                <div class="row-fluid">
+                                        <div class="span6" ng-class="{error: ErrorService.errorMessage.first_name}">
+                                            <input type="text" id="first_name" name="first_name" class="input span12 validate" ng-model="new_parent.first_name" placeholder="First name"
+                                                    data-display="First name" data-rules="required" autocomplete="off"/>
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.first_name}}</span>
+                                        </div>
+                                        <div class="span6" ng-class="{error: ErrorService.errorMessage.repassword}">
+                                            <input type="password" class="input span12 validate" id="repassword" name="repassword" ng-model="new_parent.repassword" placeholder="Repeat password"
+                                                    data-display="Retype password" data-rules="required|matches[password]" autocomplete="off">
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.repassword}}</span>
+                                        </div>
+                                </div>
+                                <div class="row-fluid">
+                                        <div class="span6" ng-class="{error: ErrorService.errorMessage.last_name}">
+                                            <input type="text" id="last_name" name="last_name" ng-model="new_parent.last_name" class="input span12 validate" placeholder="Last name"
+                                                    data-display="Last name" data-rules="required" autocomplete="off"/>
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.last_name}}</span>
+                                        </div>
+                                        <div class="span6" ng-class="{error:ErrorService.errorMessage.email}">
+                                            <input type="text" ng-model="new_parent.email" id="email" name="email" placeholder="Email" class="input span12 validate"
+                                                    data-display="Email" data-rules="required|valid_email" autocomplete="off"/>
+                                            <span class="help-inline error_text">{{ErrorService.errorMessage.email}}</span>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="content content-actions">
+                                <span class="info"></span>
+                                <p class="social_login_desc pull-left"> or sign up with social networks</p>
+                                <button class="btn btn-primary pull-right" ng-click="signUp()">Sign up</button>
+                                <a ng-href="/#login" class="link pull-right">Sign in</a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="content">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <button class="btn_google_register" ng-click="google_register()" googlesignup></button>
+                                    </div>
+                                    <div class="span2">
+                                        <button class="btn_facebook_register" ng-click="facebook_register()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="span3">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span9">
+                <div class="widget">
+                    <div class="widget-header" ng-class="{widgetHeaderChangeHeight: !searchCollapsed || !filterCollapsed}" >
+                        <div class="title">Classroom Challenges</div>
+                        <span class="tools">
+                             <a class="btn btn-info" ng-href="" data-icon="&#xe07f" title="Search" ng-click="collapseFilters('search')" ng-class="{disabled:!searchCollapsed}"></a>
+                             <a class="btn btn-info" ng-href="" data-icon="&#xe13f" title="Filter" ng-click="collapseFilters('filter')"  ng-class="{disabled:!filterCollapsed}"></a>
+                        </span>
+                        <div class="clearfix"></div>
+                        <div class="pull-right" style="padding: 5px; width: 290px">
+                            <div ng-hide="searchCollapsed">
+                                <input class="search-query input-large pull-right" type="text" placeholder="Search by challenge name" ng-change="search()" ng-model="query_challenges">
+                            </div>
+                            <div ng-hide="filterCollapsed" class="challenge_filter_toggle">
+                                <select ng-model="selectedItemsPerPage" ng-options="p.per_page for p in viewPerPage" ng-change="changeItemPerPage(selectedItemsPerPage)" class="span3">{{ p }}</select>
+                                <select ng-model="selected_classroom" ng-options="c.name for c in classrooms" ng-change="getChallenges(selected_classroom)">{{ classroom }}
+                                    <option value="">All Classrooms</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-body clearfix">
+                        <div class="container-fluid mod-challenge">
+                            <div class="span5 margin_bottom margin_left_0 my_challenge repeat-item" ng-repeat="challenge in pagedChallenges[currentPage] | orderBy:sortingOrder:reverse">
+                                <div class="float_left">
+                                   <div class="thumbnail_challenge" power-tip-challenge>
+                                       <img ng-src="{{challenge.teacher_image}}" image-reloader>
+                                   </div>
+                                </div>
+                                <div class="float_left">
+                                    <h5 class="challenge_list_width" style="width: 210px">{{ challenge.challenge_name }}</h5>
+                                    <span>{{ challenge.data.class_name }}</span>
+                                    <p style="margin-top: 5px">
+                                        <button class="btn btn-mini btn-danger" ng-click="remove($index,challenge.uninstall_challenge)">Remove</button>
+                                        <button ng-show="{{ challenge.edit_challenge }}" class="btn btn-mini btn-warning" ng-click="edit($index)">Edit</button>
+                                        <button ng-show="{{ challenge.edit_challenge }}" class="btn btn-mini btn-info" ng-click="questions(challenge.challenge_id)">Questions</button>
+                                    </p>
+                                </div>
+                                <div class="tooltip_content" style="display: none">
+                                    <h3 class="text_align_center"><strong>{{ challenge.challenge_name }}</strong></h3>
+                                    <div class="tooltip_author">
+                                        <span>by:</span>
+                                        <span class="text_align_center">{{ challenge.author_name }}</span>
+                                        <img class="tooltip_img" ng-src="{{ challenge.teacher_image }}" image-reloader/>
+                                    </div>
+                                    <dl class="inline">
+                                        <dt>Subject:</dt>
+                                        <dd>{{ challenge.data.subject_name }}</dd>
+                                        <dt>Topic:</dt>
+                                        <dd>{{ challenge.data.skill_name }}</dd>
+                                        <dt>Subtopic:</dt>
+                                        <dd>{{ challenge.data.topic_name }}</dd>
+                                        <dt>Grade:</dt>
+                                        <dd>{{ challenge.data.level }}</dd>
+                                        <dt>Environment:</dt>
+                                        <dd>{{ challenge.data.game_name }}</dd>
+                                        <dt>Questions:</dt>
+                                        <dd>{{ challenge.number_of_questions }}</dd>
+                                        <dt>Played times:</dt>
+                                        <dd>{{ challenge.data.played_times }}</dd>
+                                    </dl>
+                                    <div class="tooltip_description" ng-show="challenge.description">
+                                        <span>Description</span>
+                                        <p>{{ challenge.description }}</p>
+                                    </div>
+                                    <div class="tooltip_description" ng-show="challenge.teacher_biography">
+                                        <span>Teacher biography</span>
+                                        <p>{{ challenge.teacher_biography }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pagination pull-right no-margin">
+                                <ul>
+                                    <li ng-class="{disabled: currentPage == 0}">
+                                        <a href ng-click="prevPage()">Prev</a>
+                                    </li>
+                                    <li ng-click="setPage()" ng-class="{active: n == currentPage}" ng-repeat="n in range(pagedChallenges.length)">
+                                        <a href ng-bind="n + 1">1</a>
+                                    </li>
+                                    <li ng-class="{disabled: currentPage == pagedChallenges.length - 1}">
+                                        <a href ng-click="nextPage()">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ <div class="right-sidebar">
+        <div class="wrapper">
+            <div  id="scrollbar" tinyscrollbar>
+                <div class="scrollbar"><div class="track"><div class="thumb" ><div class="end"></div></div></div></div>
+                <div class="viewport">
+                    <div class="overview" >
+                        <div class="featured-articles-container featured-articles-container_min_height">
+                            <h5 class="heading">Challenge Wizard</h5>
+                            <div class="articles">
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Search the marketplace for Exist Challenges
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Assign Challenges to a Classroom
+                                </a>
+                                <a>
+                                    <span class="label-bullet">&nbsp;</span>
+                                    Create Challenges for your Classes or to be listed in the Marketplace
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
