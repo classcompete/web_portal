@@ -57,13 +57,15 @@
                         <div class="title"><span data-icon="&#xe021;"></span> Step 1</div>
                     </div>
                     <div class="widget-body">
-                        <h4>
-                            Create a Classroom
-                        </h4>
-                        <p style="font-size: 14px; min-height: 100px">
-                            Give the <strong>Code</strong> you create to students so they will see challenges
-                            you assign to the classroom
-                        </p>
+                        <a href="/classes">
+                            <h4>
+                                Create a Classroom
+                            </h4>
+                            <p style="font-size: 14px; min-height: 100px">
+                                Give the <strong>Code</strong> you create to students so they will see challenges
+                                you assign to the classroom
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -73,10 +75,12 @@
                         <div class="title"><span data-icon="&#xe0a4;"></span>  Step 2</div>
                     </div>
                     <div class="widget-body">
-                        <h4>Assign Challenges</h4>
-                        <p style="font-size: 14px; min-height: 100px">
-                            Filter by Grade, or Subject, or Topic and assign a challenge to classroom
-                        </p>
+                        <a href="/marketplace">
+                            <h4>Assign Challenges</h4>
+                            <p style="font-size: 14px; min-height: 100px">
+                                Filter by Grade, or Subject, or Topic and assign a challenge to classroom
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -86,11 +90,13 @@
                         <div class="title"><span data-icon=""></span> Step 3</div>
                     </div>
                     <div class="widget-body">
-                        <h4>Tell Students to Play</h4>
-                        <p style="font-size: 14px; min-height: 100px">
-                            Students can login to the game and when they use your code,
-                            will see the challenges you assigned and can compete against others
-                        </p>
+                        <a href="/support">
+                            <h4>Tell Students to Play</h4>
+                            <p style="font-size: 14px; min-height: 100px">
+                                Students can login to the game and when they use your code,
+                                will see the challenges you assigned and can compete against others
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -100,11 +106,54 @@
                         <div class="title"><span data-icon="&#xe097;"></span> Step 4</div>
                     </div>
                     <div class="widget-body">
-                        <h4>Monitor Results</h4>
-                        <p style="font-size: 14px; min-height: 100px">
-                            Click a classroom and see individual student and classroom results and adjust
-                            challenges accordingly
-                        </p>
+                        <a href="/marketplace">
+                            <h4>Monitor Results</h4>
+                            <p style="font-size: 14px; min-height: 100px">
+                                Click a classroom and see individual student and classroom results and adjust
+                                challenges accordingly
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title" style="width: 50%">Want to try as student?</div>
+                    </div>
+                    <div class="widget-body">
+                        <p>Register as student and enter the following trial codes</p>
+                        <div class="row-fluid">
+                            <?php for ($i=1; $i<=4; $i++): ?>
+                            <div class="span3">
+                                <div class="widget">
+                                    <div class="widget-header">
+                                        <div class="title"> Grade <?php echo $i ?></div>
+                                    </div>
+                                    <div class="widget-body">
+                                        <strong style="font-size: 15px; color: #ed6d49">trymath<?php echo $i ?></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endfor ?>
+                        </div>
+                        <div class="row-fluid">
+                            <?php for ($i=5; $i<=8; $i++): ?>
+                                <div class="span3">
+                                    <div class="widget">
+                                        <div class="widget-header">
+                                            <div class="title">Grade <?php echo $i ?></div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <strong style="font-size: 15px; color: #ed6d49">trymath<?php echo $i ?></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endfor ?>
+                        </div>
                     </div>
                 </div>
             </div>

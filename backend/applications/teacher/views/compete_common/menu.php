@@ -125,6 +125,18 @@
                     Statistic Reports
                 </a>
             </li>
+            <li>
+                <a href="<?php echo base_url('store')?>">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Licenses
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('support')?>">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Support
+                </a>
+            </li>
         </ul>
     </div>
 </div>

@@ -1,9 +1,7 @@
 <div class="main-holder checkout-board">
     <h2><span>Checkout</span></h2>
     <p></p>
-
     <div class="box">
-
         <table>
             <thead>
             <tr>
@@ -22,8 +20,12 @@
                 </tr>
             </tbody>
             <tfoot>
-                <td></td>
-                <td></td>
+                <td colspan="2">
+                    <h4 style="color: #EA7B36; font-size: 16px; font-weight: normal; line-height: 70px;">
+                        * If you have a coupon please purchase from
+                        <a href="http://www.classcompete.com" style="color:#6779a1">www.classcompete.com</a>
+                    </h4>
+                </td>
                 <td colspan="2">
                     Total: ${{c_checkout.totalPrice}}
                     <button class="btn" ng-click="c_checkout.buy($event)">BUY</button>
@@ -31,6 +33,5 @@
             </tfoot>
         </table>
     </div>
-
 </div>
 

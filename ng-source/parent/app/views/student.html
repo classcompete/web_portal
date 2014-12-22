@@ -32,9 +32,9 @@
 
             </ul>
             <ul class="right">
-                <li class="required">
+                <!--<li class="required">
                     <input type="text" placeholder="Email" ng-model="student.email" >
-                </li>
+                </li>-->
                 <li class="required">
                     <input type="text" placeholder="Create user name" ng-model="student.username" >
                 </li>
@@ -49,8 +49,12 @@
         </form>
 
     </div>
-    <span style="margin-right: 35px;" class="add-new" ng-show="!c_student.addStudentForm && !c_student.addConnectionStudentForm" ng-click="c_student.showStudentForm('addConnection')" >Add Existing Student</span>
-    <span class="add-new" ng-show="!c_student.addConnectionStudentForm && !c_student.addStudentForm" ng-click="c_student.showStudentForm('addNew')" >Add New Student</span>
+    <span style="margin-right: 35px;" class="add-new" ng-show="!c_student.addStudentForm && !c_student.addConnectionStudentForm" ng-click="c_student.showStudentForm('addConnection')" >
+        My Student Was Added in School or Created Their Own Account
+    </span>
+    <span class="add-new orange" ng-show="!c_student.addConnectionStudentForm && !c_student.addStudentForm" ng-click="c_student.showStudentForm('addNew')" >
+        I Have to Create An Account For My Student to Compete
+    </span>
 
     <div class="student box" ng-if="c_student.addConnectionStudentForm">
         <form action="" class="clearfix setup-student">
@@ -107,9 +111,9 @@
                 </li>
             </ul>
             <ul class="right">
-                <li class="required">
+                <!--<li class="required">
                     <input type="text" placeholder="Email" ng-model="c_student.newStudent.email" >
-                </li>
+                </li>-->
                 <li class="required">
                     <input type="text" placeholder="Create user name" ng-model="c_student.newStudent.username" >
                 </li>

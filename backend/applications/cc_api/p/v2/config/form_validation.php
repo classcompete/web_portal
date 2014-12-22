@@ -211,11 +211,6 @@ $config = array(
             'rules' => 'trim|required'
         ),
         array(
-            'field' => 'email',
-            'label' => 'Email',
-            'rules' => 'trim|required|valid_email'
-        ),
-        array(
             'field' => 'password',
             'label' => 'Password',
             'rules' => 'trim|required|min_length[6]'

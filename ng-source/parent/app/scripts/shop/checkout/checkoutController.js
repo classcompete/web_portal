@@ -14,6 +14,9 @@ var CheckoutCtrl = function(NavigationService, STRIPE, $location, ShoppingCart, 
     }
 
     this.hendler = StripeCheckout.configure({
+        name: 'Class Compete',
+        allowRememberMe: false,
+        zipCode: true,
         key: STRIPE.key,
         image: 'images/logo128.png',
         currency:'USD',
@@ -21,7 +24,7 @@ var CheckoutCtrl = function(NavigationService, STRIPE, $location, ShoppingCart, 
         token: function(token, args) {
             // Use the token to create the charge with a server-side script.
             // You can access the token ID with `token.id`
-
+            console.log(token); console.log(args);
             CheckoutFactory.save({token:token, args:args, cart:self.cart.items}).$promise.then(function(data){
                 NotificationService.showMessage(data,'Success payment','success');
                 self.cart.clearCart();
@@ -64,7 +67,6 @@ CheckoutCtrl.prototype.removeStudent = function(item, studentId){
 CheckoutCtrl.prototype.buy = function($event){
     var self = this;
     this.hendler.open({
-        name: 'Class Compete',
         description: self.cart.getTotalQuantity() + ' classes',
         amount: Math.round(self.cart.getTotalCardPrice()* 100)
     });

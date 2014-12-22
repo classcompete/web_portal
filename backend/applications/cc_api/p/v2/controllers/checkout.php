@@ -41,9 +41,9 @@ class Checkout extends REST_Controller {
         try {
             $token = Stripe_Token::retrieve($tokenId);
         } catch (Stripe_InvalidRequestError $error) {
+            echo $error->getMessage();
             $token  = new stdClass();
         }
-
 
         if (isset($token->id) === true) {
             // seems we have valid response - lets to our stuff here

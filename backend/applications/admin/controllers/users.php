@@ -398,6 +398,14 @@ class Users extends MY_Controller{
         $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Email');
         $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'School');
         $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Publisher');
+        $objPHPExcel->getActiveSheet()->SetCellValue('G1', '1st Date Purchased');
+        $objPHPExcel->getActiveSheet()->SetCellValue('H1', '1st Quantity');
+        $objPHPExcel->getActiveSheet()->SetCellValue('I1', '2nd Date Purchased');
+        $objPHPExcel->getActiveSheet()->SetCellValue('J1', '2nd Quantity');
+        $objPHPExcel->getActiveSheet()->SetCellValue('K1', '3rd Date Purchased');
+        $objPHPExcel->getActiveSheet()->SetCellValue('L1', '3rd Quantity');
+        $objPHPExcel->getActiveSheet()->SetCellValue('M1', 'Total Purchases');
+        $objPHPExcel->getActiveSheet()->SetCellValue('N1', 'Total Quantity');
 
         /**
          * @var $user PropUser
@@ -417,6 +425,15 @@ class Users extends MY_Controller{
             $objPHPExcel->getActiveSheet()->SetCellValue('D' . $r, $user->getEmail());
             $objPHPExcel->getActiveSheet()->SetCellValue('E' . $r, $school->getName());
             $objPHPExcel->getActiveSheet()->SetCellValue('F' . $r, $user->getPropTeachers()->getFirst()->getPublisher());
+
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $r, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $r, '');
         }
 
         // Redirect output to a client’s web browser (Excel5)

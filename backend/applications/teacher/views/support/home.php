@@ -61,7 +61,7 @@
                 </div>
                 <div class="widget">
                     <div class="widget-header">
-                        <div class="title">Start Competing Now</div>
+                        <div class="title">Student Game - Links</div>
                     </div>
                     <div class="widget-body clearfix">
                         <ul class="start-competing-list box">

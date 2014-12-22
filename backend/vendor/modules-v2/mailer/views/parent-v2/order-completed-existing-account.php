@@ -1,8 +1,8 @@
 <div style="font-family: Verdana; font-size: 12px; min-width: 660px; max-width: 800px"
      xmlns="http://www.w3.org/1999/html">
-    <h1>Your classes are now ready to be assigned</h1>
+    <h1>Hello From Parent Support Team</h1>
     <p>
-        You can now login to your parent portal account, and assign your kids to classrooms you just bought.<br/>
+        Please login to your parent portal and assign your purchased educational game to your student.<br/>
         To login to the portal please <a href='http://parent.classcompete.com/app/'>Click Here</a>
     </p>
     <p>

@@ -6841,7 +6841,10 @@ footer {
     position: static; }
 
   header .logo {
-    padding-left: 10px; }
+    padding-left: 10px;
+      max-width: 250px;
+      display: inline-block;
+  }
   header .user-profile {
     }
 
@@ -6972,7 +6975,19 @@ footer {
   .page-not-found {
     margin-top: 30px; }
     .page-not-found .number {
-      text-align: left; } }
+      text-align: left; }
+
+    .store-page .span8 {
+        width: 60%;
+        float: left;
+    }
+
+    .store-page .span2 {
+        width: 20%;
+        float: left;
+    }
+
+}
 @media (min-width: 768px) and (max-width: 979px) {
   .row {
     margin-left: -20px;

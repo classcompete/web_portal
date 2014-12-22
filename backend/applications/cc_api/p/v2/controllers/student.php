@@ -52,7 +52,6 @@ class Student extends REST_Controller{
 
         $this->form_validation->set_rules('firstName','First ame', 'required|min_length[3]');
         $this->form_validation->set_rules('lastName','Last name', 'required|min_length[3]');
-        $this->form_validation->set_rules('email','Email', 'required|valid_email');
         $this->form_validation->set_rules('username','Username', 'required|min_length[6]');
         $this->form_validation->set_rules('grade','Grade', 'required');
         $this->form_validation->set_rules('birthday','Birthday', 'required');
@@ -67,7 +66,6 @@ class Student extends REST_Controller{
         if($this->form_validation->run() == false){
             if(form_error('firstName')!='')$errorData['firstName'] = form_error('firstName');
             if(form_error('lastName')!='')$errorData['lastName'] = form_error('lastName');
-            if(form_error('email')!='')$errorData['email'] = form_error('email');
             if(form_error('username')!='')$errorData['username'] = form_error('username');
             if(form_error('grade')!='')$errorData['grade'] = form_error('grade');
             if(form_error('birthday')!='')$errorData['birthday'] = form_error('birthday');
@@ -84,9 +82,12 @@ class Student extends REST_Controller{
         }
 
         // *** check if email is unique
-        $userDb = $this->user_model->getUserByEmail($this->put('email'));
-        if(!empty($userDb) && $userDb->getUserId() != $studentDb->getUserId()){
-            $errorData['email'] = 'Email is already taken!';
+        $email = $this->put('email');
+        if (empty($email) === false) {
+            $userDb = $this->user_model->getUserByEmail($this->put('email'));
+            if(!empty($userDb) && $userDb->getUserId() != $studentDb->getUserId()){
+                $errorData['email'] = 'Email is already taken!';
+            }
         }
 
         if(stristr(strtolower($this->put('username')), strtolower($this->put('firstName'))) != false){
@@ -138,9 +139,11 @@ class Student extends REST_Controller{
                 $error['username'] = 'Username for student '. ($i + 1) . " is already taken!";
             }
 
+            /*
             if($this->userlib->isUniqueEmail($students[$i]['email']) === false){
                 $error['email'] = 'Email for student '.($i +1) . " is already taken!";
             }
+            */
 
             if(stristr(strtolower($students[$i]['username']), strtolower($students[$i]['firstName'])) != false){
                 $error['usernameFLName'] = 'Username can not be similar with First name';
@@ -162,7 +165,7 @@ class Student extends REST_Controller{
             $data['password'] = $students[$i]['password'];
             $data['firstName'] = $students[$i]['firstName'];
             $data['lastName'] = $students[$i]['lastName'];
-            $data['email'] = $students[$i]['email'];
+//            $data['email'] = $students[$i]['email'];
             $data['dob'] = $students[$i]['birthday'];
 
             // check if user is less then 12 and add parentEmail
@@ -259,7 +262,7 @@ class Student extends REST_Controller{
         if($this->form_validation->run('parent.add-new-student') === false){
             if(form_error('firstName')!='')$error['firstName'] = form_error('firstName');
             if(form_error('lastName')!='')$error['lastName'] = form_error('lastName');
-            if(form_error('email')!='')$error['email'] = form_error('email');
+//            if(form_error('email')!='')$error['email'] = form_error('email');
             if(form_error('birthday')!='')$error['birthday'] = form_error('birthday');
             if(form_error('grade')!='')$error['grade'] = form_error('grade');
             if(form_error('password')!='')$error['password'] = form_error('password');
@@ -272,9 +275,9 @@ class Student extends REST_Controller{
             $error['username'] = 'Username is already taken!';
         }
 
-        if($this->userlib->isUniqueEmail($this->post('email')) === false){
+        /*if($this->userlib->isUniqueEmail($this->post('email')) === false){
             $error['email'] = 'Email for student is already taken!';
-        }
+        }*/
 
         if(stristr(strtolower($this->post('username')), strtolower($this->post('firstName'))) != false){
             $error['usernameFLName'] = 'Username can not be similar with First name';

@@ -627,14 +627,22 @@ div.checkout-board {padding-top:70px !important;}
 		.add-new {
             margin-bottom: 40px;
 			display:inline-block;
-			width:168px; height:38px;
-			padding-top:130px;
+			width:158px; height:60px;
+			padding-top:100px;
 			text-align:center; font-size:14px; color:#6579a0;
-			background:url(../images/btn-add-new.png) center 32px no-repeat #ffffff;
+			background:url(../images/btn-add-new.png) center 10px no-repeat #ffffff;
 			border:1px solid #bbbbbb; border-radius:4px;
 			box-shadow:0px 0px 8px rgba(0, 0, 0, 0.26) inset;
+            padding-left: 5px;
+            padding-right: 5px;
 			}
 
+        .add-new a {
+            color:#6579a0;
+        }
+        .add-new.orange {
+            background-image:url(../images/btn-add-new-orange.png);
+        }
         .disabled:after{
             content: '';
             display: block;

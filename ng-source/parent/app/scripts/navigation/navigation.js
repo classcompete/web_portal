@@ -8,11 +8,11 @@ angular.module('navigation',{})
             replace:true,
             compile:function(scope, element, attrs){
                 $(window).resize(function(e){
-                    $(window).height() < 650 ? $('.navigation').addClass('small-navigation') : $('.navigation').removeClass('small-navigation');
+                    $(window).height() < 760 ? $('.navigation').addClass('small-navigation') : $('.navigation').removeClass('small-navigation');
                 });
             },
             controller:function(){
-                $(window).height() < 650 ? $('.navigation').addClass('small-navigation') : $('.navigation').removeClass('small-navigation');
+                $(window).height() < 760 ? $('.navigation').addClass('small-navigation') : $('.navigation').removeClass('small-navigation');
             }
         };
     }]);

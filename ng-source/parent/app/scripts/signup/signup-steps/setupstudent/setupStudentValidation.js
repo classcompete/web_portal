@@ -7,7 +7,7 @@ var SetupStudentValidation = function(BaseValidation, $q, $http, ENV){
 
     rules.push({ name: 'firstName'      ,   display:    'First name'        ,   rules:  'required|min_length[3]'});
     rules.push({ name: 'lastName'       ,   display:    'Last name'         ,   rules:  'required|min_length[3]'});
-    rules.push({ name: 'email'          ,   display:    'Email'             ,   rules:  'required|valid_email'});
+    //rules.push({ name: 'email'          ,   display:    'Email'             ,   rules:  'required|valid_email'});
     rules.push({ name: 'username'       ,   display:    'Username'          ,   rules:  'required|min_length[6]'});
     rules.push({ name: 'password'       ,   display:    'Password'          ,   rules:  'required|min_length[6]'});
     rules.push({ name: 'retypePassword' ,   display:    'Retype password'   ,   rules:  'required|min_length[6]|matches[password]'});

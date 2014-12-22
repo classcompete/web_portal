@@ -117,6 +117,10 @@ class Auth extends MY_Controller{
 
         }
         $this->teacherlib->set_teacherlogin($user);
+
+        $newUserData = new stdClass();
+        $newUserData->email = $data->email;
+        $this->send_mail_to_new_registered_user($newUserData);
         redirect();
     }
 
@@ -211,7 +215,6 @@ class Auth extends MY_Controller{
             $data->last_name = $check->getLastName();
             $data->email = $check->getEmail();
 
-
             $this->session->set_flashdata('message','Check your email for new password');
 
             if(ENVIRONMENT != 'development'){
@@ -274,11 +277,19 @@ class Auth extends MY_Controller{
         $headers .= 'From: info@classcompete.com' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-        $email = "<p>Congratulations!!! You have registered for Class Compete, where your students will improve test taking skills and improve test scores while having fun!</p>
+        $email = "<p>
+                    Congratulations!!! You have registered for Class Compete, where your students will improve test
+                    taking skills and improve test scores while having fun!</p>
                   <p>To login to the teacher portal please <a href='http://teacher.classcompete.com'>Click Here</a></p>
                   <p><i>Thank you for being part of this trial.</i></p>
-                  <p><i>If you would like further information about what Class Compete can offer you and your school please visit our website. <a href='www.classcompete.com'>www.classcompete.com</a>.
-                  By chance if you are receiving this email in error or wish to revoke access to this system, please email: <a href='mailto:moreinfo@classcompete.com'>moreinfo@classcompete.com</a></i></p>";
+                  <p>
+                    <i>
+                        If you would like further information about what Class Compete can offer you and your school
+                        please visit our website. <a href='www.classcompete.com'>www.classcompete.com</a>.
+                        By chance if you are receiving this email in error or wish to revoke access to this system,
+                        please email: <a href='mailto:moreinfo@classcompete.com'>moreinfo@classcompete.com</a>
+                    </i>
+                </p>";
         @mail($data->email, $subject, $email, $headers);
     }
 
@@ -294,10 +305,10 @@ class Auth extends MY_Controller{
         $headers .= 'From: info@classcompete.com' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-        $email = "<p>You have requested your password for Class Compete to be reset. Please see below for your current password and try to login again.
+        $email = "<p>You have requested your password for Class Compete to be reset. <br/>Please see below for your current password and try to login again.
                      If you still have problems please email: <a href='mailto:moreinfo@classcompete.com'>moreinfo@classcompete.com</a></p>
                     <p>New password: <strong>$password</strong></p>";
-        @mail($data->email, $subject, $email, $headers);
+        $mailSent = @mail($data->email, $subject, $email, $headers);
     }
 
        /*

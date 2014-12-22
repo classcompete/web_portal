@@ -10,8 +10,6 @@
                 <li>
                     <span>{{student.name}}</span>
                 </li>
-
-
             </ul>
             <div class="right">
                     <div class="chart" style="color: #5C246E">
@@ -37,13 +35,11 @@
                     </div>
             </div>
         </div>
-
             <button class="" ng-click="home.getDetails(student, $index)">
                 <span ng-if="$index != home.showDetailsIndex" class="details-btn">Details</span>
                 <span ng-if="$index === home.showDetailsIndex" class="close-btn">Close</span>
             </button>
         </div>
-
         <div class="statistic-details show-details-animation" ng-if="$index === home.showDetailsIndex">
             <div class="statistic-details-element">
                 <div class="statistic-details-content" ng-repeat="detailStat in home.detailsStat">
@@ -62,9 +58,11 @@
                 <div ng-if="home.detailsStat.length === 0">{{student.name}} has not played yet.</div>
             </div>
         </div>
-
     </div>
+    <div ng-if="!home.globalStatistic.length">
+        <span class="add-new" style="margin-right: 35px;"><a href="#students">My Student Was Added in School or Created Their Own Account</a></span>
+        <span class="add-new orange"><a href="#students">I Have to Create An Account For My Student to Compete</a></span>
 
-    <img src="../images/Student-Empty-notice.jpg" alt="" class="no-students" ng-if="!home.globalStatistic"/>
-
+        <img src="images/Student-Empty-notice.jpg" alt="" class="no-students"/>
+    </div>
 </div>

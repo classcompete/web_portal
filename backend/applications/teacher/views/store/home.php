@@ -80,7 +80,7 @@ if ($stripeConfig['live_mode'] === true) {
     }
     #licenses option[disabled] { background-color: #e8e8e8; }
 </style>
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper store-page">
     <div class="left-sidebar margin_right_0">
         <div class="row-fluid">
             <div class="span6">
@@ -90,7 +90,9 @@ if ($stripeConfig['live_mode'] === true) {
                     </div>
                     <div class="widget-body clearfix">
                         <p style="font-size: 14px">
-                            <strong>Class Compete</strong> is always free for teachers.
+                            <span style="font-size: 16px;">
+                                <strong>Class Compete</strong> is always free for teachers.
+                            </span>
                             <br/>
                             We offer teachers <strong>2 licenses as a trial</strong> in a classroom to test <strong>ANY</strong>
                             challenge you would like.
@@ -98,7 +100,7 @@ if ($stripeConfig['live_mode'] === true) {
                             If a teacher needs more licenses then you can purchase extra licenses and allocate them to any classroom.
                             <br/><br/>
                             When a teacher buys licenses the account becomes a paid account and the 2 free trial licenses will be removed.
-                            <em>For example if you need 3 licenses in a classroom you must buy 3 licenses.</em>
+                            <em>For example if you need 5 licenses in a classroom you must buy 5 licenses.</em>
                             <br/><br/>
                             If you require bulk purchase pricing or need to purchase with a school Purchase Order,
                             its no problem, please <a href="<?php echo site_url('support')?>">contact us for assistance</a>.
@@ -128,7 +130,11 @@ if ($stripeConfig['live_mode'] === true) {
                                     <?php echo $class->getName()?>
                                 </span>
                                 <span class="span2" style="text-align: center">
-                                    <?php echo $class->getSeatsOccupied() ?> / <?php echo $class->getLimit()?>
+                                    <?php if ($class->getLimit() === 2): ?>
+                                        <strong>2 Free</strong>
+                                    <?php else: ?>
+                                        <strong><?php echo $class->getLimit()?></strong>
+                                    <?php endif ?>
                                 </span>
                                 <span class="span2" style="text-align: center">
                                     <a data-toggle="modal" data-target="#addEditClassTeacher"
@@ -139,9 +145,12 @@ if ($stripeConfig['live_mode'] === true) {
                             </div>
                             <?php endforeach ?>
                             <div class="row-fluid">
-                                <h5>
-                                    You are using <?php echo TeacherHelper::getOccupiedLicenses() ?>
-                                    out of <?php echo TeacherHelper::getTotalLicenses() ?> licenses
+                                <h5 style="color: #0daed3; font-size: 14px;">
+                                    You have <span style="font-size: 16px;"><?php echo TeacherHelper::getTotalLicenses() ?></span> paid licenses
+                                    <br/>
+                                    <span style="font-size: 13px;">
+                                        * To use a paid license select "Modify" and adjust per classroom
+                                    </span>
                                 </h5>
                             </div>
                             <div class="modal hide fade classmodal" id="addEditClassTeacher" tabindex="-1" role="dialog"
@@ -163,7 +172,7 @@ if ($stripeConfig['live_mode'] === true) {
                                 <span class="payment-success"><?php echo base64_decode(@$_GET['success'])?></span>
                                 <div class="form-row control-group">
                                     <label class="control-label">
-                                        <span>Licenses to Buy</span>
+                                        <span><strong>Licenses to Buy</strong></span>
                                     </label>
                                     <div class="controlls">
                                         <select name="license_count">

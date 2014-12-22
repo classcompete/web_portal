@@ -6,8 +6,11 @@ angular.module('ccompparentApp',['ngAnimate','ngCookies','ngRoute','ngSanitize',
                                 'header','classcode','students','support','shop',
                                 'account','accountRecovery','localytics.directives',
                                 'directives','httpInterceptor','ezfb','navigationService','ui.bootstrap',
-                                'angularytics'])
-    .config(['$routeProvider','ezfbProvider','SOCIAL_ID','$httpProvider','cfpLoadingBarProvider', 'AngularyticsProvider', function($routeProvider, ezfbProvider, SOCIAL_ID,$httpProvider, cfpLoadingBarProvider, AngularyticsProvider){
+                                'angulartics', 'angulartics.google.tagmanager'])
+    .config(['$routeProvider','ezfbProvider','SOCIAL_ID','$httpProvider','cfpLoadingBarProvider', '$analyticsProvider', function($routeProvider, ezfbProvider, SOCIAL_ID,$httpProvider, cfpLoadingBarProvider, $analyticsProvider){
+        $analyticsProvider.firstPageview(true); /* Records pages that don't use $state or $route */
+        $analyticsProvider.withAutoBase(true);  /* Records full path */
+
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $routeProvider.otherwise({redirectTo:'/signup'});
         ezfbProvider.setInitParams({
@@ -15,10 +18,8 @@ angular.module('ccompparentApp',['ngAnimate','ngCookies','ngRoute','ngSanitize',
         });
 
         cfpLoadingBarProvider.includeSpinner  = false;
-
-        AngularyticsProvider.setEventHandlers(['Console', 'GoogleUniversal']);
     }])
-    .run(['Security','$rootScope','$location','ACCESS_LEVEL','IMG','Angularytics', function(Security, $rootScope, $location, ACCESS_LEVEL, IMG, Angularytics){
+    .run(['Security','$rootScope','$location','ACCESS_LEVEL','IMG', function(Security, $rootScope, $location, ACCESS_LEVEL, IMG){
         $rootScope.imageUrl = IMG.url;
         Security.requestCurrentUser();
 
@@ -27,5 +28,4 @@ angular.module('ccompparentApp',['ngAnimate','ngCookies','ngRoute','ngSanitize',
                     Security.logout();
                 }
         });
-        Angularytics.init();
     }]);
