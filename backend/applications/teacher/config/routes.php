@@ -38,6 +38,13 @@
 |
 */
 
+$route['profile'] = 'v2/profile/index';
+$route['profile/(:any)'] = 'v2/profile/$1';
+
+$route['auth/login'] = "v2/auth/index";
+$route['auth/register'] = "v2/auth/index";
+
+
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 

@@ -11,6 +11,15 @@
                 <span><input type="text" ng-model="setupStudent.countStudents" ng-disabled="true"/></span>
                 <button class="spinner-down" ng-click="setupStudent.removeStudent()" ng-disabled="setupStudent.countStudents === 1"></button>
             </span>
+            <span class="spinner-mobile">
+                <select ng-model="setupStudent.countStudentsSelected" ng-change="setupStudent.setStudent(setupStudent.countStudentsSelected)">
+                    <option value="1" selected="selected">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </span>
         </h3>
         <ul>
             <li ng-repeat="student in setupStudent.students" ng-click="setupStudent.setActiveStudent($index)">
@@ -24,7 +33,7 @@
         </ul>
     </div>
     <div class="setup">
-        <h3>Allmost done! Now let’s get your student(s) set up</h3>
+        <h3>Almost done! Now let’s get your student(s) set up</h3>
         <form class="clearfix setup-student" ng-repeat="student in setupStudent.students" ng-show="$index + 1 === setupStudent.activeStudent">
             <ul>
                 <li class="required">
@@ -39,10 +48,16 @@
                     </div>
                 </li>
                 <li class="required">
-                    <select ng-model="student.grade" ng-options="grade.id as grade.name for grade in setupStudent.grades" chosen disable-search="true" data-placeholder="Grade"></select>
+                    <select ng-model="student.grade" ng-options="grade.id as grade.name for grade in setupStudent.grades"
+                            chosen disable-search="true" data-placeholder="Select Grade">
+                        <option value="" selected="selected">Select Grade</option>
+                    </select>
                 </li>
                 <li class="required">
-                    <select ng-model="student.gender" ng-options="gender.desc as gender.name for gender in setupStudent.gender" chosen disable-search="true" data-placeholder="Gender"></select>
+                    <select ng-model="student.gender" ng-options="gender.desc as gender.name for gender in setupStudent.gender"
+                            chosen disable-search="true" data-placeholder="Select Gender">
+                        <option value="" selected="selected">Select Gender</option>
+                    </select>
                 </li>
             </ul>
             <ul>

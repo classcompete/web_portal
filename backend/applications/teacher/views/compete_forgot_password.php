@@ -4,6 +4,7 @@
 <head>
     <title>ClassCompete - Teacher panel password recovery</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <link href="<?php echo AssetHelper::cssUrl('main.css') ?>" rel="stylesheet">
     <script src="<?php echo AssetHelper::jsUrl('jquery.min.js') ?>"></script>
     <script src="<?php echo AssetHelper::jsUrl('jquery-ui-1.10.3.min.js') ?>"></script>

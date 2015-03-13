@@ -237,6 +237,16 @@
     </div>
 
     <?php $this->load->view('form_change_student_password'); ?>
+</div>
+
+<div class="modal hide fade classmodal" id="profileChange" tabindex="-1" role="dialog" aria-labelledby="addClassLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Change student details</h3>
+    </div>
+
+    <?php $this->load->view('form_change_student_profile'); ?>
 
 </div>
 

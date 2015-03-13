@@ -72,6 +72,28 @@
                 <a href="<?php echo base_url('reporting/statistic')?>" <?php echo($this->uri->segment(2) === 'statistic')?'class="sub-nav-selected"':''?>>Statistic</a>
             </li>
         <?php endif;?>
+        <?php if($this->uri->segment(1) === 'profile'):?>
+            <li>
+                <a class="heading">Teacher Profile</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('profile') ?>" <?php echo($this->uri->segment(3) === '')?'class="sub-nav-selected"':''?>>
+                    Change profile
+                </a>
+            </li>
+            <?php if (TeacherHelper::isPublisher() === true): ?>
+            <li>
+                <a href="<?php echo base_url('profile/publisher') ?>" <?php echo($this->uri->segment(3) === 'publisher')?'class="sub-nav-selected"':''?>>
+                    Publisher profile
+                </a>
+            </li>
+            <?php endif ?>
+            <li>
+                <a href="<?php echo base_url('profile/password') ?>" <?php echo($this->uri->segment(3) === 'password')?'class="sub-nav-selected"':''?>>
+                    Change password
+                </a>
+            </li>
+        <?php endif;?>
     </ul>
 
     <div class="btn-group pull-right">
@@ -107,24 +129,24 @@
                     Assigned Challenges
                 </a>
             </li>
-            <li>
+            <!--<li>
                 <a href="<?php echo base_url('challenge_builder')?>">
                     <div class="fs1" aria-hidden="true"></div>
                     Create Challenges
                 </a>
-            </li>
+            </li>-->
             <li>
                 <a href="<?php echo base_url('reporting/basic')?>">
                     <div class="fs1" aria-hidden="true"></div>
                     Basic Reports
                 </a>
             </li>
-            <li>
+            <!--<li>
                 <a href="<?php echo base_url('reporting/statistic')?>">
                     <div class="fs1" aria-hidden="true"></div>
                     Statistic Reports
                 </a>
-            </li>
+            </li>-->
             <li>
                 <a href="<?php echo base_url('store')?>">
                     <div class="fs1" aria-hidden="true"></div>
@@ -135,6 +157,24 @@
                 <a href="<?php echo base_url('support')?>">
                     <div class="fs1" aria-hidden="true"></div>
                     Support
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('profile')?>">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Profile
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('profile/password')?>">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Change Password
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('auth/process_logout')?>">
+                    <div class="fs1" aria-hidden="true"></div>
+                    Logout
                 </a>
             </li>
         </ul>

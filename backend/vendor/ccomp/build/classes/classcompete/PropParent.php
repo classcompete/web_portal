@@ -46,4 +46,26 @@ class PropParent extends BasePropParent
         $new_time = date('m/d/Y h:i a', strtotime($db_time) - (-1 * AdminHelper::getTimezoneDiff()*60*60));
         return $new_time;
     }
+
+    public function getTotalPurchases()
+    {
+        $parentOrders = PropParentOrderQuery::create()
+            ->filterByParentId(self::getParentId())
+            ->filterByStatus(PropParentOrderPeer::STATUS_SUCCESS);
+        $total = 0;
+        if (empty($parentOrders) === false) {
+            $total = $parentOrders->count();
+        }
+        return $total;
+    }
+
+    public function getTotalQuantity()
+    {
+        $parentLicenses = PropParentBucketQuery::create()->filterByParentId(self::getParentId());
+        $count = 0;
+        if (empty($parentLicenses) === false){
+            $count = $parentLicenses->count();
+        }
+        return $count;
+    }
 } // PropParent

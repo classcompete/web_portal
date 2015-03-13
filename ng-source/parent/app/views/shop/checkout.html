@@ -1,6 +1,8 @@
 <div class="main-holder checkout-board">
     <h2><span>Checkout</span></h2>
+
     <p></p>
+
     <div class="box">
         <table>
             <thead>
@@ -12,24 +14,28 @@
             </tr>
             </thead>
             <tbody ng-repeat="item in c_checkout.cart.items">
-                <tr ng-repeat="student in item.student">
-                    <td>{{item.className}}</td>
-                    <td>{{c_checkout.getStudent(student)}}</td>
-                    <td>${{item.price}}</td>
-                    <td ng-click="c_checkout.removeStudent(item, student)">Remove</td>
-                </tr>
+            <tr ng-repeat="student in item.student">
+                <td>{{item.className}}</td>
+                <td>{{c_checkout.getStudent(student)}}</td>
+                <td>${{item.price}}</td>
+                <td ng-click="c_checkout.removeStudent(item, student)">Remove</td>
+            </tr>
             </tbody>
             <tfoot>
-                <td colspan="2">
-                    <h4 style="color: #EA7B36; font-size: 16px; font-weight: normal; line-height: 70px;">
-                        * If you have a coupon please purchase from
-                        <a href="http://www.classcompete.com" style="color:#6779a1">www.classcompete.com</a>
-                    </h4>
-                </td>
-                <td colspan="2">
+            <tr>
+                <td colspan="10">
                     Total: ${{c_checkout.totalPrice}}
                     <button class="btn" ng-click="c_checkout.buy($event)">BUY</button>
                 </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <h4 class="coupon-text">
+                        * If you have a coupon please purchase from
+                        <a href="http://www.classcompete.com/educational-games/">www.classcompete.com</a>
+                    </h4>
+                </td>
+            </tr>
             </tfoot>
         </table>
     </div>

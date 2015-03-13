@@ -166,6 +166,9 @@ CREATE TABLE `teachers`
 	`time_diff` VARCHAR(3) DEFAULT '0',
 	`publisher` TINYINT DEFAULT 0 NOT NULL,
 	`country` VARCHAR(2),
+	`view_intro` TINYINT DEFAULT 0,
+	`twitter_name` VARCHAR(150),
+	`facebook_link` VARCHAR(150),
 	PRIMARY KEY (`teacher_id`,`user_id`),
 	INDEX `teachers_FI_1` (`user_id`),
 	INDEX `teachers_FI_2` (`school_id`),
@@ -215,6 +218,85 @@ CREATE TABLE `teachers_token`
 	INDEX `teachers_token_I_1` (`teacher_id`),
 	INDEX `teachers_token_I_2` (`token`),
 	INDEX `teachers_token_I_3` (`type`)
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- teacher_order
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `teacher_order`;
+
+CREATE TABLE `teacher_order`
+(
+	`teacher_id` INTEGER(11) NOT NULL,
+	`live` TINYINT DEFAULT 0 NOT NULL,
+	`payment_id` VARCHAR(50),
+	`amount` FLOAT,
+	`license_count` INTEGER(11) NOT NULL,
+	`status` TINYINT DEFAULT 0,
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `teacher_order_FI_1` (`teacher_id`),
+	CONSTRAINT `teacher_order_FK_1`
+		FOREIGN KEY (`teacher_id`)
+		REFERENCES `teachers` (`teacher_id`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- teacher_pay_log
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `teacher_pay_log`;
+
+CREATE TABLE `teacher_pay_log`
+(
+	`order_id` INTEGER(11) NOT NULL,
+	`teacher_id` INTEGER(11) NOT NULL,
+	`status` TINYINT DEFAULT 0,
+	`token_id` VARCHAR(50),
+	`raw_response` LONGTEXT,
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `teacher_pay_log_FI_1` (`order_id`),
+	INDEX `teacher_pay_log_FI_2` (`teacher_id`),
+	CONSTRAINT `teacher_pay_log_FK_1`
+		FOREIGN KEY (`order_id`)
+		REFERENCES `teacher_order` (`id`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL,
+	CONSTRAINT `teacher_pay_log_FK_2`
+		FOREIGN KEY (`teacher_id`)
+		REFERENCES `teachers` (`teacher_id`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- teacher_license
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `teacher_license`;
+
+CREATE TABLE `teacher_license`
+(
+	`teacher_id` INTEGER(11) NOT NULL,
+	`count` INTEGER(11) NOT NULL,
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `teacher_license_FI_1` (`teacher_id`),
+	CONSTRAINT `teacher_license_FK_1`
+		FOREIGN KEY (`teacher_id`)
+		REFERENCES `teachers` (`teacher_id`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL
 ) ENGINE=MyISAM;
 
 -- ---------------------------------------------------------------------
@@ -426,6 +508,7 @@ CREATE TABLE `questions`
 	`correct_text` VARCHAR(45),
 	`is_deleted` TINYINT DEFAULT 0,
 	`import_id` INTEGER(11),
+	`large_space` TINYINT DEFAULT 0,
 	`read_text` LONGTEXT,
 	PRIMARY KEY (`question_id`),
 	INDEX `questions_FI_1` (`subject_id`),

@@ -29,14 +29,56 @@ class PropTeacher extends BasePropTeacher
         return $new_time;
     }
 
+    public function getLicenseCount()
+    {
+        $teacherLicence = PropTeacherLicenseQuery::create()->findOneByTeacherId(self::getTeacherId());
+        if (empty($teacherLicence) === true) {
+            $count = 0;
+        } else {
+            $count = $teacherLicence->getCount();
+        }
+
+        return $count;
+    }
+
+    public function getAvailableLicenses()
+    {
+        $total = self::getLicenseCount();
+        $occupied = self::getOccupiedLicenses();
+        return $total - $occupied;
+    }
+
+    public function getOccupiedLicenses()
+    {
+        $classes = PropClasQuery::create()->filterByTeacherId(self::getTeacherId())->filterByLimit(2, Criteria::GREATER_THAN)->find();
+        $occupied = 0;
+        foreach ($classes as $class) {
+            $occupied += $class->getLimit();
+        }
+
+        return $occupied;
+    }
+
     public function getTotalPurchases()
     {
-
+        $teachOrders = PropTeacherOrderQuery::create()
+            ->filterByTeacherId(self::getTeacherId())
+            ->filterByStatus(PropTeacherOrderPeer::STATUS_SUCCESS);
+        $total = 0;
+        if (empty($teachOrders) === false) {
+            $total = $teachOrders->count();
+        }
+        return $total;
     }
 
     public function getTotalQuantity()
     {
-
+        $teacherLicenses = PropTeacherLicenseQuery::create()->findOneByTeacherId(self::getTeacherId());
+        $count = 0;
+        if (empty($teacherLicenses) === false){
+            $count = $teacherLicenses->getCount();
+        }
+        return $count;
     }
 
 } // PropTeacher

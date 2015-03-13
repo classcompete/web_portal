@@ -132,6 +132,7 @@
 			border:1px solid #bab9b9; border-radius:3px;
 			box-shadow:0 1px 1px 0px rgba(0,0,0,0.25);
 			}
+			.spinner-mobile {display: none}
 			.spinner input {
 				height:22px;
 				font-size:18px; color:#6679a0; font-weight:600;
@@ -251,7 +252,8 @@
 					.register form ul:first-child,
 					.setup-student ul:first-child {float:left;}
 				.register p {
-					float:left; 
+					float:left;
+					clear: both;
 					width:208px;
 					font-size:12px; color:#8b8d8f; line-height:15px;
 					}	
@@ -290,7 +292,7 @@
 				background:url(../images/btn-submit.png) right top no-repeat #e67a36;
 				}
 			.steps .ready-to-go	{
-				width:355px; height:55px;
+				width:100%; height:55px; max-width: 355px;
 				margin:0px auto;
 				background:url(../images/btn-ready-to-go.png) right top no-repeat #e67a36;
 				}
@@ -582,6 +584,13 @@ div.checkout-board {padding-top:70px !important;}
             margin-top: 15px;
         }
 
+		h4.coupon-text {
+			color: #EA7B36; font-size: 16px; font-weight: normal; padding: 25px 0px;
+		}
+			h4.coupon-text a {
+				color:#6779a1
+			}
+
 
 /*
 = STUDENTS
@@ -833,8 +842,13 @@ div.supports {text-align:center;}
 	
 	@media all and (orientation:portrait) {}
 	@media all and (orientation:landscape) {}
+	@media screen and (max-width: 1024px) {
+		.spinner {display: none}
+		.spinner-mobile {display: inline-block}
+	}
 	@media screen and (max-width: 1000px) {
-		
+
+		select {width: 100%;}
 		.home-content .statistic-global {}
 			.home-content .statistic-global .right .chart  {margin:0 20px;}
 		 
@@ -947,11 +961,7 @@ div.supports {text-align:center;}
 					.student .setup-student .li li p {padding:0px; text-align:center;}
 			.student .setup-student .btns-list li {width:auto; margin:0 14px 0 0;}
 		.student .setup-student button {width:110px; font-size:12px;}
-		
-		}
-	
-	@media screen and (max-width: 600px) {
-		
+
 		.home-content .statistic-global {text-align:center;}
 			.home-content .statistic-global .right,
 			.home-content .statistic-global .left  {float:none; display:block; text-align:center; border:none; width:100%; padding:0px;}
@@ -962,6 +972,8 @@ div.supports {text-align:center;}
 			.chart-name {font-size:12px;}
 							
 		}
+
+		.steps .video {width: 100%; height: 100%}
 	
 	@media screen and (max-width: 550px) {
 		

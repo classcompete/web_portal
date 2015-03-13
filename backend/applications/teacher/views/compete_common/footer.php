@@ -14,14 +14,6 @@
     </p>
 </footer>
 
-<script src="<?php echo AssetHelper::jsUrl('wysiwyg/wysihtml5-0.3.0.js') ?>"></script>
-
-<script src="<?php echo AssetHelper::jsUrl('bootstrap.js') ?>"></script>
-<script src="<?php echo AssetHelper::jsUrl('wysiwyg/bootstrap-wysihtml5.js') ?>"></script>
-<script src="<?php echo AssetHelper::jsUrl('jquery.scrollUp.js') ?>"></script>
-<script src="<?php echo AssetHelper::jsUrl('../../vendor/plupload-2.0.0/jquery.plupload.queue/jquery.plupload.queue.min.js') ?>"></script>
-<script src="<?php echo AssetHelper::jsUrl('../../vendor/plupload-2.0.0/plupload.full.min.js') ?>"></script>
-<script src="<?php echo AssetHelper::jsUrl('../../vendor/plupload-2.0.0/jquery.ui.plupload/jquery.ui.plupload.min.js') ?>"></script>
 <!--<script src="--><?php //echo AssetHelper::jsUrl('../../vendor/plupload-2.0.0/plupload.browserplus.js') ?><!--"></script>-->
 <!--<script src="--><?php //echo AssetHelper::jsUrl('../../vendor/plupload/plupload.flash.js') ?><!--"></script>-->
 <!--<script src="--><?php //echo AssetHelper::jsUrl('../../vendor/plupload/plupload.gears.js') ?><!--"></script>-->

@@ -67,20 +67,26 @@ class Teacher_model extends CI_model
         if (empty($id) === true) {
             $teacher = new PropTeacher();
             $teacher->setPropUser($user);
-            if (isset($data->avatar) === true && empty($data->avatar) === false){
+            if (isset($data->avatar) === true){
                 $teacher->setImageThumb($data->avatar);
             }
-            if(isset($data->school_id) === true && empty($data->school_id) === false){
+            if(isset($data->school_id) === true){
                 $teacher->setSchoolId($data->school_id);
             }
-            if(isset($data->biography) === true && empty($data->biography) === false){
+            if(isset($data->biography) === true){
                 $teacher->setBiography($data->biography);
             }
-            if(isset($data->publisher) === true && empty($data->publisher) === false){
+            if(isset($data->publisher) === true){
                 $teacher->setPublisher($data->publisher);
             }
             if (isset($data->country) === true) {
                 $teacher->setCountry($data->country);
+            }
+            if (isset($data->twitter_name) === true) {
+                $teacher->setTwitterName($data->twitter_name);
+            }
+            if (isset($data->facebook_link) === true) {
+                $teacher->setFacebookLink($data->facebook_link);
             }
             $teacher->save();
 
@@ -99,23 +105,29 @@ class Teacher_model extends CI_model
             $teacher->setPropUser($user);
             $teacher->setModified(date("Y-m-d H:i:s"));
 
-            if (isset($data->avatar) === true && empty($data->avatar) === false){
+            if (isset($data->avatar) === true){
                 $teacher->setImageThumb($data->avatar);
             }
-            if(isset($data->biography) === true && empty($data->biography) === false){
+            if(isset($data->biography) === true){
                 $teacher->setBiography($data->biography);
             }
-            if(isset($data->school_id) === true && empty($data->school_id) === false){
+            if(isset($data->school_id) === true){
                 $teacher->setSchoolId($data->school_id);
             }
-            if(isset($data->time_diff) === true && empty($data->time_diff) === false){
+            if(isset($data->time_diff) === true){
                 $teacher->setTimeDiff($data->time_diff);
             }
-            if(isset($data->publisher) === true && empty($data->publisher) === false){
+            if(isset($data->publisher) === true){
                 $teacher->setPublisher($data->publisher);
             }
             if (isset($data->country) === true) {
                 $teacher->setCountry($data->country);
+            }
+            if (isset($data->twitter_name) === true) {
+                $teacher->setTwitterName($data->twitter_name);
+            }
+            if (isset($data->facebook_link) === true) {
+                $teacher->setFacebookLink($data->facebook_link);
             }
             $teacher->save();
 

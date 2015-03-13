@@ -1,0 +1,284 @@
+/*
+= IMPORTING STUFF AND SETTING DEFAULT STYLES
+-------------------------------------------------------------------------------------- */
+@import url("reset.css");
+
+/*
+= COMMON
+-------------------------------------------------------------------------------------- */
+body,
+input,
+textarea {font-family: 'Open Sans', Arial, Helvetica, sans-serif;}
+
+.wrapper {width: 960px; margin: 0 auto;}
+
+input,
+textarea,
+.content .reg-form ul li p a {
+    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+
+/*
+= HEADER
+-------------------------------------------------------------------------------------- */
+header {background: #f3f3f3; padding: 12px 0;}
+    header .logo {
+        float: left;
+        width: 174px; height: 52px;
+        text-indent: -9999px;
+        background: url(../img/logo.png) 0 50% no-repeat;
+        }
+    header .login-box {
+        float: right;
+        padding-top: 10px;
+        }
+        header .mobile-nav {display: none;}
+        header .login-box ul {margin: 0; list-style: none;}
+            header .login-box ul li {
+                float: left;
+                margin-left: 11px;
+                }
+                header .login-box ul li input[type=text],
+                header .login-box ul li input[type=password] {
+                    width: 168px; height: 30px;
+                    padding:0 10px;
+                    font-size: 12px; color: #666;
+                    background: #fff;
+                    border: #c7c7c7 solid 1px;
+                }
+                header .login-box ul li input[type=submit],
+                header .login-box ul li button[type=submit]{
+                    width: 70px; height: 30px;
+                    font-size: 12px; color: #fff; font-weight: 600; text-transform: uppercase;
+                    background: #677ba0;
+                    border: 0;
+                }
+                header .login-box ul li input[type=text]:focus,
+                header .login-box ul li input[type=password]:focus {border: #677ba0 solid 1px;}
+                header .login-box ul li input[type=submit]:hover,
+                header .login-box ul li button[type=submit]:hover{background: #536a95;}
+
+.notification-container {
+    height: 70px; line-height: 40px; text-align: center;
+    border-bottom: 4px solid #d14836; background: #f2dede !important;
+    color: #d14836 !important;
+}
+
+/*
+= REGISTER FORM
+-------------------------------------------------------------------------------------- */
+.content {padding: 60px 0;}
+
+    .content h2 {
+        margin: 0;
+        font-size: 34px; color: #000; font-weight: 400; line-height: 40px; letter-spacing: -1px;
+    }
+    .content h3 {
+        margin: 0 0 20px;
+        font-size: 28px; color: #667a9f; font-weight: 400; line-height: 40px; letter-spacing: -1px;
+    }
+    .content h4 {
+        margin: 0 0 5px;
+        font-size: 18px; color: #000; font-weight: 400;
+    }
+    .content p {
+        margin: 0 0 21px;
+        font-size: 14px; color: #666; line-height: 21px;
+        }
+        .content .reg-form p {font-size: 16px; color: #999;}
+
+    .reg-form {float: right; width: 430px;}
+    .reg-info {float: left; width: 480px;}
+
+        .reg-form ul,
+        .reg-info ul {margin: 0; list-style: none;}
+        .reg-form ul {padding-top: 20px;}
+            .reg-form ul li {margin-bottom: 21px;}
+            .reg-info ul li {margin-bottom: 15px;}
+                .reg-form ul li .half {width: 48%;}
+                .content .reg-form ul li p {
+                    padding:10px 0 0;
+                    font-size: 12px;
+                    }
+                    .content .reg-form ul li p a {color: #4081ab; text-decoration: none;}
+                        .content .reg-form ul li p a:hover {color: #000;}
+
+                .reg-form ul li input[type=text],
+                .reg-form ul li input[type=password] {
+                    width: 100%; height: 34px;
+                    padding:0 10px;
+                    font-size: 16px; color: #666;
+                    background: #fff;
+                    border: #c7c7c7 solid 1px;
+                }
+                .reg-form ul li input[type=submit],
+                .reg-form ul li button[type=submit]{
+                    width: 175px; height: 42px;
+                    font-size: 16px; color: #fff; font-weight: 600; text-transform: uppercase;
+                    background: #e87b34;
+                    border: 0;
+                }
+                .reg-form ul li input[type=text]:focus,
+                .reg-form ul li input[type=password]:focus {border: #677ba0 solid 1px;}
+                .reg-form ul li input[type=submit]:hover,
+                .reg-form ul li button[type=submit]:hover{background: #d46a25;}
+
+                .reg-form ul li input[type=text].error,
+                .reg-form ul li input[type=password].error {
+                    background-color: #f2dede;
+                    border: 1px solid #d14836;
+                    color: #d14836;
+                    font-weight: bold;
+                }
+
+
+        .reg-info ul {padding-top: 30px;}
+            .reg-info ul li {overflow: hidden;}
+                .reg-info ul li h4,
+                .reg-info ul li p {overflow: hidden;}
+                .reg-info ul li h4 {padding-top: 10px;}
+                .reg-info ul li img {
+                    float: left;
+                    margin-right: 24px;
+                    border-radius: 50%; border: #d1d1d1 solid 2px;
+                }
+
+.spinner {
+    margin: 11px auto;
+    width: 70px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: #f3f3f3;
+    margin: 0 2px;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0.0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 40% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+      }
+}
+
+
+/*
+= Mobile devices
+-------------------------------------------------------------------------------------- */
+@media screen and (max-width: 960px) {
+    
+    .wrapper {width: auto; margin: 0 20px;}
+    .notification-container { line-height: 60px; }
+    
+    .content {padding: 30px 0;}
+    .reg-form, 
+    .reg-info {width: 48%;}
+      
+}
+
+@media screen and (max-width: 680px) {
+    
+    header .logo {width: 130px; background-size: 100% auto;}
+
+    .reg-form, 
+    .reg-info {float:none; width: auto; margin-bottom: 40px;}
+      
+}
+
+@media screen and (max-width: 620px) {
+    
+    header {position: relative; padding:0;}
+    header .logo {height: 64px;}
+    header .login-box {padding-top: 0;}
+    header .login-box ul {
+        display: none; position: absolute; top: 64px; left: 0;
+        width: 100%;
+        padding: 10px 0;
+        background: #e4e4e4;
+        }
+        header .login-box ul li {
+            float:none;
+            margin: 0; padding: 8px 20px;
+            }
+            header .login-box ul li input {width: 100% !important;}
+            header .login-box ul li input[type="text"],
+            header .login-box ul li input[type="password"] {height: 34px; font-size: 14px;}
+            header .login-box ul li input[type="submit"],
+            header .login-box ul li button[type="submit"]{height: 46px; font-size: 20px;}
+    header .wrapper {margin-right: 0;}
+    header .mobile-nav {
+        display: block;
+        width: 64px; height: 64px;
+        text-indent: -9999px;
+        background: url(../img/mobile-icon-login.png) 50% 50% no-repeat;
+        }
+        header .mobile-nav.active {background-color: #e4e4e4;}
+
+    .reg-form ul li .half {float: none !important; display: block; width: auto;}
+    .reg-form ul li,
+    .reg-form ul li .half.left {margin-bottom: 12px;}
+    .reg-form ul li input[type="submit"],
+    .reg-form ul li button[type="submit"]{width: 100%; height: 46px;}
+
+}
+
+@media screen and (max-width: 480px) {
+
+    .reg-info {display: none;}
+    
+    .content {padding: 20px 0;}
+    .content h2 {text-align: center; font-size: 28px;}
+    .content .reg-form p {text-align: center; font-size: 12px;}
+    .reg-form ul {padding-top: 0;}
+    .notification-container {height: 60px; line-height: 50px;}
+    
+}
+
+/*
+= Print
+-------------------------------------------------------------------------------------- */
+@media print {
+  * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
+  a, a:visited { color: #444 !important; text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; }
+  abbr:after { content: " (" attr(title) ")"; }
+  .ir a:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  tr, img { page-break-inside: avoid; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3{ page-break-after: avoid; }
+}

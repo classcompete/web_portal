@@ -41,16 +41,16 @@
                         <form action="<?php echo site_url('support/sendMail')?>" method="post">
                             <ul>
                                 <li style="position: relative" class="row-fluid">
-                                    <input type="text" name="name" placeholder="Name" style="width: 95%">
-                                    <span class="required" style="position: absolute; top: 2px; right: 0px; font-size: 26px; color: #DD2222">*</span>
+                                    <label>Full Name <small>(required)</small></label>
+                                    <input type="text" name="name" placeholder="" style="width: 95%" value="<?php echo $user->getFirstName() .' '.$user->getLastName()?>">
                                 </li>
                                 <li style="position: relative" class="row-fluid">
-                                    <input type="email" name="email" placeholder="Email" style="width: 95%">
-                                    <span class="required" style="position: absolute; top: 2px; right: 0px; font-size: 26px; color: #DD2222">*</span>
+                                    <label>Email <small>(required)</small></label>
+                                    <input type="email" name="email" placeholder="" style="width: 95%" value="<?php echo $user->getEmail()?>">
                                 </li>
                                 <li style="position: relative" class="row-fluid">
-                                    <textarea name="message" style="width: 95%" placeholder="Comments box"></textarea>
-                                    <span class="required" style="position: absolute; top: 2px; right: 0px; font-size: 26px; color: #DD2222">*</span>
+                                    <label>Question <small>(required)</small></label>
+                                    <textarea name="message" style="width: 95%" placeholder=""></textarea>
                                 </li>
                                 <li style="position: relative" class="row-fluid">
                                     <button type="submit" class="btn btn-primary" style="margin-top: 10px; margin-right: 5%; float: right">Send</button>
@@ -102,6 +102,13 @@
         alert("Your message has been sent.\nPlease be patient, someone will reply to your email as soon as possible.");
     }, 250);
 </script>
+<?php endif ?>
+<?php if (isset($_GET['error']) && empty($_GET['error']) === false): ?>
+    <script type="text/javascript">
+        setTimeout(function(){
+            alert("<?php echo $_GET['error']?>");
+        }, 250);
+    </script>
 <?php endif ?>
 <style>
     .start-competing-list {

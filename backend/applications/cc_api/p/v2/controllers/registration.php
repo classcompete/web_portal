@@ -28,7 +28,7 @@ class Registration extends REST_Controller{
         }
 
         $email = $this->post('email');
-        $username = $this->post('username');
+        $username = $this->post('email');
 
         // *** check if email is unique
         $uniqueEmail = $this->userlib->isUniqueEmail($email);
@@ -37,7 +37,6 @@ class Registration extends REST_Controller{
             $errorData['email'] = 'Email is already taken!';
             $this->response($errorData, 400);
         }
-
 
         // *** check if username is unique
         $uniqueUsername = $this->userlib->isUniqueUsername($username);
@@ -73,11 +72,29 @@ class Registration extends REST_Controller{
         $mailData = new stdClass();
         $mailData->password = $this->post('password');
         $mailData->email = $this->post('email');
-        $mailData->username = $this->post('username');
+        $mailData->username = $this->post('email');
         $this->mailerlib->sendAccountCreated($mailData);
 
         $responseData->data = $authCode;
         $responseData->email = $newParentUserData->getEmail();
+
+        //add to mailchimp
+        $this->load->library('mailchimp/mailchimplib');
+        $this->mailchimplib->call('lists/subscribe', array(
+            'id' => 'a93db0cb9c',
+            'email' => array(
+                'email' => $newUserData->email
+            ),
+            'merge_vars' => array(
+                'FNAME' => $newUserData->firstName,
+                'LNAME' => $newUserData->lastName
+            ),
+            'double_optin' => false,
+            'update_existing' => true,
+            'replace_interests' => false,
+            'send_welcome' => false,
+        ));
+
         $this->response($responseData);
 
     }
@@ -90,7 +107,7 @@ class Registration extends REST_Controller{
         $responseData = new stdClass();
 
         $email = $this->post('email');
-        $username = $this->post('username');
+        $username = $this->post('email');
 
         // *** check if email is unique
         $uniqueEmail = $this->userlib->isUniqueEmail($email);

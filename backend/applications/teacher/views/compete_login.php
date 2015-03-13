@@ -4,6 +4,7 @@
 <head>
     <title>ClassCompete - Teacher Panel Login</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <link href="<?php echo AssetHelper::cssUrl('main.css') ?>" rel="stylesheet">
     <script src="<?php echo AssetHelper::jsUrl('jquery.min.js') ?>"></script>
 </head>

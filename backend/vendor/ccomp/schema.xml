@@ -98,6 +98,9 @@
         <column name="time_diff" type="VARCHAR" size="3" default="0"/>
         <column name="publisher" type="ENUM" required="true" valueSet="private, public" default="private"/>
         <column name="country" type="VARCHAR" size="2"/>
+        <column name="view_intro" type="ENUM" default="false" valueSet="false, true"/>
+        <column name="twitter_name" type="VARCHAR" size="150"/>
+        <column name="facebook_link" type="VARCHAR" size="150"/>
         <foreign-key foreignTable="users" onDelete="CASCADE">
             <reference local="user_id" foreign="user_id" />
         </foreign-key>
@@ -131,6 +134,46 @@
         <index>
             <index-column name="type"/>
         </index>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="teacher_order" phpName="PropTeacherOrder">
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="live" type="ENUM" required="true" valueSet="false,true" default="false" />
+        <column name="payment_id" type="VARCHAR" size="50" />
+        <column name="amount" type="FLOAT"/>
+        <column name="license_count" type="INTEGER" size="11" required="true" />
+        <column name="status" type="ENUM" valueSet="undefined,pending,success,error" default="undefined"/>
+        <foreign-key foreignTable="teachers" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="teacher_pay_log" phpName="PropTeacherPayLog">
+        <column name="order_id" type="INTEGER" size="11" required="true" />
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="status" type="ENUM" valueSet="undefined,success,error" default="undefined"/>
+        <column name="token_id" type="VARCHAR" size="50"/>
+        <column name="raw_response" type="CLOB" />
+        <foreign-key foreignTable="teacher_order" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="order_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="teachers" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+        <behavior name="auto_add_pk" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="teacher_license" phpName="PropTeacherLicense">
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="count" type="INTEGER" size="11" required="true" />
+        <foreign-key foreignTable="teachers" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
         <behavior name="auto_add_pk" />
         <behavior name="timestampable" />
     </table>
@@ -274,6 +317,7 @@
         <column name="correct_text" type="VARCHAR" size="45"/>
         <column name="is_deleted" type="ENUM" valueSet="no, yes" default="no"/>
         <column name="import_id" type="INTEGER" size="11"/>
+        <column name="large_space" type="ENUM" valueSet="no, yes" default="no" />
         <column name="read_text" type="CLOB"/>
         <behavior name="auto_add_pk" />
         <foreign-key foreignTable="subjects">

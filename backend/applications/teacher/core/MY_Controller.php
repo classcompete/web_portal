@@ -10,7 +10,8 @@ class MY_Controller extends MX_Controller
         if (empty($autologin_token) !== true) {
             $admin = $this->teacherlib->set_teacher_autologin($autologin_token);
         }
-        if (TeacherHelper::is_teacher() === false && $this->uri->segment(1) !== 'auth') {
+        if (TeacherHelper::is_teacher() === false
+            && $this->uri->segment(1) !== 'auth' && $this->uri->segment(2) !== 'auth' && $this->uri->segment(3) !== 'auth') {
             redirect('auth/login');
         }
     }

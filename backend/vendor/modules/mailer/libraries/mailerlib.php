@@ -19,6 +19,24 @@ class Mailerlib
         $this->email_from_name = 'ClassCompete.com';
     }
 
+    public function sendAccountCreated($data)
+    {
+        $subject = 'Welcome to the Class Compete community!  ';
+        $message = $this->_ci->load->view('mailer/teacher_account-created', $data, true);
+        $this->initialize();
+        // Send email
+        $this->_ci->email->from($this->email_from, $this->email_from_name);
+        $this->_ci->email->to($data->email);
+        $this->_ci->email->subject($subject);
+        $this->_ci->email->message($message);
+
+        if (!$this->_ci->email->send()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function sendSupportComment($data){
         $subject = 'SUPPORT';
         $message = $this->_ci->load->view('mailer/support/teacher_support',$data, true);

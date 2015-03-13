@@ -424,6 +424,21 @@ $(document).ready(function () {
                 $('#name').val(r.name);
                 $('#auth_code').val(r.auth_code);
                 $('#edit_class_id').val(r.id);
+                $('#licenses').val(r.licenses);
+                if (r.licenses > 2) {
+                    maxLicenses = parseInt($('#licenses').attr('data-max')) + r.licenses;
+                } else {
+                    maxLicenses = parseInt($('#licenses').attr('data-max'));
+                }
+
+                $('#licenses option').each(function(k, object){
+                    if (parseInt($(object).attr('value')) <= maxLicenses) {
+                        $(object).removeAttr('disabled');
+                    }
+                    if (parseInt($(object).attr('value')) == r.licenses) {
+                        $(object).attr('selected', 'selected');
+                    }
+                });
             }
         });
     });
@@ -458,6 +473,12 @@ $(document).ready(function () {
             $("#auth_code").val(r);
             $("#limit").val('2');
             $("#price").val('0');
+            maxLicenses = parseInt($('#licenses').attr('data-max'));
+            $('#licenses option').each(function(k, object){
+                if (parseInt($(object).attr('value')) <= maxLicenses) {
+                    $(object).removeAttr('disabled');
+                }
+            });
         });
     });
 
@@ -477,6 +498,10 @@ $(document).ready(function () {
                     if (r.class_code) {
                         $('#auth_code').parents('.control-group').addClass('error');
                         $('#auth_code').siblings('.help-inline').html(r.class_code);
+                    }
+                    if (r.licenses) {
+                        $('#licenses').parents('.control-group').addClass('error');
+                        $('#licenses').siblings('.help-inline').html(r.licenses);
                     }
                 } else {
                     $('#class_form').submit();
@@ -755,6 +780,7 @@ $(document).ready(function () {
 
     // edit challenge
     $(".mod-challenge .edit").click(function (e) {
+        var challenge_choice_image_url = BASEURL + 'challenge/display_choice_image/';
         e.preventDefault();
 
 //        var url = $(this).attr('href').split('#');
@@ -798,12 +824,13 @@ $(document).ready(function () {
 
             $('#challenge_name_edit').val(r.name);
             $('#read_title_edit').val(r.read_title);
-            $('#read_image_url_edit').val(r.read_image_url);
             $('#read_text_edit').val(r.read_text);
 
             if (r.read_title) {
                 $('#is_read_passage_edit').attr('checked','checked');
                 $('#read_passage_box').show();
+                $('#read_image_preview_edit .img_to_upload').attr('src', challenge_choice_image_url + r.challenge_id);
+                $('#read_image_preview_edit .img_to_upload').show();
             } else {
                 $('#is_read_passage_edit').removeAttr('checked');
                 $('#read_passage_box').hide();
@@ -1640,6 +1667,8 @@ $(document).ready(function () {
                     'data-target="#studentInfo" data-original-title="" data-backdrop="static">&nbsp;</a>' +
                     '<a data-icon="&#xe087" aria-hidden="true" class="fs1 student_password_change show-tooltip" data-toggle="modal" title="Change Student Password" ' +
                     'data-target="#passwordChange" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
+                    '<a data-icon="&#xe070" aria-hidden="true" class="fs1 student_profile_change show-tooltip" data-toggle="modal" title="Change Student Profile" ' +
+                    'data-target="#profileChange" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
                     '<a data-icon="&#xe0a8" aria-hidden="true" class="fs1 student_remove show-tooltip" data-toggle="modal" title="Remove student from class"' +
                     'data-target="#removeStudentFromClass" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
                     '<a data-icon="&#xe107" aria-hidden="true" class="fs1 disable_student_access show-tooltip" style="display: ' + displayDisable + '" title="Disable student access"' +
@@ -1700,6 +1729,18 @@ $(document).ready(function () {
             $('.student_password_change').unbind('click').click(function () {
                 var user_id = $(this).data('user-id');
                 $('#student_password_change_user_id').val(user_id);
+            });
+
+            $('.student_profile_change').unbind('click').click(function () {
+                var user_id = $(this).data('user-id');
+                $('#student_profile_change_user_id').val(user_id);
+                model.getStudentProfileFromClassByUserId(user_id, function (s) {
+                    $('#change_student_profile_form input[name=first_name]').val(s.first_name);
+                    $('#change_student_profile_form input[name=last_name]').val(s.last_name);
+                    $('#change_student_profile_form input[name=username]').val(s.username);
+                    $('#change_student_profile_form input[name=email]').val(s.student_email);
+                    $('#change_student_profile_form input[name=parent_email]').val(s.parent_email);
+                });
             });
 
             var table_initalized = false;
@@ -1936,6 +1977,36 @@ $(document).ready(function () {
         var user_id = $(this).data('user-id');
         $('#student_password_change_user_id').val(user_id);
     });
+
+    $('#change_student_profile_form').unbind('submit').submit(function (e) {
+        var form_data = $('#change_student_profile_form').serializeArray();
+        var user_id = $('#student_profile_change_user_id').val();
+
+        model.changeStudentProfile(form_data, function(response){
+            if (response.error) {
+                //we have an error
+                var extendedError = '';
+                if (response.extended) {
+                    extendedError = response.extended.join('<br/>');
+                }
+
+                $.gritter.add({
+                    title: 'Error',
+                    text: response.error + '<br/>' + extendedError
+                });
+            } else {
+                // looks like it was fine
+                $.gritter.add({
+                    title: 'Success',
+                    text: 'Student details successfully updated'
+                });
+                $('#profileChange').modal('hide');
+            }
+        });
+
+        return false;
+    });
+
 
     $('#student_password_change_submit').unbind('click').click(function (e) {
         e.preventDefault();
@@ -2410,6 +2481,7 @@ $(document).ready(function () {
 
     var question_image_triggers = [
         '#read_image',
+        '#read_image_edit',
         '#question_type_3_image',
         '#question_type_3_image_edit',
         '#question_type_4_image_answer_1',
@@ -2498,10 +2570,15 @@ $(document).ready(function () {
                     $('#crop_image_wrapper').css('width', 400).css('height', 400);
                     $('#read_image_preview .set_image_btn').css('margin-top', '-50%');
                 }
-                if ($('#read_text_edit').val().length > 0) {
-
-                }
                 $('#read_image .img_to_upload').show();
+            } else if (clicked_image_uplader === 'read_image_edit') {
+                if ($('#read_text_edit').val().length > 0) {
+                    $('#crop_image_wrapper').css('width', 400).css('height', 200);
+                    $('#read_image_preview_edit .set_image_btn').css('margin-top', '-25%');
+                } else {
+                    $('#crop_image_wrapper').css('width', 400).css('height', 400);
+                    $('#read_image_preview_edit .set_image_btn').css('margin-top', '-50%');
+                }
             } else {
                 $('#crop_image_wrapper').css('width', 430).css('height', 200);
             }
@@ -4714,8 +4791,12 @@ $(document).ready(function () {
 
                     var order_slider_correct = [];
                     $.each(list, function (k, v) {
-                        order_slider_correct.push(v - min);
+                        p = v - min;
+                        p = (p > 4) ? 4 : p;
+                        order_slider_correct.push(p);
                     });
+                    console.log(order_slider_correct);
+                    console.log(r.answers);
 
                     // set radios
                     $('#question_type_15_form_edit input:radio[name="question_type_15_order_1"]').filter('[value="' + order_slider_correct[0] + '"]').attr('checked', true);
@@ -4889,7 +4970,7 @@ $(document).ready(function () {
         reset_crop_image_environment();
         set_zoom_slider_value('#image_zoom_slider', 100);
 
-        if ($.unique(order_array).length !== 4) {
+        if ($.unique(order_array).length !== 4 || $.unique(order_array_15).length !== 4) {
             $.gritter.add({
                 title: 'Error',
                 text: "Order of answers can't be on the same position"

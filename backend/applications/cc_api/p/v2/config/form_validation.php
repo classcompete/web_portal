@@ -83,11 +83,6 @@ $config = array(
             'rules' => 'trim|required|valid_email'
         ),
         array(
-            'field' => 'username',
-            'label' => 'Username',
-            'rules' => 'trim|required|min_length[6]'
-        ),
-        array(
             'field' => 'password',
             'label' => 'Password',
             'rules' => 'trim|required|min_length[6]'

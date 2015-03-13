@@ -1647,6 +1647,31 @@ var model = {
             }
         });
     },
+    changeStudentProfile: function(data, callback){
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: BASEURL + 'v2/studentApi/profilePut/',
+            data: data,
+            success: function (r) {
+                if (typeof callback === 'function') {
+                    callback(r);
+                }
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    console.log(jqXHR);
+                    console.log(text);
+                    console.log(error);
+                    alert("Oops. Something went wrong. Please try again.\nIf you keep seeing this error, please contact us using support tab")
+                } else {
+                    if (typeof callback === 'function') {
+                        callback($.parseJSON(jqXHR.responseText));
+                    }
+                }
+            }
+        });
+    },
     changeUserPassword: function (data, callback) {
         $.ajax({
             type: 'POST',

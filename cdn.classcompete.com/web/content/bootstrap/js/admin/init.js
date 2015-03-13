@@ -1615,6 +1615,8 @@ $(document).ready(function () {
                     'data-target="#studentInfo" data-original-title="" data-backdrop="static">&nbsp;</a>' +
                     '<a data-icon="&#xe087" aria-hidden="true" class="fs1 student_password_change show-tooltip" data-toggle="modal" title="Change Student Password" ' +
                     'data-target="#passwordChange" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
+                    '<a data-icon="&#xe070" style="display: none" aria-hidden="true" class="fs1 student_profile_change show-tooltip" data-toggle="modal" title="Change Student Profile" ' +
+                    'data-target="#profileChange" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
                     '<a data-icon="&#xe0a8" aria-hidden="true" class="fs1 student_remove show-tooltip" data-toggle="modal" title="Remove student from class"' +
                     'data-target="#removeStudentFromClass" data-original-title="" data-backdrop="static" data-user-id="' + v.user_id + '">&nbsp;</a>' +
                     '<a data-icon="&#xe107" aria-hidden="true" class="fs1 disable_student_access show-tooltip" style="display: ' + displayDisable + '" title="Disable student access"' +

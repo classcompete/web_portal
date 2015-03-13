@@ -14,13 +14,13 @@ class Support extends MY_Controller
         $questions = array(
             array(
                 'question' => 'What Platforms Does this Work On?',
-                'answer' => 'Class Compete works on almost every device. Currently we can be found on: Apple IPad,
-                any Android Device, Kindle Fire and any computer browser.',
+                'answer' => 'Class Compete works on almost every device. Currently we can be found on:
+                iPad App (not iPhone), Android App, Kindle Fire App, Desktop Browser',
             ),
             array(
                 'question' => 'What does Class Compete Do?',
-                'answer' => 'Our goal is to improve student scores. We do this by making them practice test taking
-                skills doing what they love best: Gaming.',
+                'answer' => 'Our goal is to improve student scores and improve student grades. We do this by making them
+                practice test taking skills doing what they love best: gaming. ',
             ),
             array(
                 'question' => 'How did you come up with this idea of gaming and testing?',
@@ -63,11 +63,36 @@ class Support extends MY_Controller
                 'question' => 'Now that I see the issues my student is having can you help more?',
                 'answer' => 'Sure just get in touch with us and we can recommend the best solution we think would work for your student.',
             ),
+            array(
+                'question' => 'When a licensed is purchased then a student has access to whatever challenge is assigned
+                them, or is there an additional purchase price for each challenge?',
+                'answer' => 'The license fee is per student and it allows them to use any challenge that is publicly
+                available in our system as well as any that you custom create. There are no further charges.',
+            ),
+            array(
+                'question' => 'Can teachers create their own challenges?',
+                'answer' => 'Absolutely! We know teachers are creative so we allow any teacher to build their own content
+                into our system and save them as challenges to be assigned to their classrooms only….for now :).',
+            ),
+            array(
+                'question' => 'Who do students compete against?',
+                'answer' => 'Students compete against their counterparts in the classroom they are associated to.
+                They do not compete against everyone. We found that students are more interested when they have a
+                relative sense who they compete against and they try harder! ',
+            ),
+            /*
+            array(
+                'question' => '',
+                'answer' => '',
+            ),
+            */
         );
 
+        $user = PropUserQuery::create()->findOneByUserId(TeacherHelper::getUserId());
 
         $data = new stdClass();
         $data->questions = $questions;
+        $data->user = $user;
         $data->content = $this->load->view('support/home', $data, true);
         $this->load->view('compete', $data);
     }
@@ -76,9 +101,33 @@ class Support extends MY_Controller
     {
         $this->load->library('mailer/mailerlib');
 
-        $name = $this->input->post('name');
-        $email = $this->input->post('email');
-        $message = $this->input->post('message');
+        $name = trim($this->input->post('name'));
+        $email = trim($this->input->post('email'));
+        $message = trim($this->input->post('message'));
+
+        if (empty($name) === true || empty($email) === true || empty($message) === true) {
+            redirect('/support/?error=All fields are mandatory');
+        }
+
+        $user = PropUserQuery::create()->findOneByUserId(TeacherHelper::getUserId());
+        $teacher = PropTeacherQuery::create()->findOneByUserId(TeacherHelper::getUserId());
+
+        // add logged in user data into table below
+        $additional = '<table style="width: 100%; border: 1px solid #d5d5d5; background: #f5f5f5">';
+        $additional .= '<tr><th colspan="10" style="text-align: left">Logged in user details</th></tr>';
+        $additional .= '<tr><td>Full Name:</td><td>' . $user->getFirstName() . ' ' . $user->getLastName() . '</td></tr>';
+        $additional .= '<tr><td>Username:</td><td>' . $user->getUsername() . '</td></tr>';
+        $additional .= '<tr><td>Email:</td><td>' . $user->getEmail() . '</td></tr>';
+        $additional .= '<tr><td>Intro video played:</td><td>' . $teacher->getViewIntro() . '</td></tr>';
+        $additional .= '<tr><td>Is Publisher:</td><td>' . $teacher->getPublisher() . '</td></tr>';
+        $additional .= '<tr><td>Registered at:</td><td>' . $teacher->getCreated() . '</td></tr>';
+        $additional .= '<tr><td>Sent time:</td><td>' . date("Y-m-d H:i:s") . '</td></tr>';
+        $additional .= '<tr><td>Sender Public IP:</td><td>' . $_SERVER['REMOTE_ADDR'] . '</td></tr>';
+        $additional .= '<tr><td>Proxy Client IP:</td><td>' . @$_SERVER['HTTP_CLIENT_IP'] . '</td></tr>';
+        $additional .= '<tr><td>Proxy Client IP:</td><td>' . @$_SERVER['HTTP_X_FORWARDED_FOR'] . '</td></tr>';
+        $additional .= '</table>';
+
+        $message .= '<br/>' . $additional;
 
         $mailData = new stdClass();
         $mailData->name = $name;

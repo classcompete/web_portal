@@ -126,7 +126,14 @@
                                     <div class="control-group">
                                         <div class="controls">
                                             <select class="span12" style="width: 223px;" name="country" id="country">
-                                                <option>Country</option>
+                                                <option value="">Country</option>
+                                                <option value="US"
+                                                    <?php echo ('US' === $teacher_info->getCountry()) ? 'selected="selected"': ''?>>United States</option>
+                                                <option value="CA"
+                                                    <?php echo ('CA' === $teacher_info->getCountry()) ? 'selected="selected"': ''?>>Canada</option>
+                                                <option value="IN"
+                                                    <?php echo ('IN' === $teacher_info->getCountry()) ? 'selected="selected"': ''?>>India</option>
+                                                <option disabled="disabled">-------------------------</option>
                                                 <?php foreach ($countryList as $country): ?>
                                                     <option value="<?php echo $country->getIso2Code()?>"
                                                         <?php echo ($country->getIso2Code() === $teacher_info->getCountry()) ? 'selected="selected"': ''?>>
