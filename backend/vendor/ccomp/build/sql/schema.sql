@@ -169,6 +169,7 @@ CREATE TABLE `teachers`
 	`view_intro` TINYINT DEFAULT 0,
 	`twitter_name` VARCHAR(150),
 	`facebook_link` VARCHAR(150),
+	`import_id` INTEGER(11) DEFAULT 0,
 	PRIMARY KEY (`teacher_id`,`user_id`),
 	INDEX `teachers_FI_1` (`user_id`),
 	INDEX `teachers_FI_2` (`school_id`),
@@ -297,6 +298,23 @@ CREATE TABLE `teacher_license`
 		REFERENCES `teachers` (`teacher_id`)
 		ON UPDATE SET NULL
 		ON DELETE SET NULL
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- teacher_import
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `teacher_import`;
+
+CREATE TABLE `teacher_import`
+(
+	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`file` LONGBLOB,
+	`status` TINYINT DEFAULT 0,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
 -- ---------------------------------------------------------------------

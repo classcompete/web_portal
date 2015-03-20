@@ -8,8 +8,8 @@
                     <a style="color:black" class="btn btn-small" href="#"
                        data-original-title="" data-target="#addEditUser" data-backdrop="static"
                        data-toggle="modal" id="addNewTeacher">Add New Teacher</a>
-                    <a style="color:black" class="btn btn-small" href="<?php echo site_url('users/teachers_export')?>"
-                       >Export Teachers</a>
+                    <a style="color:black" class="btn btn-small" href="<?php echo site_url('users/teachers_export')?>">Export Teachers</a>
+	                <a style="color:black" class="btn btn-small" href="<?php echo site_url('teacher_import')?>">Import Teachers</a>
                 </span>
             </div>
 

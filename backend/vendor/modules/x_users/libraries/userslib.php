@@ -50,6 +50,17 @@ class Userslib{
         return $password;
     }
 
+    public function generateUniqueUsername($personFullName) {
+        $personFullName = strtolower(str_replace(' ', '.', $personFullName));
+        if ($this->ci->users_model->is_unique_username($personFullName)) { return $personFullName; }
+
+        $username = '';
+        $i = 0;
+        do {
+            $username = $personFullName . '.' . ++$i;
+        } while (! $this->ci->users_model->is_unique_username($username));
+        return $username;
+    }
 }
 class Userslib_Exception extends Exception
 {

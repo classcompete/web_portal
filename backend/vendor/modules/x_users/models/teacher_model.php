@@ -88,6 +88,9 @@ class Teacher_model extends CI_model
             if (isset($data->facebook_link) === true) {
                 $teacher->setFacebookLink($data->facebook_link);
             }
+            if(isset($data->import_id) === true){
+                $teacher->setImportId($data->import_id);
+            }
             $teacher->save();
 
             if(isset($data->grades) === true && empty($data->grades) === false){

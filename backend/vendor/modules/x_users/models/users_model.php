@@ -178,6 +178,26 @@ class Users_model extends CI_model
         return $isUnique;
     }
 
+    public function is_unique_email($email, $excludeId = null)
+    {
+        $userCount = PropUserQuery::create()
+            ->filterByUserId($excludeId, Criteria::NOT_EQUAL)
+            ->filterByEmail($email)
+            ->count();
+        $isUnique = empty($userCount);
+        return $isUnique;
+    }
+
+    public function is_unique_username($username, $excludeId = null)
+    {
+        $userCount = PropUserQuery::create()
+            ->filterByUserId($excludeId, Criteria::NOT_EQUAL)
+            ->filterByLogin($username)
+            ->count();
+        $isUnique = empty($userCount);
+        return $isUnique;
+    }
+
     public function set_order_by($field)
     {
         $this->orderBy = $field;
