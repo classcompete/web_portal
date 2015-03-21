@@ -55,7 +55,27 @@ class Teacher_import extends MY_Controller {
 			$teacherData->username = $t->username;
 	        $teacherData->import_id = $t->importId;
 	        $this->teacher_model->save($teacherData);
+
+	            //Send welcome email to teacher
 	        $this->send_mail_to_new_teacher(config_item('teacher_url'), $teacherData, $password);
+
+	            //Add to MailChimp teachers list
+	        $this->load->library('mailchimp/mailchimplib');
+	        $this->mailchimplib->call('lists/subscribe', array(
+	            'id' => 'b5309bf6ac',
+	            'email' => array(
+	                'email' => $teacherData->email
+	            ),
+	            'merge_vars' => array(
+	                'FNAME' => $teacherData->first_name,
+	                'LNAME' => $teacherData->last_name
+	            ),
+	            'double_optin' => false,
+	            'update_existing' => true,
+	            'replace_interests' => false,
+	            'send_welcome' => false,
+	        ));
+
         }
 
         redirect('teacher_import');

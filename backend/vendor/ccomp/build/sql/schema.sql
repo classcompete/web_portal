@@ -312,6 +312,7 @@ CREATE TABLE `teacher_import`
 	`name` VARCHAR(100) NOT NULL,
 	`file` LONGBLOB,
 	`status` TINYINT DEFAULT 0,
+	`result_log` LONGTEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)

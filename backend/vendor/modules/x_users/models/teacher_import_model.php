@@ -17,6 +17,7 @@ class Teacher_import_model extends CI_Model{
         if (isset($data->name)) { $import->setName($data->name); }
 	    if (isset($data->file)) { $import->setFile($data->file); }
         if (isset($data->status)) { $import->setStatus($data->status); }
+	    if (isset($data->result_log)) { $import->setResultLog($data->result_log); }
 
         $import->save();
         return $import;
