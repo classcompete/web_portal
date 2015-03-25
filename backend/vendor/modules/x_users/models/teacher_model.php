@@ -222,8 +222,14 @@ class Teacher_model extends CI_model
 
     private function prepareListQuery()
     {
-        $query = PropUserQuery::create();
-        $query->joinPropTeacher();
+        //$query = PropUserQuery::create();
+        //$query->joinPropTeacher();
+
+			//This is done this way because of mapperlib... Mapperlib use get only getList() method
+	        //to obtain teachers list.
+	    $query = PropUserQuery::create()
+            ->joinPropTeacher()
+	        ->withColumn('PropTeacher.LastLoginTime', 'LastLoginTime');
 
         if (empty($this->filterUsername) === false) {
             $query->filterByLogin('%' . $this->filterUsername . '%', Criteria::LIKE);
@@ -373,6 +379,11 @@ class Teacher_model extends CI_model
         $this->excludeId = $id;
     }
 
+    public function update_teacher_login(PropTeacher $teacher) {
+        $teacher->setLastLoginTime(date("Y-m-d H:i:s"));
+        $teacher->save();
+        return $teacher;
+    }
     /*
      * getter's
      * */
@@ -380,6 +391,7 @@ class Teacher_model extends CI_model
     public function get_teacher_grades($teacher_id){
         return PropTeacherGradeQuery::create()->findByTeacherId($teacher_id);
     }
+
     public function get_teacher_by_email_or_username($string){
         $user = $this->get_teacher_by_username($string);
 
@@ -420,12 +432,15 @@ class Teacher_model extends CI_model
         }
 
     }
+
     public function get_teacher_by_username($username){
         return PropUserQuery::create()->findOneByLogin($username);
     }
+
     public function get_teacher_by_email($email){
         return PropUserQuery::create()->findOneByEmail($email);
     }
+
     public function get_teacher_by_id($id){
         $teacher = PropTeacherQuery::create()->findOneByTeacherId($id);
         return PropUserQuery::create()->findOneByUserId($teacher->getUserId());

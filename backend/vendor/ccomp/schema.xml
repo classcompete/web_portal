@@ -102,6 +102,7 @@
         <column name="twitter_name" type="VARCHAR" size="150"/>
         <column name="facebook_link" type="VARCHAR" size="150"/>
         <column name="import_id" type="INTEGER" size="11" default="0"/>
+        <column name="last_login_time" type="TIMESTAMP" required="false"/>
         <foreign-key foreignTable="users" onDelete="CASCADE">
             <reference local="user_id" foreign="user_id" />
         </foreign-key>

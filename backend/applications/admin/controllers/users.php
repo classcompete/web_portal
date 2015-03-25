@@ -351,6 +351,8 @@ class Users extends MY_Controller
         if ($uri !== null) {
             redirect('users/teachers/' . $uri);
         }
+
+	    $this->mapperlib->add_column('last_login_time', 'LAST LOGIN', false);
         $this->mapperlib->set_default_order(PropUserPeer::CREATED, Criteria::DESC);
 
         $this->mapperlib->add_option('classes', array(
@@ -405,7 +407,6 @@ class Users extends MY_Controller
         $data = new stdClass();
 
         $this->mapperlib->set_model($this->teacher_model);
-//        $this->mapperlib->set_default_per_page(5);
         $data->table = $this->mapperlib->generate_table(true);
 
         $data->count_teacher = $this->teacher_model->getFoundRows();

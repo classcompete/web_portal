@@ -96,21 +96,19 @@ class Teacherlib{
     /*
     * Setter's section
     * */
-    public function set_teacherlogin(PropUser $teacher){
-
-
-        $this->ci->session->set_userdata("userdata",$teacher);
+    public function set_teacherlogin(PropUser $user){
+        $this->ci->session->set_userdata("userdata", $user);
 
         if($this->ci->session === false){
             NotificationHelper::setNotification(NotificationHelper::$NOTIFICATION_TYPE_WARNING, lang('adminlib.login_failed'));
             delete_cookie($this->_autologoin_cookie);
             redirect('auth/login');
         }
-
+	    $teacher = $this->ci->teacher_model->get_teacher_info($user->getUserId());
+		$this->ci->teacher_model->update_teacher_login($teacher);
     }
 
     public function set_autologin(PropUser $user, $time){
-
         $token = md5($user->getUsername() . '-' . $this->generatePassword() .'-'.time());
         set_cookie(array(
             'name' => $this->_autologin_cookie,
@@ -121,10 +119,9 @@ class Teacherlib{
     }
 
     public function set_teacher_autologin(PropTeacherToken $teahcer_token){
-
-        $admin = $this->ci->teacher_model->get_teacher_by_id($teahcer_token->getTeacherId());
-        $this->set_teacherlogin($admin);
-        return $admin;
+        $teacher = $this->ci->teacher_model->get_teacher_by_id($teahcer_token->getTeacherId());
+        $this->set_teacherlogin($teacher);
+        return $teacher;
     }
 
     /*

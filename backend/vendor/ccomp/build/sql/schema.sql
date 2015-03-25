@@ -170,6 +170,7 @@ CREATE TABLE `teachers`
 	`twitter_name` VARCHAR(150),
 	`facebook_link` VARCHAR(150),
 	`import_id` INTEGER(11) DEFAULT 0,
+	`last_login_time` DATETIME,
 	PRIMARY KEY (`teacher_id`,`user_id`),
 	INDEX `teachers_FI_1` (`user_id`),
 	INDEX `teachers_FI_2` (`school_id`),
