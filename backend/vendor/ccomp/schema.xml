@@ -85,6 +85,24 @@
         <behavior name="auto_add_pk" />
     </table>
 
+    <table name="user_activity" phpName="PropUserActivity">
+        <column name="user_activity_id" type="INTEGER" size="11" primaryKey="true" autoIncrement="true" />
+        <column name="user_id" type="INTEGER" size="11" required="true"/>
+        <column name="last_action" type="VARCHAR" size="100" required="true" />
+		<index>
+			<index-column name="updated_at"/>
+		</index>
+        <foreign-key foreignTable="users" onDelete="CASCADE">
+            <reference local="user_id" foreign="user_id" />
+        </foreign-key>
+
+        <vendor type="mysql">
+            <parameter name="Charset" value="utf8"/>
+        </vendor>
+
+        <behavior name="timestampable" />
+    </table>
+
     <table name="teachers" phpName="PropTeacher">
         <column name="teacher_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="user_id" type="INTEGER" size="11" required="true" primaryKey="true"  />

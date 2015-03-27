@@ -59,6 +59,7 @@ $autoload['libraries'] = array(
     'x_asset/assetlib',
     'x_notification/notificationlib',
     'x_mapper/mapperlib',
+    'x_users/userslib',
     'x_users/teacherlib',
     'database',
     'session',

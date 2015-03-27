@@ -147,6 +147,28 @@ CREATE TABLE `users`
 ) ENGINE=MyISAM;
 
 -- ---------------------------------------------------------------------
+-- user_activity
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_activity`;
+
+CREATE TABLE `user_activity`
+(
+	`user_activity_id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+	`user_id` INTEGER(11) NOT NULL,
+	`last_action` VARCHAR(100) NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`user_activity_id`),
+	INDEX `user_activity_I_1` (`updated_at`),
+	INDEX `user_activity_FI_1` (`user_id`),
+	CONSTRAINT `user_activity_FK_1`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `users` (`user_id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM CHARACTER SET='utf8';
+
+-- ---------------------------------------------------------------------
 -- teachers
 -- ---------------------------------------------------------------------
 

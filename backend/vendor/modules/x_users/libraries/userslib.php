@@ -11,6 +11,7 @@ class Userslib{
     public function __construct(){
         $this->ci = &get_instance();
         $this->ci->load->model('x_users/users_model');
+	    $this->ci->load->model('x_users/user_activity_model');
         $this->ci->load->helper('x_users/users');
     }
 
@@ -61,7 +62,20 @@ class Userslib{
         } while (! $this->ci->users_model->is_unique_username($username));
         return $username;
     }
+
+		/**
+		 * Logs user request for page as his last action on site
+		 */
+	public function logUserActivity($user, $actionStr) {
+		$actData = new stdClass();
+		$actData->user_id = $user->getUserId();
+		$actData->last_action = $actionStr;
+
+		$userAct = $this->ci->user_activity_model->getUserActivityByUserId($user->getUserId());
+		$this->ci->user_activity_model->save($actData, ($userAct) ? $userAct->getUserActivityId() : null);
+	}
 }
+
 class Userslib_Exception extends Exception
 {
 

@@ -437,10 +437,16 @@ class Teacher_model extends CI_model
         return PropUserQuery::create()->findOneByLogin($username);
     }
 
+		/**
+		 * Returns PropUser object by teacher email
+		 */
     public function get_teacher_by_email($email){
         return PropUserQuery::create()->findOneByEmail($email);
     }
 
+		/**
+		 * Returns PropUser object by teacher id
+		 */
     public function get_teacher_by_id($id){
         $teacher = PropTeacherQuery::create()->findOneByTeacherId($id);
         return PropUserQuery::create()->findOneByUserId($teacher->getUserId());

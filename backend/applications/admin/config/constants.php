@@ -6,6 +6,9 @@
  * */
 define('CC_APP','admin');
 
+	//Minutes offset (last XX minutes) for user activity statistics
+define('USER_ACTIVITY_MINUTES_OFFSET', 15);
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

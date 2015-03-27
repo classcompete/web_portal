@@ -48,7 +48,6 @@ class Teacherlib{
                 return true;
             }
         }
-
         return false;
     }
 
@@ -118,6 +117,9 @@ class Teacherlib{
         $this->ci->teacher_token_model->save($user, $time, $token, PropTeacherTokenPeer::TYPE_ADMIN_AUTOLOGIN);
     }
 
+		/**
+		 * Auto login teacher by token and return his PropUser object
+		 */
     public function set_teacher_autologin(PropTeacherToken $teahcer_token){
         $teacher = $this->ci->teacher_model->get_teacher_by_id($teahcer_token->getTeacherId());
         $this->set_teacherlogin($teacher);
@@ -140,6 +142,17 @@ class Teacherlib{
             $token = null;
         }
         return $token;
+    }
+
+		/**
+		 * Returns PropUser object for logged teacher from session
+		 */
+    public function get_teacher_user_from_session(){
+        if ($this->ci->session) {
+            $user = $this->ci->session->userdata('userdata');
+            if(! empty($user)) { return $user; }
+        }
+        return FALSE;
     }
 
     public function encodePassword($text)
