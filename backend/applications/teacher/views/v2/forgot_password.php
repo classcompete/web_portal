@@ -52,79 +52,27 @@
 
 <div class="wrapper content clearfix">
 
-    <div class="reg-form">
+    <div class="reg-form centered-form">
 
-        <h2>Teacher Registration</h2>
+        <h2>Teacher password recovery</h2>
+	    <br/>
+        <p>Enter your email and we will send you a link to the page where you can enter your new password.</p>
 
-        <p>It’s free and always will be.</p>
-
-        <form id="signup-form" method="post">
+        <form id="forgot-form" method="post">
             <ul>
-                <li class="clearfix">
-                    <span class="half left"><input type="text" placeholder="First Name" name="first_name"></span>
-                    <span class="half right"><input type="text" placeholder="Last Name" name="last_name"></span>
-                </li>
                 <li>
                     <input type="text" placeholder="Email" name="email">
                 </li>
                 <li>
-                    <input type="password" placeholder="Password (minimum 6 characters)" name="password">
+	                <p><strong>Please note</strong> that link we send you will be accessible for 3 hours after we sent it to you. No need to hurry, but don't forget about it...</p>
                 </li>
-                <li>
-                    <p>By clicking Register, you agree to our
-                        <a href="http://www.classcompete.com/privacy-policy-terms-conditions/#termsandconditions"
-                           target="_blank">
-                            Terms and Conditions
-                        </a> &
-                        <a href="http://www.classcompete.com/privacy-policy-terms-conditions/#privacypolicy"
-                           target="_blank">
-                            Privacy Policy
-                        </a>
-                    </p>
-                </li>
-                <li>
-                    <button class="do-register" type="submit">Register</button>
+                <li class="clearfix">
+                    <button class="do-send-link right" type="submit">Send me the link</button>
                 </li>
             </ul>
         </form>
 
-    </div>
-    <!-- / Reg form -->
-
-    <div class="reg-info">
-
-        <h3>Why Teachers Need Class Compete?</h3>
-
-        <ul>
-            <li>
-                <img src="/assets/v2/pictures/icon-reduce.png" alt="Reduces Test Anxiety">
-                <h4>Reduces Test Anxiety</h4>
-
-                <p>Students develop the skills and confidence they need to successfully take timed academic tests.</p>
-            </li>
-            <li>
-                <img src="/assets/v2/pictures/icon-scores.png" alt="Higher Scores">
-                <h4>Higher Scores</h4>
-
-                <p>Research shows scores significantly improved after only 10 trials!</p>
-            </li>
-            <li>
-                <img src="/assets/v2/pictures/icon-kidslove.png" alt="Kids Love Our Game">
-                <h4>Kids Love Our Game</h4>
-
-                <p>We’ve leveraged game-based learning theory to create a positive learning environment.</p>
-            </li>
-            <li>
-                <img src="/assets/v2/pictures/icon-bettertest.png" alt="A Better Test">
-                <h4>A Better Test</h4>
-
-                <p>We’ve gamified testing, unlocking its true power as a learning tool.</p>
-            </li>
-        </ul>
-
-    </div>
-    <!-- / Reg info -->
-
+    </div> <!-- / Reg form -->
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

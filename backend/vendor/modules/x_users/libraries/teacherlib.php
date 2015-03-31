@@ -107,6 +107,9 @@ class Teacherlib{
 		$this->ci->teacher_model->update_teacher_login($teacher);
     }
 
+		/**
+		 * Create & save teacher autologin token and set cookie with token's value
+		 */
     public function set_autologin(PropUser $user, $time){
         $token = md5($user->getUsername() . '-' . $this->generatePassword() .'-'.time());
         set_cookie(array(
@@ -154,6 +157,37 @@ class Teacherlib{
         }
         return FALSE;
     }
+
+		/**
+		 * Create & save teacher password recovery token and return it
+		 */
+    public function create_password_recovery_token(PropUser $user, $time){
+        $token = md5($user->getUsername() . '-' . $this->generatePassword() . '-' . time());
+        $tokenObj = $this->ci->teacher_token_model->save($user, $time, $token, PropTeacherTokenPeer::TYPE_PASSWORD_RECOVERY);
+	    return $token;
+    }
+
+		/**
+		 * Check if token for teacher password recovery exists and is not expired, and return linked
+		 * PropUser object of the teacher
+		 */
+	public function check_password_recovery_token($token) {
+        $tokenObj = $this->ci->teacher_token_model->get_by_type($token, PropTeacherTokenPeer::TYPE_PASSWORD_RECOVERY);
+        if (! empty($tokenObj)){
+            if (time() <= ($tokenObj->getUpdatedAt('U') + $tokenObj->getTtl())) {
+                $userObj = $this->ci->teacher_model->get_teacher_by_id($tokenObj->getTeacherId());
+                if ($userObj) { return $userObj; }
+            }
+        }
+        return null;
+	}
+
+		/**
+		 * Delete token for teacher password recovery
+		 */
+	public function delete_password_recovery_token($token) {
+		$this->ci->teacher_token_model->destroy($token, PropTeacherTokenPeer::TYPE_PASSWORD_RECOVERY);
+	}
 
     public function encodePassword($text)
     {

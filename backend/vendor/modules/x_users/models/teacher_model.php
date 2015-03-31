@@ -392,47 +392,40 @@ class Teacher_model extends CI_model
         return PropTeacherGradeQuery::create()->findByTeacherId($teacher_id);
     }
 
+		/**
+		 * Returns teacher's PropUser object by email or username
+		 */
     public function get_teacher_by_email_or_username($string){
         $user = $this->get_teacher_by_username($string);
+        if (empty($user)) { $user = $this->get_teacher_by_email($string); }
 
-        if(empty($user) === true){
-            $user = $this->get_teacher_by_email($string);
-        }
-
-        /*
-         * check if user is teacher
-         * */
-        if(empty($user) === false){
+			//check if user is teacher
+        if (! empty($user)) {
             $teacher = PropTeacherQuery::create()->findOneByUserId($user->getUserId());
 
-            if(empty($teacher) === false){
-                return $user;
-            }else{
-                $user = null;
-                return $user;
-            }
-        }else{
-            return null;
+            if (! empty($teacher)) { return $user; }
+            else { return null; }
         }
+	    return null;
     }
+
+		/**
+		 * Check if teacher's email exists and returns PropUser object
+		 */
     public function check_teacher_by_email($string){
         $user = $this->get_teacher_by_email($string);
-        if(empty($user) === false){
-            /*
-             * check if user is teacher
-             * */
+        if (! empty($user)){
+	            //check if user is teacher
             $teacher = PropTeacherQuery::create()->findOneByUserId($user->getUserId());
-
-            if(empty($teacher) === false){
-                return $user;
-            }
-            else{
-                return null;
-            }
+            if (! empty($teacher)) { return $user; }
+            else { return null; }
         }
-
+		return null;
     }
 
+		/**
+		 * Returns PropUser object by teacher username
+		 */
     public function get_teacher_by_username($username){
         return PropUserQuery::create()->findOneByLogin($username);
     }
@@ -447,15 +440,21 @@ class Teacher_model extends CI_model
 		/**
 		 * Returns PropUser object by teacher id
 		 */
-    public function get_teacher_by_id($id){
-        $teacher = PropTeacherQuery::create()->findOneByTeacherId($id);
+    public function get_teacher_by_id($teacherId){
+        $teacher = PropTeacherQuery::create()->findOneByTeacherId($teacherId);
         return PropUserQuery::create()->findOneByUserId($teacher->getUserId());
     }
 
+		/**
+		 * Returns PropUser object by user id
+		 */
     public function get_user_by_id($id){
         return PropUserQuery::create()->findOneByUserId($id);
     }
 
+		/**
+		 * Returns user type by student or teacher id
+		 */
     public function get_user_type_by_id($id){
         $student = PropStudentQuery::create()->findOneByUserId(intval($id));
         if ($student === null) {
@@ -470,6 +469,9 @@ class Teacher_model extends CI_model
         }
     }
 
+		/**
+		 * Returns total number of teachers
+		 */
     public function get_teacher_count(){
         return PropTeacherQuery::create()->count();
     }

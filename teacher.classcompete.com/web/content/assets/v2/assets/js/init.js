@@ -47,7 +47,7 @@
             }).always(function(){
                 setTimeout(function () {
                     // restore text on signup button
-                    $('.do-register').html('Register');
+                    unloadSpinner('.do-register', 'Register');
                 }, 150);
             }).fail(function(jqXHR, textStatus, errorThrown){
                 response = $.parseJSON(jqXHR.responseText);
@@ -63,7 +63,7 @@
                     notificationBar.close();
                 }, 8000);
             });
-            loadSpinner();
+            loadSpinner('.do-register');
         } else {
             notificationBar.error('Fields in Red are mandatory ones');
             setTimeout(function () {
@@ -77,15 +77,108 @@
     $('#signup-form input[type=text], #signup-form input[type=password]').on('focus', function () {
         $(this).removeClass('error');
     });
+
+        //Forgot password form - send password recovery link
+    $('#forgot-form').submit(function(){
+        $('#forgot-form input[type=text], #forgot-form input[type=password]').each(function () {
+            if ($(this).val().length < 1) {
+                $(this).addClass('error');
+            }
+        });
+
+        if ($('#forgot-form input.error').length < 1) {
+            var forgotData = $('#forgot-form').serialize();
+            $.post('/v2/auth/forgotPasswordPost', forgotData, function(){
+                alert('Nice!\nWe sent you an email with the link to change your password. Do it in the next 3 hours.');
+                window.location.href = '/';
+            }).always(function(){
+                setTimeout(function () {
+                    unloadSpinner('.do-send-link', 'Send me the link');
+                }, 150);
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                var xResponse = $.parseJSON(jqXHR.responseText);
+                if (xResponse.error) {
+                    notificationBar.error(xResponse.error);
+                } else {
+                    notificationBar.error("Oops. Something went wrong. Please try again. If you keep seeing this message, contact us.");
+                }
+                $('.notification-container').click(function(){
+                    notificationBar.close();
+                });
+                setTimeout(function () {
+                    notificationBar.close();
+                }, 8000);
+            });
+            loadSpinner('.do-send-link');
+        } else {
+            notificationBar.error('Fields in Red are mandatory ones.');
+            setTimeout(function () {
+                notificationBar.close();
+            }, 8000);
+        }
+
+        return false;
+    });
+
+    $('#forgot-form input[type=text], #forgot-form input[type=password]').on('focus', function () {
+        $(this).removeClass('error');
+    });
+
+        //Password recovery form - set new password
+    $('#recovery-form').submit(function(){
+        $('#recovery-form input[type=text], #recovery-form input[type=password]').each(function () {
+            if ($(this).val().length < 1) {
+                $(this).addClass('error');
+            }
+        });
+
+        if ($('#recovery-form input.error').length < 1) {
+            var recoveryData = $('#recovery-form').serialize();
+            $.post('/v2/auth/passwordRecoveryPost', recoveryData, function(){
+                alert('You are done!\nNow you can login.');
+                window.location.href = '/';
+            }).always(function(){
+                setTimeout(function () {
+                    unloadSpinner('.do-recovery', 'Set password');
+                }, 150);
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                var xResponse = $.parseJSON(jqXHR.responseText);
+                if (xResponse.error) {
+                    notificationBar.error(xResponse.error);
+                } else {
+                    notificationBar.error("Oops. Something went wrong. Please try again. If you keep seeing this message, contact us.");
+                }
+                $('.notification-container').click(function(){
+                    notificationBar.close();
+                });
+                setTimeout(function () {
+                    notificationBar.close();
+                }, 8000);
+            });
+            loadSpinner('.do-recovery');
+        } else {
+            notificationBar.error('Fields in Red are mandatory ones.');
+            setTimeout(function () {
+                notificationBar.close();
+            }, 8000);
+        }
+
+        return false;
+    });
+
+    $('#recovery-form input[type=text], #recovery-form input[type=password]').on('focus', function () {
+        $(this).removeClass('error');
+    });
+
 }(jQuery));
 
-function loadSpinner() {
-    object = $('.do-register');
-    html = '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+function loadSpinner(elmClass) {
+    var object = $(elmClass);
+    var html = '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
     object.html(html);
 }
 
-function unloadSpinned() {
-    object = $('.do-register');
-    object.html('Register');
+function unloadSpinner(elmClass, elmHtml) {
+    var object = $(elmClass);
+    object.html(elmHtml);
 }

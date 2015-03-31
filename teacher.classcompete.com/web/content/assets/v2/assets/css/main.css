@@ -62,6 +62,18 @@ header {background: #f3f3f3; padding: 12px 0;}
                 header .login-box ul li input[type=password]:focus {border: #677ba0 solid 1px;}
                 header .login-box ul li input[type=submit]:hover,
                 header .login-box ul li button[type=submit]:hover{background: #536a95;}
+        header .login-box .forgot-pass {
+            display: block;
+            padding: 0 0 0 11px;
+            }
+            header .login-box .forgot-pass a {
+                font-size: 12px;
+                color: #4081ab;
+                text-decoration: none;
+                }
+            header .login-box .forgot-pass a:hover {
+                color: #000;
+            }
 
 .notification-container {
     height: 70px; line-height: 40px; text-align: center;
@@ -135,7 +147,13 @@ header {background: #f3f3f3; padding: 12px 0;}
                     color: #d14836;
                     font-weight: bold;
                 }
-
+        .reg-form.centered-form {
+            border: 1px solid #f3f3f3;
+            float: none;
+            margin: auto;
+            padding: 20px 40px;
+            width: 430px;
+            }
 
         .reg-info ul {padding-top: 30px;}
             .reg-info ul li {overflow: hidden;}
