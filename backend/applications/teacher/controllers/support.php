@@ -23,7 +23,6 @@ class Support extends MY_Controller
                 *<i>Premium licenses purchases will not include the free licenses. Bulk purchase discounts are available please fill in the support form with your request.</i>
                 ',
             ),
-
             array(
                 'question' => 'What Platforms Does this Work On?',
                 'answer' => 'Class Compete works on almost every device. Currently we can be found on:

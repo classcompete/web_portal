@@ -59,34 +59,74 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="widget">
                     <div class="widget-header">
-                        <div class="title">Student Game - Links</div>
+                        <div class="title">Student Game</div>
                     </div>
                     <div class="widget-body clearfix">
-                        <ul class="start-competing-list box">
-                            <li>
-                                <a class="app-store" target="_blank" href="http://bit.ly/1iHxsW6">
-                                    Available on the <b>App Store</b>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="google-play" target="_blank" href="http://bit.ly/1gPwpix">
-                                    Android App on <b><em>Google</em> Play</b>
-                                </a>
-                            </li>
-                            <br>
-                            <li>
-                                <a class="pc-mac" target="_blank" href="http://bit.ly/1idscos">
-                                    Available on <b>PC &amp; Mac</b>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="kindle" target="_blank" href="http://amzn.to/1icY3f1">
-                                    Available on <b>Amazon kindle</b>
-                                </a>
-                            </li>
-                        </ul>
+
+
+	                    <div class="wrapper" style="background: none">
+	                        <div class="row-fluid">
+	                            <div class="span6">
+	                                <div class="widget">
+	                                    <div class="widget-header">
+	                                        <div class="title"><span data-icon=""></span>  Step 1 - Register</div>
+	                                    </div>
+	                                    <div class="widget-body">
+
+					                        <ul class="start-competing-list box">
+					                            <li>
+					                                <a class="app-store" target="_blank" href="http://bit.ly/1iHxsW6">
+					                                    Available on the <b>App Store</b>
+					                                </a>
+					                            </li>
+					                            <li>
+					                                <a class="google-play" target="_blank" href="http://bit.ly/1gPwpix">
+					                                    Android App on <b><em>Google</em> Play</b>
+					                                </a>
+					                            </li>
+					                            <br>
+					                            <li>
+					                                <a class="pc-mac" target="_blank" href="http://bit.ly/1idscos">
+					                                    Available on <b>PC &amp; Mac</b>
+					                                </a>
+					                            </li>
+					                            <li>
+					                                <a class="kindle" target="_blank" href="http://amzn.to/1icY3f1">
+					                                    Available on <b>Amazon kindle</b>
+					                                </a>
+					                            </li>
+					                        </ul>
+
+	                                    </div>
+	                                </div>
+	                            </div>
+
+                                <div class="span6">
+	                                <div class="widget">
+	                                    <div class="widget-header">
+	                                        <div class="title"><span data-icon="&#xe0a4;"></span>  Step 2 - Sample Code</div>
+	                                    </div>
+	                                    <div class="widget-body">
+
+				                            <?php for ($i = 1; $i <= 8; $i++): ?>
+				                                    <h5>
+				                                        Grade <?php echo $i ?> <span style="font-weight: normal">Code - </span>
+				                                        <strong
+				                                            style="font-size: 15px; color: #ed6d49">trymath<?php echo $i ?></strong>
+				                                    </h5>
+				                            <?php endfor ?>
+
+	                                    </div>
+	                                </div>
+	                            </div>
+
+	                        </div>
+	                    </div>
+
+
                     </div>
                 </div>
             </div>
