@@ -127,8 +127,10 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header">
-                        <div class="title" style="width: 50%">Want to try as student?</div>
+                        <div class="title" style="width: 50%"><a href="<?php echo base_url('support') ?>">Want to try as student? Learn how...</a></div>
                     </div>
+
+	                <?php /*
                     <div class="widget-body">
                         <p style="font-size: 16px;">Register as student and enter the following trial codes</p>
 
@@ -155,9 +157,12 @@
                             <?php endfor ?>
                         </div>
                     </div>
+                    */ ?>
+
                 </div>
             </div>
         </div>
+
         <div class="right-sidebar">
             <div class="wrapper">
                 <div class="overview">
@@ -170,7 +175,9 @@
                             </a>
                             <br/><br/>
                         </div>
-                        <h5 class="heading">Class Compete Overview</h5>
+
+	                    <?php /*
+	                    <h5 class="heading">Class Compete Overview</h5>
 
                         <div class="articles">
                             <a data-original-title="">
@@ -190,6 +197,7 @@
                                 <a href="<?php echo site_url('reporting/basic') ?>">Watch the Results!!!</a>
                             </a>
                         </div>
+                        */ ?>
                     </div>
                 </div>
             </div>

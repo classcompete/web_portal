@@ -208,7 +208,9 @@
                             </a>
                             <br/><br/>
                         </div>
-                        <h5 class="heading">Challenge Wizard</h5>
+
+	                    <?php /*
+	                    <h5 class="heading">Challenge Wizard</h5>
 
                         <div class="articles">
                             <a href="<?php echo site_url('marketplace')?>" data-original-title="">
@@ -224,6 +226,7 @@
                                 Create Challenges for your Classes or to be listed in the Marketplace
                             </a>
                         </div>
+                        */ ?>
                     </div>
                 </div>
             </div>

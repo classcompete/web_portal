@@ -179,6 +179,8 @@
                             </a>
                             <br/><br/>
                         </div>
+
+	                    <?php /*
                         <h5 class="heading">Challenge Wizard</h5>
 
                         <div class="articles">
@@ -195,6 +197,7 @@
                                 Create Challenges for your Classes or to be listed in the Marketplace
                             </a>
                         </div>
+                        */ ?>
                     </div>
                 </div>
             </div>

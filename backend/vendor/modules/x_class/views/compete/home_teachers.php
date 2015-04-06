@@ -137,6 +137,8 @@
                             </a>
                             <br/><br/>
                         </div>
+
+	                    <?php /*
                         <h5 class="heading">Classroom Wizard</h5>
                         <div class="articles">
                             <a data-original-title="">
@@ -160,6 +162,7 @@
                                 <a href="<?php echo site_url('reporting/basic')?>">See the Results</a>
                             </a>
                         </div>
+                        */ ?>
                     </div>
                 </div>
             </div>
