@@ -13,6 +13,18 @@ class Support extends MY_Controller
     {
         $questions = array(
             array(
+                'question' => 'How Student Licenses Work?',
+                'answer' => '
+                1. Every Classroom will get 2 student licenses for FREE.<br/>
+			    2. If you want more students in a classroom, you will need to purchase licenses (premium account)*.<br/>
+			    3. Premium accounts can add/remove licenses from any classroom.<br/>
+			    4. Licenses purchased as premium are valid for 1 year from purchase.<br/><br/>
+
+                *<i>Premium licenses purchases will not include the free licenses. Bulk purchase discounts are available please fill in the support form with your request.</i>
+                ',
+            ),
+
+            array(
                 'question' => 'What Platforms Does this Work On?',
                 'answer' => 'Class Compete works on almost every device. Currently we can be found on:
                 iPad App (not iPhone), Android App, Kindle Fire App, Desktop Browser',
