@@ -19,26 +19,6 @@ class Mailerlib
         $this->email_from_name = 'ClassCompete.com';
     }
 
-    public function sendTeacherPasswordRecoveryEmail($data)
-    {
-        $subject = "INFO CLASSCOMPETE Teacher panel";
-        $message = $this->_ci->load->view('mailer/teacher_password-recovery', $data, true);
-
-        $this->initialize();
-        // Send email
-        $this->_ci->email->from($this->email_from, $this->email_from_name);
-        $this->_ci->email->to($data->email);
-        $this->_ci->email->bcc('moreinfo@classcompete.com');
-        $this->_ci->email->subject($subject);
-        $this->_ci->email->message($message);
-
-        if (!$this->_ci->email->send()) {
-            return false;
-        }
-
-        return true;
-    }
-
     public function sendAccountCreated($data)
     {
         $subject = 'Welcome to the Class Compete community!  ';

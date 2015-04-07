@@ -1,4 +1,4 @@
-(function ($) {
+(function($){
 
     var notificationBar = $('.notification-container').sudoNotify({
         autoHide: false,
@@ -8,47 +8,6 @@
     $('.mobile-nav').click(function () {
         $(this).toggleClass('active');
         $('.login-box ul').slideToggle('fast');
-    });
-
-    $('#recovery-form').submit(function () {
-        $('#recovery-form input[type=text]').each(function () {
-            if ($(this).val().length < 1) {
-                $(this).addClass('error');
-            }
-        });
-        if ($('#recovery-form input.error').length < 1) {
-            var recoveryData = $('#recovery-form').serialize();
-            $.post('/v2/auth/recoveryPost', recoveryData, function () {
-                alert('Your new password has been sent on your email' + "\n\n" + 'Info: Please check "Spam" folder also.' + "\n\n" + 'If you don\'t receive email in next few minutes' + "\n" + 'please contact us on moreinfo@classcompete.com');
-                window.location.href = '/';
-            }).always(function () {
-                setTimeout(function () {
-                    // restore text on signup button
-                    $('.do-recover').html('Resend');
-                }, 150);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                response = $.parseJSON(jqXHR.responseText);
-                if (response.error) {
-                    notificationBar.error(response.error);
-                } else {
-                    notificationBar.error("Oops. Something went wrong. Please try again. If you keep seeing this message, contact us");
-                }
-                $('.notification-container').click(function () {
-                    notificationBar.close();
-                });
-                setTimeout(function () {
-                    notificationBar.close();
-                }, 8000);
-            });
-            $('.do-recover').html('<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
-        } else {
-            notificationBar.error('Fields in Red are mandatory ones');
-            setTimeout(function () {
-                notificationBar.close();
-            }, 8000);
-        }
-
-        return false;
     });
 
     $('#login-form').submit(function () {
@@ -61,9 +20,9 @@
         }).always(function () {
             $("#login-form input[type=submit]").removeAttr('disabled');
             $("#login-form input[type=submit]").val('LOGIN');
-        }).fail(function () {
+        }).fail(function(){
             notificationBar.error("We can't login you with email and password you have provided");
-            $('.notification-container').click(function () {
+            $('.notification-container').click(function(){
                 notificationBar.close();
             });
             setTimeout(function () {
@@ -74,7 +33,7 @@
         return false;
     });
 
-    $('#signup-form').submit(function () {
+    $('#signup-form').submit(function(){
         $('#signup-form input[type=text], #signup-form input[type=password]').each(function () {
             if ($(this).val().length < 1) {
                 $(this).addClass('error');
@@ -83,21 +42,21 @@
 
         if ($('#signup-form input.error').length < 1) {
             var registerData = $('#signup-form').serialize();
-            $.post('/v2/auth/registerPost', registerData, function () {
+            $.post('/v2/auth/registerPost', registerData, function(){
                 window.location.href = '/';
-            }).always(function () {
+            }).always(function(){
                 setTimeout(function () {
                     // restore text on signup button
                     unloadSpinner('.do-register', 'Register');
                 }, 150);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
+            }).fail(function(jqXHR, textStatus, errorThrown){
                 response = $.parseJSON(jqXHR.responseText);
                 if (response.error) {
                     notificationBar.error(response.error);
                 } else {
                     notificationBar.error("Oops. Something went wrong. Please try again. If you keep seeing this message, contact us");
                 }
-                $('.notification-container').click(function () {
+                $('.notification-container').click(function(){
                     notificationBar.close();
                 });
                 setTimeout(function () {
@@ -115,7 +74,7 @@
         return false;
     });
 
-    $('#signup-form input[type=text], #signup-form input[type=password], #recovery-form input[type=text]').on('focus', function () {
+    $('#signup-form input[type=text], #signup-form input[type=password]').on('focus', function () {
         $(this).removeClass('error');
     });
 
