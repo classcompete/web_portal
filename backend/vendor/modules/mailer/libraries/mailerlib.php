@@ -56,7 +56,7 @@ class Mailerlib
 
     public function sendPasswordRecoveryLink($data) {
         $subject = 'Your Class Compete password recovery link';
-        $message = $this->_ci->load->view('mailer/teacher_account-created', $data, true);
+        $message = $this->_ci->load->view('mailer/teacher_password_recovery', $data, true);
         $this->initialize();
         //Send email
         $this->_ci->email->from($this->email_from, $this->email_from_name);
