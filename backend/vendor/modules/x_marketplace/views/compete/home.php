@@ -103,86 +103,93 @@
                         </div>
                     </div>
 
-                        <?php foreach ($grade_all as $grade => $val): ?>
-                            <div class="span5 challenge my_challenge margin_bottom hide" data-subjectid="<?php echo $val['subject_id'] ?>"
-                                 data-grade="<?php echo $val['level'] ?>"
-                                 data-skill-id="<?php echo $val['skill_id'] ?>">
-                                <div class="float_left">
-                                    <div class="thumbnail_challenge marketplace_thumb">
-                                        <img
-                                            src="<?php echo site_url('challenge/display_teacher_image/' . $val['user_id']) ?>">
-                                    </div>
+                        <!-- Start challenge items list -->
+                    <?php foreach ($grade_all as $grade => $val): ?>
+                            <!-- Challenge item -->
+                        <div class="span5 challenge my_challenge margin_bottom hide" data-subjectid="<?php echo $val['subject_id'] ?>"
+                             data-grade="<?php echo $val['level'] ?>"
+                             data-skill-id="<?php echo $val['skill_id'] ?>">
+                            <div class="float_left">
+                                <div class="thumbnail_challenge marketplace_thumb">
+                                    <img
+                                        src="<?php echo site_url('challenge/display_teacher_image/' . $val['user_id']) ?>">
                                 </div>
-                                <div class="float_left">
-                                    <h5 class="challenge_list_width"><?php echo $val['challenge_name']?></h5>
-                                    <h6><?php echo $val['author_name']?></h6>
+                            </div>
+                            <div class="float_left">
+                                <h5 class="challenge_list_width"><?php echo $val['challenge_name']?></h5>
+                                <h6><?php echo $val['author_name']?></h6>
+                                <p>
+                                    <button class="btn btn-mini btn-success install_challenge"
+                                            data-target="#installChallenge" data-toggle="modal" data-backdrop="static"
+                                            data-challengeid="<?php echo $val['challenge_id'] ?>">Add to class
+                                    </button>
+                                    <a class="btn btn-mini btn-info show_challenge_questions"
+                                       href="<?php echo site_url('question/challenge_preview') . '/' . $val['challenge_id'] ?>">Questions
+                                    </a>
+                                </p>
+                            </div>
+                        </div> <!-- End Challenge item -->
+
+                            <!-- Challenge tooltip -->
+                        <div class="tooltip_content" style="display: none">
+                            <h3 class="text_align_center overflow_text">
+                                <b><?php echo $val['challenge_name'] ?></b>
+                            </h3>
+
+                            <div class="tooltip_author">
+                                <span>by:</span>
+
+                                <div>
+                                    <span class="text_align_center"><?php echo $val['author_name'] ?></span>
+                                    <img class="tooltip_img"
+                                         src="<?php echo site_url('challenge/display_teacher_image/' . $val['user_id']) ?>"/>
+                                </div>
+
+                            </div>
+
+                            <dl class="inline">
+                                <dt>Subject:</dt>
+                                <dd><?php echo $val['subject_name'] ?></dd>
+                                <dt>Topic:</dt>
+                                <dd><?php echo $val['skill_name'] ?></dd>
+                                <dt>Subtopic:</dt>
+                                <dd><?php echo $val['subskill_name'] ?></dd>
+                                <dt>Grade:</dt>
+                                <dd><?php echo $val['level'] ?></dd>
+                                <dt>Environment:</dt>
+                                <dd><?php echo $val['game_name'] ?></dd>
+                                <dt>Questions:</dt>
+                                <dd><?php echo $val['number_of_questions'] ?></dd>
+                                <dt>Played times:</dt>
+                                <dd><?php echo $val['played_times'] ?></dd>
+                            </dl>
+
+                            <?php if (empty($val['description']) === false): ?>
+                                <div class="tooltip_description">
+                                    <span>Description</span>
+
                                     <p>
-                                        <button class="btn btn-mini btn-success install_challenge"
-                                                data-target="#installChallenge" data-toggle="modal" data-backdrop="static"
-                                                data-challengeid="<?php echo $val['challenge_id'] ?>">Add to class
-                                        </button>
+                                        <?php echo (strlen($val['description']) >= 200) ?
+                                            substr($val['description'], 0, 200) . '...' : $val['description'] ?>
                                     </p>
                                 </div>
-                            </div>
+                            <?php endif ?>
+                            <?php if (empty($val['teacher_biography']) === false): ?>
+                                <div class="tooltip_description">
+                                    <span>Teacher biography</span>
 
-                            <div class="tooltip_content" style="display: none">
-                                <h3 class="text_align_center overflow_text">
-                                    <b><?php echo $val['challenge_name'] ?></b>
-                                </h3>
-
-                                <div class="tooltip_author">
-                                    <span>by:</span>
-
-                                    <div>
-                                        <span class="text_align_center"><?php echo $val['author_name'] ?></span>
-                                        <img class="tooltip_img"
-                                             src="<?php echo site_url('challenge/display_teacher_image/' . $val['user_id']) ?>"/>
-                                    </div>
-
+                                    <p>
+                                        <?php echo (strlen($val['teacher_biography']) >= 200) ?
+                                            substr($val['teacher_biography'], 0, 200) . '...' : $val['teacher_biography'] ?>
+                                    </p>
                                 </div>
+                            <?php endif ?>
+                        </div> <!-- End Challenge tooltip -->
 
-                                <dl class="inline">
-                                    <dt>Subject:</dt>
-                                    <dd><?php echo $val['subject_name'] ?></dd>
-                                    <dt>Topic:</dt>
-                                    <dd><?php echo $val['skill_name'] ?></dd>
-                                    <dt>Subtopic:</dt>
-                                    <dd><?php echo $val['subskill_name'] ?></dd>
-                                    <dt>Grade:</dt>
-                                    <dd><?php echo $val['level'] ?></dd>
-                                    <dt>Environment:</dt>
-                                    <dd><?php echo $val['game_name'] ?></dd>
-                                    <dt>Questions:</dt>
-                                    <dd><?php echo $val['number_of_questions'] ?></dd>
-                                    <dt>Played times:</dt>
-                                    <dd><?php echo $val['played_times'] ?></dd>
-                                </dl>
-
-                                <?php if (empty($val['description']) === false): ?>
-                                    <div class="tooltip_description">
-                                        <span>Description</span>
-
-                                        <p>
-                                            <?php echo (strlen($val['description']) >= 200) ?
-                                                substr($val['description'], 0, 200) . '...' : $val['description'] ?>
-                                        </p>
-                                    </div>
-                                <?php endif ?>
-                                <?php if (empty($val['teacher_biography']) === false): ?>
-                                    <div class="tooltip_description">
-                                        <span>Teacher biography</span>
-
-                                        <p>
-                                            <?php echo (strlen($val['teacher_biography']) >= 200) ?
-                                                substr($val['teacher_biography'], 0, 200) . '...' : $val['teacher_biography'] ?>
-                                        </p>
-                                    </div>
-                                <?php endif ?>
-                            </div>
-
-                        <?php endforeach;?>
+                    <?php endforeach;?> <!-- End challenge items list-->
                 </div>
 
+	                <!-- Add challenge dialog -->
                 <div class="modal hide fade classmodal" id="installChallenge" tabindex="-1" role="dialog"
                      aria-labelledby="addClassLabel" aria-hidden="true">
                     <div class="modal-header">
@@ -192,7 +199,7 @@
 
                     <?php $this->load->view('form_install'); ?>
 
-                </div>
+                </div> <!-- End Add challenge dialog -->
             </div>
         </div>
     </div>

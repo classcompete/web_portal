@@ -8597,7 +8597,7 @@ hr {
     background-color: #000;
 }
 
-.install_challenge{
+.install_challenge, .show_challenge_questions{
     margin-bottom: 10px;
 }
 

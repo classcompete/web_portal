@@ -52,8 +52,14 @@ class Question extends MY_Controller{
         $this->mapperlib->set_default_order(PropChallengeQuestionPeer::QUESTION_ID, Criteria::ASC);
     }
 
+		/**
+		 * Show page with the list of challenge questions WITH edit capabilities
+		 */
     public function challenge($challenge_id = null){
+		//TODO: Important! I think that we have security issue here – teacher should not have ability to
+	    //edit challenges which are created by other users.
 
+	        //If parametes are sent as POST data, repack them as GET data
         $uri = Mapper_Helper::create_uri_segments();
         if ($uri !== null) {
             redirect('question/challenge/'.$challenge_id.'/' . $uri);
@@ -96,6 +102,60 @@ class Question extends MY_Controller{
         }
 
         $data->content = $this->prepareView('x_challenge_question', 'home_challenge_question', $data);
+        $this->load->view(config_item('teacher_template'), $data);
+    }
+
+		/**
+		 * Show page with the list of challenge questions but WITHOUT edit capabilities
+		 * - This method is separated from above "challenge" method because of:
+		 * different template, no need for edit capabilities, and future security checks when
+		 * question should be edited.
+		 */
+    public function challenge_preview($challenge_id = null){
+	        //If parametes are sent as POST data, repack them as GET data
+        $uri = Mapper_Helper::create_uri_segments();
+        if ($uri !== null) {
+            redirect('question/challenge_preview/'.$challenge_id.'/' . $uri);
+        }
+
+        $this->mapperlib->set_default_base_page('question/challenge_preview/'.$challenge_id);
+        $this->mapperlib->set_breaking_segment(4);
+
+        $data = new stdClass();
+        $this->challenge_question_model->setChallenge_id($challenge_id);
+
+        $data->challenge_id = $challenge_id;
+		$data->challenge = $this->challenge_model->getChallengeById($challenge_id);
+
+        $challengeQuestions = $this->challenge_question_model->getList();
+        $questionIds = array();
+        foreach ($challengeQuestions as $cq) {
+            /** @var $cq PropChallengeQuestion */
+            $questionIds[] = $cq->getQuestionId();
+        }
+
+        /**
+         * Nem's hack - this should be moved to question_model once
+         */
+        $questions = PropQuestionQuery::create()
+            ->filterByQuestionId($questionIds)
+            ->filterByIsDeleted(PropQuestionPeer::IS_DELETED_NO)
+            ->find();
+
+        $data->questions = array();
+
+        foreach($questions as $k => $question){
+                $data->questions[$k]['question_name'] = $question->getText();
+                $question_id = $question->getQuestionId();
+                $data->questions[$k]['question_id'] = $question_id;
+                $data->questions[$k]['question_type'] = $this->challenge_questionlib->get_question_type($question_id);
+                $data->questions[$k]['question_image'] = $this->challenge_questionlib->get_question_image_type($question_id);
+
+                $question_data = $this->get_question_details($question_id);
+                $data->questions[$k]['data'] = $question_data;
+        }
+
+        $data->content = $this->prepareView('x_challenge_question', 'simple_challenge_questions_list', $data);
         $this->load->view(config_item('teacher_template'), $data);
     }
 
