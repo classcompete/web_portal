@@ -291,3 +291,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	    $('a.accordion-toggle:first').trigger('click');
+    });
+</script>
