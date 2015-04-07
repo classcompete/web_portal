@@ -38,6 +38,8 @@ header {background: #f3f3f3; padding: 12px 0;}
         padding-top: 10px;
         }
         header .mobile-nav {display: none;}
+        header .login-box .forgot-password { display: block; padding: 0px 3px}
+            header .login-box .forgot-password a {color: #667a9f; font-size: 12px}
         header .login-box ul {margin: 0; list-style: none;}
             header .login-box ul li {
                 float: left;
@@ -105,12 +107,13 @@ header {background: #f3f3f3; padding: 12px 0;}
         .content .reg-form p {font-size: 16px; color: #999;}
 
     .reg-form {float: right; width: 430px;}
+        .reg-form.forgot-password { border: 1px solid #f3f3f3; float: none; margin: auto; padding: 20px 40px; width: 430px;}
     .reg-info {float: left; width: 480px;}
 
         .reg-form ul,
         .reg-info ul {margin: 0; list-style: none;}
         .reg-form ul {padding-top: 20px;}
-            .reg-form ul li {margin-bottom: 21px;}
+            .reg-form ul li {margin-bottom: 21px; overflow: hidden}
             .reg-info ul li {margin-bottom: 15px;}
                 .reg-form ul li .half {width: 48%;}
                 .content .reg-form ul li p {

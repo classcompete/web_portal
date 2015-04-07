@@ -870,16 +870,41 @@ class Users extends MY_Controller
     private function send_mail_to_user_new_password($data)
     {
 
-        $subject = "INFO CLASSCOMPETE " . $data->user_type . " panel";
+        if ($data->user_type === 'teacher') {
+            $this->load->library('email');
+            $subject = "INFO CLASSCOMPETE Teacher panel";
+            $message = $this->load->view('mailer/teacher_password-recovery', $data, true);
 
-        $headers = '';
-        $headers .= 'From: info@classcompete.com' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $config['wordwrap'] = false;
+            $config['wrapchars'] = false;
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'UTF-8';
+            $this->email->initialize($config);
+            // Send email
+            $this->email->from('noreply@classcompete.com', 'ClassCompete.com');
+            $this->email->to($data->email);
+            $this->email->bcc('moreinfo@classcompete.com');
+            $this->email->subject($subject);
+            $this->email->message($message);
 
-        $email = "<p>Hi $data->first_name $data->last_name</p>
+            if (!$this->email->send()) {
+                return false;
+            }
+
+            return true;
+        } else {
+            $subject = "INFO CLASSCOMPETE " . $data->user_type . " panel";
+
+            $headers = '';
+            $headers .= 'From: info@classcompete.com' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            $email = "<p>Hi $data->first_name $data->last_name</p>
                   <p>Your new password is: <strong>$data->password</strong></p>";
 
-        mail($data->email, $subject, $email, $headers);
+            mail($data->email, $subject, $email, $headers);
+        }
+
     }
 
     /**

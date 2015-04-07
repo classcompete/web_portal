@@ -133,15 +133,15 @@ class MX_Loader extends CI_Loader
 	/** Load a module library **/
 	public function library($library = '', $params = NULL, $object_name = NULL) {
 		
-		if (is_array($library)) return $this->libraries($library);		
-		
+		if (is_array($library)) return $this->libraries($library);
+
 		$class = strtolower(basename($library));
 
 		if (isset($this->_ci_classes[$class]) AND $_alias = $this->_ci_classes[$class])
 			return CI::$APP->$_alias;
-			
+
 		($_alias = strtolower($object_name)) OR $_alias = $class;
-		
+
 		list($path, $_library) = Modules::find($library, $this->_module, 'libraries/');
 		
 		/* load library config file as params */
@@ -158,10 +158,10 @@ class MX_Loader extends CI_Loader
 		} else {		
 			
 			Modules::load_file($_library, $path);
-			
+
 			$library = ucfirst($_library);
 			CI::$APP->$_alias = new $library($params);
-			
+
 			$this->_ci_classes[$class] = $_alias;
 		}
 		
