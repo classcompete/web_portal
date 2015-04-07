@@ -104,7 +104,7 @@ class Auth extends MY_Controller
         $this->load->library('mailer/mailerlib');
         $this->mailerlib->sendAccountCreated($newAccountData);
 
-        return $this->jsonOutput(array('success'=>true));
+        return $this->jsonOutput(array('success' => true));
 
     }
 
@@ -142,17 +142,19 @@ class Auth extends MY_Controller
         return $this->jsonOutput($result, $code);
     }
 
-		/**
-		 * Show Forgot Password page
-		 */
-	public function forgotPassword() {
-		$this->load->view('v2/forgot_password');
-	}
+    /**
+     * Show Forgot Password page
+     */
+    public function forgotPassword()
+    {
+        $this->load->view('v2/forgot_password');
+    }
 
-		/**
-		 * Process Forgot Password form and send email witk link to the password recovery page
-		 */
-    public function forgotPasswordPost() {
+    /**
+     * Process Forgot Password form and send email witk link to the password recovery page
+     */
+    public function forgotPasswordPost()
+    {
         if (empty($_POST) === true) {
             return $this->jsonOutput('', 405, 'Method not allowed');
         }
@@ -175,13 +177,13 @@ class Auth extends MY_Controller
             return $this->jsonOutput(array('error' => 'Email must contain a valid email address'), 400);
         }
 
-	    $sentEmail = $this->input->post('email');
-	    $teacherUser = $this->teacher_model->get_teacher_by_email_or_username($sentEmail);
-	    if (! $teacherUser) {
-		    return $this->jsonOutput(array('error' => 'Teacher is not found by entered email'), 400);
-	    }
+        $sentEmail = $this->input->post('email');
+        $teacherUser = $this->teacher_model->get_teacher_by_email_or_username($sentEmail);
+        if (!$teacherUser) {
+            return $this->jsonOutput(array('error' => 'Teacher is not found by entered email'), 400);
+        }
 
-		$token = $this->teacherlib->create_password_recovery_token($teacherUser, 3 * 60 * 60);
+        $token = $this->teacherlib->create_password_recovery_token($teacherUser, 3 * 60 * 60);
 
         $emailData = new stdClass();
         $emailData->token = $token;
@@ -190,35 +192,41 @@ class Auth extends MY_Controller
         $this->load->library('mailer/mailerlib');
         $this->mailerlib->sendPasswordRecoveryLink($emailData);
 
-        return $this->jsonOutput(array('success'=>true));
+        return $this->jsonOutput(array('success' => true));
     }
 
-		/**
-		 * Show password recovery page only if sent token exists and is not expired
-		 */
-	public function passwordRecovery($token) {
-		if (! $token) { redirect('/'); }
-		$teacherUser = $this->teacherlib->check_password_recovery_token($token);
-		if (! $teacherUser) { redirect('/'); }
+    /**
+     * Show password recovery page only if sent token exists and is not expired
+     */
+    public function passwordRecovery($token)
+    {
+        if (!$token) {
+            redirect('/');
+        }
+        $teacherUser = $this->teacherlib->check_password_recovery_token($token);
+        if (!$teacherUser) {
+            redirect('/');
+        }
 
-		$data = new stdClass();
-		$data->full_name = $teacherUser->getFirstName() . ' ' . $teacherUser->getLastName();
-		$data->email = $teacherUser->getEmail();
-		$data->token = $token;
-		$this->load->view('v2/password_recovery', $data);
-	}
+        $data = new stdClass();
+        $data->full_name = $teacherUser->getFirstName() . ' ' . $teacherUser->getLastName();
+        $data->email = $teacherUser->getEmail();
+        $data->token = $token;
+        $this->load->view('v2/password_recovery', $data);
+    }
 
-		/**
-		 * Process Password Recovery form and set new teacher's password
-		 */
-    public function passwordRecoveryPost() {
+    /**
+     * Process Password Recovery form and set new teacher's password
+     */
+    public function passwordRecoveryPost()
+    {
         if (empty($_POST) === true) {
             return $this->jsonOutput('', 405, 'Method not allowed');
         }
 
-	    $this->form_validation->set_rules('token', 'Token', 'required|trim');
+        $this->form_validation->set_rules('token', 'Token', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
-	    $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|trim');
+        $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|trim');
 
         if ($this->form_validation->run() === false) {
             $errors = array();
@@ -231,13 +239,13 @@ class Auth extends MY_Controller
             return $this->jsonOutput(array('error' => 'All fields are mandatory', 'extended' => $errors), 400);
         }
 
-            //Additional password length validation
+        //Additional password length validation
         $this->form_validation->set_rules('password', 'Password', 'trim|min_length[6]');
         if ($this->form_validation->run() === false) {
             return $this->jsonOutput(array('error' => 'Password has to be at least 6 characters long'), 400);
         }
 
-	        //Additional password confirmation validation
+        //Additional password confirmation validation
         $this->form_validation->set_rules('confirm_password', 'Confirm password', 'trim|matches[password]');
         if ($this->form_validation->run() === false) {
             return $this->jsonOutput(array('error' => 'Entered passwords had to be identical'), 400);
@@ -248,26 +256,31 @@ class Auth extends MY_Controller
             return $this->jsonOutput(array('error' => 'Email must contain a valid email address'), 400);
         }
 
-	    $token = $this->input->post('token');
-		if (! $token) { return $this->jsonOutput(array('error' => 'Token not present'), 400); }
-		$teacherUser = $this->teacherlib->check_password_recovery_token($token);
-		if (! $teacherUser) { return $this->jsonOutput(array('error' => 'Token not valid'), 400); }
+        $token = $this->input->post('token');
+        if (!$token) {
+            return $this->jsonOutput(array('error' => 'Token not present'), 400);
+        }
+        $teacherUser = $this->teacherlib->check_password_recovery_token($token);
+        if (!$teacherUser) {
+            return $this->jsonOutput(array('error' => 'Token not valid'), 400);
+        }
 
-	    $password = $this->input->post('password');
+        $password = $this->input->post('password');
 
         $data = new stdClass();
         $data->password = md5($password);
 
         $this->teacher_model->save($data, $teacherUser->getUserId());
-		$this->teacherlib->delete_password_recovery_token($token);
+        $this->teacherlib->delete_password_recovery_token($token);
 
-        return $this->jsonOutput(array('success'=>true));
+        return $this->jsonOutput(array('success' => true));
     }
 
-		/**
-		 * General routine for sending JSON response
-		 */
-    protected function jsonOutput($data, $code = 200, $message = '') {
+    /**
+     * General routine for sending JSON response
+     */
+    protected function jsonOutput($data, $code = 200, $message = '')
+    {
         return $this->output
             ->set_status_header($code, $message)
             ->set_content_type('application/json')
