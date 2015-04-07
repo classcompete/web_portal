@@ -18,45 +18,6 @@ class Auth extends MY_Controller
         $this->load->view('v2/home');
     }
 
-    public function forgotPassword()
-    {
-        $this->load->view('v2/forgot-password');
-    }
-
-    public function recoveryPost()
-    {
-        $email = $this->input->post('email');
-        try {
-            $check = $this->teacherlib->check_email($email);
-        } catch (Exception $e) {
-            return $this->jsonOutput(array('error' => $e->getMessage()), 400);
-        }
-
-        if (empty($check) === false) {
-            $password = $this->teacherlib->generatePassword();
-            $check->setPassword(md5($password));
-
-            /*
-             * Update admin password
-             * */
-            $new_data = new stdClass();
-            $new_data->password = $check->getPassword();
-
-            $this->teacher_model->save($new_data, $check->getId());
-
-            $mailData = new stdClass();
-            $mailData->first_name = $check->getFirstName();
-            $mailData->last_name = $check->getLastName();
-            $mailData->email = $check->getEmail();
-            $mailData->password = $password;
-
-            $this->load->library('mailer/mailerlib');
-            $this->mailerlib->sendTeacherPasswordRecoveryEmail($mailData);
-
-            return $this->jsonOutput(array('success'=>true));
-        }
-    }
-
     public function registerPost()
     {
         if (empty($_POST) === true) {
