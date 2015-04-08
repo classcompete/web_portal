@@ -123,7 +123,7 @@
                                             data-target="#installChallenge" data-toggle="modal" data-backdrop="static"
                                             data-challengeid="<?php echo $val['challenge_id'] ?>">Add to class
                                     </button>
-                                    <a class="btn btn-mini btn-info show_challenge_questions"
+                                    <a class="btn btn-mini btn-info show_challenge_questions" target="_blank"
                                        href="<?php echo site_url('question/challenge_preview') . '/' . $val['challenge_id'] ?>">Questions
                                     </a>
                                 </p>
