@@ -2,7 +2,6 @@
 <html lang="en" id="modernizrcom" class="no-js">
 <head>
     <title>Teachers Panel Login | Educational Games To Improve Grades And Lower Test Anxiety | Class Compete</title>
-    <meta name="description" content="">
     <?php $this->load->view('v2/common/head') ?>
 </head>
 <body>

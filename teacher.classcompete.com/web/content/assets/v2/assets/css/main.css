@@ -150,7 +150,7 @@ header {background: #f3f3f3; padding: 12px 0;}
                     color: #d14836;
                     font-weight: bold;
                 }
-        .reg-form.centered-form {
+        .centered-form {
             border: 1px solid #f3f3f3;
             float: none;
             margin: auto;
@@ -224,7 +224,7 @@ header {background: #f3f3f3; padding: 12px 0;}
     .notification-container { line-height: 60px; }
     
     .content {padding: 30px 0;}
-    .reg-form, 
+    .reg-form,
     .reg-info {width: 48%;}
       
 }

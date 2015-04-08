@@ -200,19 +200,15 @@ class Auth extends MY_Controller
      */
     public function passwordRecovery($token)
     {
-        if (!$token) {
-            redirect('/');
-        }
-        $teacherUser = $this->teacherlib->check_password_recovery_token($token);
-        if (!$teacherUser) {
-            redirect('/');
-        }
+		if (! $token) { redirect('/'); }
+		$teacherUser = $this->teacherlib->check_password_recovery_token($token);
+		if (! $teacherUser) { redirect('/'); }
 
-        $data = new stdClass();
-        $data->full_name = $teacherUser->getFirstName() . ' ' . $teacherUser->getLastName();
-        $data->email = $teacherUser->getEmail();
-        $data->token = $token;
-        $this->load->view('v2/password_recovery', $data);
+		$data = new stdClass();
+		$data->full_name = $teacherUser->getFirstName() . ' ' . $teacherUser->getLastName();
+		$data->email = $teacherUser->getEmail();
+		$data->token = $token;
+		$this->load->view('v2/password_recovery', $data);
     }
 
     /**
@@ -224,9 +220,9 @@ class Auth extends MY_Controller
             return $this->jsonOutput('', 405, 'Method not allowed');
         }
 
-        $this->form_validation->set_rules('token', 'Token', 'required|trim');
+	    $this->form_validation->set_rules('token', 'Token', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
-        $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|trim');
+	    $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|trim');
 
         if ($this->form_validation->run() === false) {
             $errors = array();
@@ -239,13 +235,13 @@ class Auth extends MY_Controller
             return $this->jsonOutput(array('error' => 'All fields are mandatory', 'extended' => $errors), 400);
         }
 
-        //Additional password length validation
+            //Additional password length validation
         $this->form_validation->set_rules('password', 'Password', 'trim|min_length[6]');
         if ($this->form_validation->run() === false) {
             return $this->jsonOutput(array('error' => 'Password has to be at least 6 characters long'), 400);
         }
 
-        //Additional password confirmation validation
+	        //Additional password confirmation validation
         $this->form_validation->set_rules('confirm_password', 'Confirm password', 'trim|matches[password]');
         if ($this->form_validation->run() === false) {
             return $this->jsonOutput(array('error' => 'Entered passwords had to be identical'), 400);
@@ -256,24 +252,20 @@ class Auth extends MY_Controller
             return $this->jsonOutput(array('error' => 'Email must contain a valid email address'), 400);
         }
 
-        $token = $this->input->post('token');
-        if (!$token) {
-            return $this->jsonOutput(array('error' => 'Token not present'), 400);
-        }
-        $teacherUser = $this->teacherlib->check_password_recovery_token($token);
-        if (!$teacherUser) {
-            return $this->jsonOutput(array('error' => 'Token not valid'), 400);
-        }
+	    $token = $this->input->post('token');
+		if (! $token) { return $this->jsonOutput(array('error' => 'Token not present'), 400); }
+		$teacherUser = $this->teacherlib->check_password_recovery_token($token);
+		if (! $teacherUser) { return $this->jsonOutput(array('error' => 'Token not valid'), 400); }
 
-        $password = $this->input->post('password');
+	    $password = $this->input->post('password');
 
         $data = new stdClass();
         $data->password = md5($password);
 
         $this->teacher_model->save($data, $teacherUser->getUserId());
-        $this->teacherlib->delete_password_recovery_token($token);
+		$this->teacherlib->delete_password_recovery_token($token);
 
-        return $this->jsonOutput(array('success' => true));
+        return $this->jsonOutput(array('success'=>true));
     }
 
     /**

@@ -1,5 +1,5 @@
 <div class="wrapper clearfix">
-    <a href="#" class="logo">ClassCompete</a>
+    <a href="/" class="logo">ClassCompete</a>
 
     <div class="login-box">
         <a href="#" class="mobile-nav"><span>Login</span></a>
@@ -11,8 +11,9 @@
                 </li>
                 <li>
                     <input type="password" placeholder="Password" name="password">
-                    <br/>
-                    <span class="forgot-password"><a href="/auth/forgot-password">Forgot your password?</a> </span>
+                    <span class="forgot-pass">
+	                    <a href="/auth/forgot-password">Forgot your password?</a>
+                    </span>
                 </li>
                 <li>
                     <button type="submit">Teacher Login</button>
