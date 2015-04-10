@@ -9840,17 +9840,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_1 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_1 .previewed_question_style .controls {
             margin-left: 0;
 
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -9972,17 +9972,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_2 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_2 .previewed_question_style .controls {
             margin-left: 0;
 
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -10128,16 +10128,16 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_3 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
         font-size: 15px;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_3 .previewed_question_style textarea {
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -10298,17 +10298,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_4 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_4 .previewed_question_style .controls {
             margin-left: 0;
 
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -10470,16 +10470,16 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_5 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
         font-size: 15px;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_5 .previewed_question_style textarea {
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -10647,17 +10647,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_6 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_6 .previewed_question_style .controls {
             margin-left: 0;
 
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -10818,17 +10818,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_7 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
         font-size: 15px;
         margin-bottom: 20px;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_7 .previewed_question_style textarea {
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -11024,17 +11024,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_8 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
         font-size: 15px;
         margin-bottom: 10px;
+        white-space: normal;
     }
         .modal_tooltip_size .form_holder .form_8 .previewed_question_style textarea {
             resize: none;
             width: 100%;
-            height: 40px;
             padding: 0;
             line-height: 15px;
             font-size: 15px;
@@ -11279,12 +11279,13 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
     .modal_tooltip_size .form_holder .form_9 .previewed_question_style {
-        height: 40px !important;
+        height: 85px !important;
         width: 100% !important;
         border: none !important;
         overflow: hidden;
         font-size: 15px;
         margin-bottom: 10px;
+        white-space: normal;
     }
     .modal_tooltip_size .form_holder .form_9 .previewed_question_image_style_middle {
         clear: both;
@@ -11485,11 +11486,12 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 .modal_tooltip_size .form_holder .form_10 .previewed_question_style {
-    height: 40px !important;
+    height: 85px !important;
     width: 100% !important;
     border: none !important;
     overflow: hidden;
     font-size: 15px;
+    white-space: normal;
 }
 .modal_tooltip_size .form_holder .form_10 .previewed_question_style textarea {
     resize: none;
@@ -11679,11 +11681,12 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 .modal_tooltip_size .form_holder .form_11 .previewed_question_style {
-    height: 40px !important;
+    height: 85px !important;
     width: 100% !important;
     border: none !important;
     overflow: hidden;
     font-size: 15px;
+    white-space: normal;
 }
 .modal_tooltip_size .form_holder .form_11 .previewed_question_style textarea {
     resize: none;
@@ -11836,7 +11839,7 @@ hr {
     margin: -4px 0 0 5px;
 }
 
-/*---------------------- Tooltip Form_1 ----------------------------*/
+/*---------------------- Tooltip Form_13 ----------------------------*/
 .modal_tooltip_size .form_holder .form_13 {
     height: 345px;
     width: 233px;
@@ -11844,17 +11847,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 .modal_tooltip_size .form_holder .form_13 .previewed_question_style {
-    height: 40px !important;
+    height: 85px !important;
     width: 100% !important;
     border: none !important;
     overflow: hidden;
+    white-space: normal;
 }
 .modal_tooltip_size .form_holder .form_13 .previewed_question_style .controls {
     margin-left: 0;
 
     resize: none;
     width: 100%;
-    height: 40px;
     padding: 0;
     line-height: 15px;
     font-size: 15px;
@@ -11980,17 +11983,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 .modal_tooltip_size .form_holder .form_14 .previewed_question_style {
-    height: 40px !important;
+    height: 85px !important;
     width: 100% !important;
     border: none !important;
     overflow: hidden;
+    white-space: normal;
 }
 .modal_tooltip_size .form_holder .form_14 .previewed_question_style .controls {
     margin-left: 0;
 
     resize: none;
     width: 100%;
-    height: 40px;
     padding: 0;
     line-height: 15px;
     font-size: 15px;
@@ -12116,17 +12119,17 @@ hr {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 .modal_tooltip_size .form_holder .form_15 .previewed_question_style {
-    height: 40px !important;
+    height: 85px !important;
     width: 100% !important;
     border: none !important;
     overflow: hidden;
+    white-space: normal;
 }
 .modal_tooltip_size .form_holder .form_15 .previewed_question_style .controls {
     margin-left: 0;
 
     resize: none;
     width: 100%;
-    height: 40px;
     padding: 0;
     line-height: 15px;
     font-size: 15px;

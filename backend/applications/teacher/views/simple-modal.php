@@ -512,7 +512,9 @@
             <h2 id="modal-label-2">Class Compete for Teachers</h2>
         </header>
 
-        <iframe frameborder="0" allowfullscreen="" src="//www.youtube.com/embed/krsBMGULJKw?rel=0" data-src=""></iframe>
+        <img src="/images/intro-video.png" class="intro-video" style="cursor:pointer;"/>
+        <iframe frameborder="0" allowfullscreen="" src="//www.youtube.com/embed/krsBMGULJKw?rel=0" data-src="" style="display: none"></iframe>
+
 
         <footer>
             <button class="btn btn-small btn-info" id="close-video"
@@ -531,11 +533,13 @@
         e.preventDefault();
         $('#modal-embed').remove();
     });
-    $('#close-video').click(function (e) {
+    $('img.intro-video, #close-video').click(function (e) {
         e.preventDefault();
         originalSource = $('#modal-embed').find('iframe').attr('src');
         autoPlaySource = originalSource + '&autoplay=1';
         $('#modal-embed').find('iframe').attr('src', autoPlaySource);
+        $('#modal-embed').find('iframe').show();
+        $('img.intro-video').hide();
         setTimeout(function () {
             $.get('/profile/preventIntroVideo', function () {
 
