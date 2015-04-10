@@ -540,6 +540,6 @@
             $.get('/profile/preventIntroVideo', function () {
 
             });
-        }, 30000)
+        }, 10000)
     })
 </script>
