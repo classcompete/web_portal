@@ -460,4 +460,42 @@ class Reporting extends MY_Controller{
         $this->output->set_output(json_encode($out));
     }
 
+	/**
+	 * Statistics: Average class scores by month
+	 * - Score averages for a given classroom by month. The report will aggregate scores
+	 * across all students and challenges in a given classroom for each month, starting with first
+	 * month which has score data.
+	 */
+    public function ajax_report_class_stats_average_month(){
+	    $classId = $this->input->post('class_id');
+        $out = array();
+		$out[] = array('Month', 'Average class score');
+
+	    /*$out[] = array('1/14', 48);
+	    $out[] = array('2/14', 57);
+	    $out[] = array('3/14', 130);
+	    $out[] = array('4/14', 54);
+	    $out[] = array('5/14', 69);
+	    $out[] = array('6/14', 110);
+	    $out[] = array('7/14', 122);
+	    $out[] = array('8/14', 170);
+	    $out[] = array('9/14', 154);
+	    $out[] = array('10/14', 134);
+	    $out[] = array('11/14', 210);
+	    $out[] = array('12/14', 227);
+		$out[] = array('1/15', 50);
+	    $out[] = array('2/15', 120);
+	    $out[] = array('3/15', 80);
+	    $out[] = array('4/15', 190);*/
+
+	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId);
+	    if (! empty($avgScores)) {
+		    foreach ($avgScores as $item) {
+			    $out[] = array($item['month'], round($item['month_average'], 2));
+		    }
+	    }
+	    else { $out['error'] = 'This class has no corresponding data'; }
+
+		$this->output->set_output(json_encode($out));
+    }
 }

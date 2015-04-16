@@ -1514,6 +1514,26 @@ var model = {
             }
         });
     },
+    getReportClassStatsAverageMonth: function (class_id, callback) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: BASEURL + 'reporting/ajax_report_class_stats_average_month/',
+            data: {class_id: class_id},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    window.location.reload();
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
+    },
     changeUserPassword: function (data, callback) {
         $.ajax({
             type: 'POST',

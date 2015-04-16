@@ -152,6 +152,35 @@ class Reportnew_model extends CI_Model{
         return $shop_transaction;
     }
 
+	/**
+	 * Get classroom average scores by months
+	 */
+    public function getClassAverageScoreByMonths($classId){
+        $res = $this->db
+            ->select('AVG(score_average) as month_average, DATE_FORMAT(created, \'%m/%y\') as month', FALSE)
+            ->group_by(array('YEAR(created)', 'MONTH(created)'))
+            ->where('class_id', $classId)
+            ->get('scores')->result_array();
+
+        return $res;
+
+
+        /*$cr = new Criteria();
+        $cr->clearSelectColumns();
+        $cr->add(PropScorePeer::CLASS_ID, $classId);
+        $cr->addSelectColumn(PropScorePeer::CHALLENGE_ID);
+        $cr->addSelectColumn('AVG('.PropScorePeer::SCORE_AVERAGE.') AS average');
+        $cr->addGroupByColumn(PropScorePeer::CHALLENGE_ID);
+        $sumy = PropScorePeer::doSelectStmt($cr);
+
+        $formatedData = array();
+        while($row = $sumy->fetch(PDO::FETCH_OBJ)){
+            $formatedData[$row->CHALLENGE_ID] = array();
+            $formatedData[$row->CHALLENGE_ID]['score'] = $row->average;
+        }
+        return $formatedData;*/
+    }
+
     public function set_order_by($field){
         $this->orderBy = $field;
     }

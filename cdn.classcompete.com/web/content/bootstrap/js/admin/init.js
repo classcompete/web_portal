@@ -1897,6 +1897,18 @@ $(document).ready(function () {
         });
     });
 
+    $('.admin_class_stats_average_month_accordion').unbind('click').click(function () {
+        var url = $(this).attr('href').split('#');
+        var id = url[1].split('/');
+        var class_id = id[1];
+
+        model.getReportClassStatsAverageMonth(class_id, function (r) {
+            setTimeout(function(){
+                do_chart(r, 'class_stats_average_month_chart_wrap', 'line');
+            },250);
+        });
+    });
+
     $('#student_stats_class_id').unbind('change').change(function () {
         var class_id = $(this).val();
 

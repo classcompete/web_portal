@@ -46,6 +46,20 @@ class Classes extends MY_Controller
             'data-target' => '#adminClassStatistic',
             'data-toggle' => 'modal'
         ));
+
+        $this->mapperlib->add_option('admin_class_stats_average_month_accordion', array(
+            'title' => array(
+                'base' => 'Average Class Scores by Month',
+                'field' => 'name',
+            ),
+            'uri' => '#',
+            'params' => array(
+                'id',
+            ),
+            'data-target' => '#adminClassStatsAverageMonth',
+            'data-toggle' => 'modal'
+        ));
+
         $this->mapperlib->add_option('edit', array(
             'title' => array(
                 'base' => 'Edit',
