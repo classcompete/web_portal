@@ -1,6 +1,7 @@
 <?php
 
-require_once APPPATH . 'third_party/PHPExcel/IOFactory.php';
+//require_once APPPATH . 'third_party/PHPExcel/IOFactory.php';
+require_once BASEPATH . '../vendor/modules/phpexcel/PHPExcel/IOFactory.php';
 error_reporting(E_ALL); ini_set('display_errors', 1);
 
 class Teacherimportlib {
@@ -8,7 +9,6 @@ class Teacherimportlib {
 
     public function __construct() {
         $this->ci = &get_instance();
-	    //$this->ci->load->model('x_users/users_model');
 	    $this->ci->load->library('x_users/userslib');
         $this->ci->load->model('x_users/teacher_model');
         $this->ci->load->model('x_users/teacher_token_model');

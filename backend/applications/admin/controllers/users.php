@@ -7,8 +7,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once APPPATH . 'third_party/PHPExcel.php';
-require_once APPPATH . 'third_party/PHPExcel/Writer/Excel2007.php';
+//require_once APPPATH . 'third_party/PHPExcel.php';
+//require_once APPPATH . 'third_party/PHPExcel/Writer/Excel2007.php';
+require_once BASEPATH . '../vendor/modules/phpexcel/PHPExcel.php';
+require_once BASEPATH . '../vendor/modules/phpexcel/PHPExcel/Writer/Excel2007.php';
 
 class Users extends MY_Controller
 {

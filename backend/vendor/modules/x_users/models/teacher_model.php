@@ -26,8 +26,8 @@ class Teacher_model extends CI_model
         parent::__construct();
     }
 
-    public function save($data, $id)
-    {
+    public function save($data, $id) {
+	        //1. Save User record
         if (empty($id) === true) {
             $user = new PropUser();
         } else {
@@ -52,7 +52,7 @@ class Teacher_model extends CI_model
 
         $user->save();
 
-        /** add new school if we have data */
+            //2. Add new school if we have data
         if(isset($data->zip_code) === true && empty($data->zip_code) === false && isset($data->school_name) === true && empty($data->school_name) === false){
             $new_school = new PropSchool();
 
@@ -64,6 +64,7 @@ class Teacher_model extends CI_model
             $data->school_id = $new_school->getSchoolId();
         }
 
+	        //3. Save Teacher record
         if (empty($id) === true) {
             $teacher = new PropTeacher();
             $teacher->setPropUser($user);

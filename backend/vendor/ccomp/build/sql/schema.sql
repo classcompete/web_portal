@@ -333,6 +333,7 @@ CREATE TABLE `teacher_import`
 (
 	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(100) NOT NULL,
+	`file_ext` VARCHAR(5),
 	`file` LONGBLOB,
 	`status` TINYINT DEFAULT 0,
 	`result_log` LONGTEXT,
@@ -361,6 +362,7 @@ CREATE TABLE `students`
 	`dob` VARCHAR(45),
 	`grade_id` INTEGER(11) DEFAULT 0,
 	`gender` TINYINT(2) DEFAULT 0 NOT NULL,
+	`import_id` INTEGER(11) DEFAULT 0,
 	PRIMARY KEY (`student_id`,`user_id`),
 	INDEX `students_FI_1` (`user_id`),
 	INDEX `students_FI_2` (`grade_id`),
@@ -371,6 +373,31 @@ CREATE TABLE `students`
 		FOREIGN KEY (`grade_id`)
 		REFERENCES `grades` (`id`)
 ) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- student_import
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `student_import`;
+
+CREATE TABLE `student_import`
+(
+	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+	`teacher_id` INTEGER(11) NOT NULL,
+	`name` VARCHAR(100) NOT NULL,
+	`file_ext` VARCHAR(5),
+	`file` LONGBLOB,
+	`status` TINYINT DEFAULT 0,
+	`result_log` LONGTEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `student_import_FI_1` (`teacher_id`),
+	CONSTRAINT `student_import_FK_1`
+		FOREIGN KEY (`teacher_id`)
+		REFERENCES `teachers` (`teacher_id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM CHARACTER SET='utf8';
 
 -- ---------------------------------------------------------------------
 -- classes

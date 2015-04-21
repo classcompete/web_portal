@@ -1,10 +1,10 @@
 <?php
 /**
- * Wrapper for Propel model of Teacher_import table.
- * - Logs importing of teacher lists from external spreadsheet file
+ * Wrapper for Propel model of Student_import table.
+ * - Logs importing of student lists from external spreadsheet file
  */
 
-class Teacher_import_model extends CI_Model{
+class Student_import_model extends CI_Model{
 
 	protected $orderBy = null;
     protected $orderByDirection = null;
@@ -13,11 +13,10 @@ class Teacher_import_model extends CI_Model{
     protected $totalRows;
 
     public function save($data, $id = null) {
-        $import = PropTeacherImportQuery::create()->findOneById($id);
-        if (empty($import)) {
-            $import = new PropTeacherImport();
-        }
+        if (empty($id)) { $import = new PropStudentImport(); }
+        else { $import = PropStudentImportQuery::create()->findOneById($id); }
 
+	    if (isset($data->teacher_id)) { $import->setTeacherId($data->teacher_id); }
         if (isset($data->name)) { $import->setName($data->name); }
 	    if (isset($data->file_ext)) { $import->setFileExt($data->file_ext); }
 	    if (isset($data->file)) { $import->setFile($data->file); }
@@ -37,7 +36,7 @@ class Teacher_import_model extends CI_Model{
     }
 
     private function prepareListQuery() {
-        $query = PropTeacherImportQuery::create();
+        $query = PropStudentImportQuery::create();
         return $query;
     }
 
@@ -45,7 +44,7 @@ class Teacher_import_model extends CI_Model{
         $this->totalRows = $this->prepareListQuery()->count();
         $query = $this->prepareListQuery();
 
-        if (empty($this->orderBy) === false) {
+        if (! empty($this->orderBy)) {
             $query->orderBy($this->orderBy, $this->orderByDirection);
         }
         $query->limit($this->limit);
@@ -60,10 +59,10 @@ class Teacher_import_model extends CI_Model{
     public function setOffset($offset) { $this->offset = $offset; }
 
     public function findOneById($id) {
-        return PropTeacherImportQuery::create()->findOneById($id);
+        return PropStudentImportQuery::create()->findOneById($id);
     }
 
     public function deleteById($id) {
-        return PropTeacherImportQuery::create()->filterById($id)->delete();
+        return PropStudentImportQuery::create()->filterById($id)->delete();
     }
 }

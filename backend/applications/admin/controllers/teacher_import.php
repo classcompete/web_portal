@@ -19,6 +19,9 @@ class Teacher_import extends MY_Controller {
 	    $this->load->view(config_item('admin_template'), $data);
     }
 
+	/**
+	 * Save teacher import record and file for import in db
+	 */
     public function save() {
         $name = $this->input->post('name');
 
@@ -36,6 +39,10 @@ class Teacher_import extends MY_Controller {
         redirect('teacher_import');
     }
 
+	/**
+	 * Do actuall importing of teachers from uploaded spreadsheet file
+	 * @param $importId
+	 */
     public function do_import($importId) {
         $this->load->library('x_users/teacherimportlib', null, 'importer');
         $teachers = $this->importer->import($importId);
@@ -45,13 +52,13 @@ class Teacher_import extends MY_Controller {
 	    }*/
 
         foreach ($teachers as $t) {
-			$password = $this->adminlib->generatePassword();
+			$password = $this->teacherlib->generatePassword();
 
 	        $teacherData = new stdClass();
 	        $teacherData->first_name = $t->firstName;
 	        $teacherData->last_name = $t->lastName;
 	        $teacherData->email = $t->email;
-	        $teacherData->password = md5($password);
+	        $teacherData->password = $this->teacherlib->encodePassword($password);
 			$teacherData->username = $t->username;
 	        $teacherData->import_id = $t->importId;
 	        $this->teacher_model->save($teacherData);
@@ -81,6 +88,12 @@ class Teacher_import extends MY_Controller {
         redirect('teacher_import');
     }
 
+	/**
+	 * Send welcome mail to imported teacher
+	 * @param $link_to_site
+	 * @param $data
+	 * @param $password
+	 */
     private function send_mail_to_new_teacher($link_to_site, $data, $password) {
         $subject = "INFO CLASSCOMPETE teacher panel";
 
@@ -99,6 +112,12 @@ class Teacher_import extends MY_Controller {
         @mail($data->email, $subject, $email, $headers);
     }
 
+	/**
+	 * Delete teacher import record
+	 * @param $id
+	 * @throws Exception
+	 * @throws PropelException
+	 */
     public function delete($id) {
         PropTeacherImportQuery::create()->filterById($id)->delete();
         redirect('teacher_import');

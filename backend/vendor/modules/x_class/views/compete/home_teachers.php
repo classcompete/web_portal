@@ -10,6 +10,7 @@
                             <a class="btn btn-small btn-info" href="#"
                                data-original-title="" data-target="#addEditClassTeacher"
                                data-toggle="modal" id="addNewClassTeacher" data-backdrop="static">+ Add new class</a>
+                            <a class="btn btn-small btn-info" href="<?php echo site_url('student_import')?>">Import students</a>
                         </span>
                     </div>
 

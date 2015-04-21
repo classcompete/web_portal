@@ -1,6 +1,7 @@
 <?php
 
-require_once APPPATH . 'third_party/PHPExcel/IOFactory.php';
+//require_once APPPATH . 'third_party/PHPExcel/IOFactory.php';
+require_once BASEPATH . '../vendor/modules/phpexcel/PHPExcel/IOFactory.php';
 error_reporting(E_ALL); ini_set('display_errors', 1);
 
 class PrepmattersImporter

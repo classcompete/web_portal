@@ -201,6 +201,7 @@
     <table name="teacher_import" phpName="PropTeacherImport">
         <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="VARCHAR" size="100" required="true" />
+        <column name="file_ext" type="VARCHAR" size="5"/>
         <column name="file" type="BLOB"/>
         <column name="status" type="ENUM" valueSet="undefined,success,error" default="undefined"/>
         <column name="result_log" type="CLOB" />
@@ -220,6 +221,7 @@
         <column name="dob" type="VARCHAR" size="45"/>
         <column name="grade_id" type="INTEGER" size="11" default="0"/>
         <column name="gender" type="ENUM" size="2" required="true" valueSet="male,female" default="male"/>
+        <column name="import_id" type="INTEGER" size="11" default="0"/>
         <foreign-key foreignTable="users">
             <reference local="user_id" foreign="user_id"/>
         </foreign-key>
@@ -227,6 +229,23 @@
             <reference local="grade_id" foreign="id"/>
         </foreign-key>
         <behavior name="auto_add_pk" />
+    </table>
+
+    <table name="student_import" phpName="PropStudentImport">
+        <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="name" type="VARCHAR" size="100" required="true" />
+        <column name="file_ext" type="VARCHAR" size="5"/>
+        <column name="file" type="BLOB"/>
+        <column name="status" type="ENUM" valueSet="pending,imported,failed" default="pending"/>
+        <column name="result_log" type="CLOB" />
+        <foreign-key foreignTable="teachers" onDelete="CASCADE">
+            <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Charset" value="utf8"/>
+        </vendor>
+        <behavior name="timestampable" />
     </table>
 
     <table name="classes" phpName="PropClas">
