@@ -136,7 +136,7 @@
         </div>
     </div>
 </div>
-<?php if ($_GET['sent'] === 'ok'): ?>
+<?php if (@$_GET['sent'] === 'ok'): ?>
 <script type="text/javascript">
     setTimeout(function(){
         alert("Your message has been sent.\nPlease be patient, someone will reply to your email as soon as possible.");
