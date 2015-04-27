@@ -54,6 +54,13 @@
                         </select>
                     </div>
 
+                    <!--<span class="challenge_filter_checkbox_caption">My challenges only </span>-->
+
+                    <div class="row-fluid">
+	                    <label for="challenge_filter_my_only" class="challenge_filter_label">My challenges only</label>
+	                    <input type="checkbox" id="challenge_filter_my_only" name="my_only" value="yes">
+                    </div>
+
                 </div>
 
                 <div id="challenge_filter_challenges_list" class="challenge_filter_tab_content container-fluid">
@@ -108,7 +115,8 @@
                             <!-- Challenge item -->
                         <div class="span5 challenge my_challenge margin_bottom hide" data-subjectid="<?php echo $val['subject_id'] ?>"
                              data-grade="<?php echo $val['level'] ?>"
-                             data-skill-id="<?php echo $val['skill_id'] ?>">
+                             data-skill-id="<?php echo $val['skill_id'] ?>"
+                             data-user-id="<?php echo $val['user_id'] ?>">
                             <div class="float_left">
                                 <div class="thumbnail_challenge marketplace_thumb">
                                     <img

@@ -230,7 +230,7 @@ class Teacher_model extends CI_model
 	        //to obtain teachers list.
 	    $query = PropUserQuery::create()
             ->joinPropTeacher()
-	        ->withColumn('PropTeacher.LastLoginTime', 'LastLoginTime');
+	        ->withColumn('LOWER(DATE_FORMAT(PropTeacher.LastLoginTime,"%m/%d/%Y %h:%i %p"))', 'LastLoginTime');
 
         if (empty($this->filterUsername) === false) {
             $query->filterByLogin('%' . $this->filterUsername . '%', Criteria::LIKE);

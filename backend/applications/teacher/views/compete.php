@@ -65,6 +65,7 @@
 
     <script>
         var BASEURL = '<?php echo base_url() ?>';
+	    var CURR_USER_ID = '<?php echo TeacherHelper::getUserId() ?>';
     </script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="<?php echo AssetHelper::jsUrl('init/models.js?' . time()) ?>"></script>

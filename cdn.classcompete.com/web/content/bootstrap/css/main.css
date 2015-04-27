@@ -8485,8 +8485,20 @@ dl.inline dd {
 
 .challenge_filter_caption {
     float: left;
-    /*margin-right: 40px;*/
+    /*margin-right: 10px;*/
     width: 60px;
+    line-height: 30px;
+}
+
+.challenge_filter_checkbox_caption {
+    float: left;
+    width: 115px;
+    line-height: 30px;
+}
+
+.challenge_filter_label {
+    display: inline;
+    font-size: inherit;
     line-height: 30px;
 }
 
@@ -8498,6 +8510,10 @@ dl.inline dd {
 #challenge_filter_selector_holder .row-fluid {
     width: 230px;
     float: left;
+}
+
+#challenge_filter_selector_holder .row-fluid input[type="checkbox"] {
+    margin: 0;
 }
 
 .challenge_filter_tab_content {

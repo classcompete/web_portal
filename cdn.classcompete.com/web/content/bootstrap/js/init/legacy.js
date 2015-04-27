@@ -5145,10 +5145,11 @@ $(document).ready(function () {
     });
 
     // marketplace filters
-    $('#challenge_filter_grade_selector, #challenge_filter_subject_selector, #challenge_filter_topic_selector').change(function (e) {
+    $('#challenge_filter_grade_selector, #challenge_filter_subject_selector, #challenge_filter_topic_selector, #challenge_filter_my_only').change(function (e) {
         var selected_grade = $('#challenge_filter_grade_selector').val();
         var selected_subject = $('#challenge_filter_subject_selector').val();
         var selected_skill = $('#challenge_filter_topic_selector').val();
+        var checked_my_only = $('#challenge_filter_my_only').is(':checked');
 
         if (this.id === 'challenge_filter_subject_selector') {
             selected_skill = 'all';
@@ -5178,6 +5179,7 @@ $(document).ready(function () {
         var grade = '';
         var subject = '';
         var skill = '';
+        var my_only = '';
 
         if (selected_grade !== 'all') {
             grade = '[data-grade="' + selected_grade + '"]';
@@ -5191,6 +5193,10 @@ $(document).ready(function () {
             skill = '[data-skill-id="' + selected_skill + '"]';
         }
 
+        if (checked_my_only) {
+            my_only = '[data-user-id="' + CURR_USER_ID + '"]';
+        }
+
         $('#challenge_filter_challenges_list .challenge').fadeOut();
         if (selected_grade === 'all' && selected_subject === 'all' && selected_skill === 'all') {
             $('#challenge_filter_challenges_list .challenge').fadeOut('slow', function(){
@@ -5198,10 +5204,10 @@ $(document).ready(function () {
             });
         } else {
             if ($('#challenge_filter_intro').css('display') === 'none') {
-                $('#challenge_filter_challenges_list .challenge' + grade + subject + skill).fadeIn('slow');
+                $('#challenge_filter_challenges_list .challenge' + grade + subject + skill + my_only).fadeIn('slow');
             } else {
                 $('#challenge_filter_intro').fadeOut('slow', function(){
-                    $('#challenge_filter_challenges_list .challenge' + grade + subject + skill).fadeIn('slow');
+                    $('#challenge_filter_challenges_list .challenge' + grade + subject + skill + my_only).fadeIn('slow');
                 });
             }
         }
