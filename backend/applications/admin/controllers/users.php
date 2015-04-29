@@ -446,6 +446,9 @@ class Users extends MY_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue('L1', '3rd Quantity');
         $objPHPExcel->getActiveSheet()->SetCellValue('M1', 'Total Purchases');
         $objPHPExcel->getActiveSheet()->SetCellValue('N1', 'Total Quantity');
+	    $objPHPExcel->getActiveSheet()->SetCellValue('O1', 'Created');
+	    $objPHPExcel->getActiveSheet()->SetCellValue('P1', 'Modified');
+	    $objPHPExcel->getActiveSheet()->SetCellValue('Q1', 'Last login');
 
         /**
          * @var $user PropUser
@@ -478,6 +481,10 @@ class Users extends MY_Controller
             $objPHPExcel->getActiveSheet()->SetCellValue('L' . $r, '');
             $objPHPExcel->getActiveSheet()->SetCellValue('M' . $r, $teacher->getTotalPurchases());
             $objPHPExcel->getActiveSheet()->SetCellValue('N' . $r, $teacher->getTotalQuantity());
+
+	        $objPHPExcel->getActiveSheet()->SetCellValue('O' . $r, $teacher->getCreated());
+	        $objPHPExcel->getActiveSheet()->SetCellValue('P' . $r, $teacher->getModified());
+	        $objPHPExcel->getActiveSheet()->SetCellValue('Q' . $r, $teacher->getLastLoginTime());
 
             $ordersToShow = 3;
             $ordersShown = 1;
