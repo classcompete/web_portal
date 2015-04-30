@@ -11,6 +11,8 @@ class Student_import extends MY_Controller {
 	    $this->load->library('x_grade/gradelib');
 	    $this->load->library('x_users/studentlib');
 	    $this->load->library('x_users/studentimportlib');
+	    $this->load->library('x_class/classlib');
+	    $this->load->library('x_class_student/class_studentlib');
     }
 
 	/**
@@ -30,11 +32,12 @@ class Student_import extends MY_Controller {
 	 * Save student import record and file for import in db
 	 */
     public function save() {
-        $name = $this->input->post('name');
+        $importDesc = $this->input->post('stud_import_desc');
+	    $importClassId = $this->input->post('stud_import_class_id');
 
-        if ($_FILES['file']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['file']['tmp_name'])) {
-	        $filename = $_FILES['file']['name'];
-            $file = base64_encode(file_get_contents($_FILES['file']['tmp_name']));
+        if ($_FILES['stud_import_file']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['stud_import_file']['tmp_name'])) {
+	        $filename = $_FILES['stud_import_file']['name'];
+            $file = base64_encode(file_get_contents($_FILES['stud_import_file']['tmp_name']));
         }
         else {
 	        $filename = '';
@@ -47,10 +50,11 @@ class Student_import extends MY_Controller {
 
 		    //Create student import record
 		    $data = new stdClass();
-		    $data->name = $name;
+		    $data->name = $importDesc;
 		    $data->file_ext = $fileExt;
 		    $data->file = $file;
 		    $data->teacher_id = $teacherId;
+		    if ($importClassId) { $data->class_id = $importClassId; }
 		    $this->student_import_model->save($data);
 	    }
 
@@ -66,7 +70,7 @@ class Student_import extends MY_Controller {
 
 	    /*foreach ($students as $s) {
 		    echo $s->firstName . ' - ' . $s->lastName . ' - ' . $s->gradeId . ' - ' . $s->gender . ' - ' .
-	            $s->username . ' - ' . $s->password .'<br/>';
+	            $s->username . ' - ' . $s->password . ' - ' . $s->classId . '<br/>';
 	    }
 		exit;*/
 
@@ -79,7 +83,15 @@ class Student_import extends MY_Controller {
 	        $studentData->username = $s->username;
 	        $studentData->password = $this->studentlib->encodePassword($s->password);
 	        $studentData->import_id = $s->importId;
-	        $this->student_model->save($studentData);
+	        $userObj = $this->student_model->save($studentData);
+	            //Doesn't work! Propel won't return student id emidietly after save, for unknown reason...
+	        //$studentObj = $this->student_model->save($studentData, null, TRUE); //Return result as PropStudent object
+
+	        $classStudData = new stdClass();
+	        $classStudData->class_id = $s->classId;
+	        $classStudData->user_id = $userObj->getUserId();
+	        //$classStudData->student_id = $studentObj->getStudentId();
+	        $this->class_student_model->save($classStudData);
         }
 
         redirect('student_import');

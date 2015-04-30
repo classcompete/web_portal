@@ -9,8 +9,12 @@
                         <span class="tools">
                             <a class="btn btn-small btn-info" href="#"
                                data-original-title="" data-target="#addEditClassTeacher"
-                               data-toggle="modal" id="addNewClassTeacher" data-backdrop="static">+ Add new class</a>
-                            <a class="btn btn-small btn-info" href="<?php echo site_url('student_import')?>">Import students</a>
+                               data-toggle="modal" id="addNewClassTeacher" data-backdrop="static">+ Add new class
+                            </a>
+                            <a href="<?php echo site_url('student_import') ?>"
+                               class="btn btn-small btn-info">
+                               List of student imports
+                            </a>
                         </span>
                     </div>
 
@@ -52,6 +56,14 @@
                                                    class="btn btn-small btn-info">
                                                     <?php echo $class['licenses_text'] ?> | Add More
                                                 </a>
+
+					                            <a class="btn btn-small btn-info btn-import-students-file" href="#"
+					                               style="background: #ed6d49; font-weight: bold"
+					                               data-original-title="" data-target="#dlgImportStudents"
+					                               data-toggle="modal" data-backdrop="static"
+					                               data-class-id="<?php echo $class['class_id'] ?>">
+						                           Import students to this class
+					                            </a>
                                             </span>
                                             <div class="span9">
                                                 <h5>
@@ -79,7 +91,19 @@
                             </div>
 
                             <?php $this->load->view('form'); ?>
+                        </div>
 
+							<!-- Import students dialog -->
+	                    <div class="modal hide fade classmodal" id="dlgImportStudents" tabindex="-1" role="dialog"
+                             aria-labelledby="addClassLabel"
+                             aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3>Prepare student import</h3>
+	                            <h4>for class <span class="import-class-name" style="color: #ed6d49;"></span></h4>
+                            </div>
+
+                            <?php $this->load->view('x_class/' . config_item('teacher_template'). '/form_prepare_import_students'); ?>
                         </div>
 
                         <div class="modal hide fade classmodal" id="addEditClassStudent" tabindex="-1" role="dialog"

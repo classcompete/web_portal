@@ -33,10 +33,21 @@ class Studentimportlib {
 	 */
 	public function import_xls($importId) {
             //Get student import record
-        $import = PropStudentImportQuery::create()->findOneById($importId);
-        if (empty($import) === true) { throw new StudentImportException("Unknown import ID"); }
+        $importObj = PropStudentImportQuery::create()->findOneById($importId);
+        if (empty($importObj) === true) { throw new StudentImportException("Unknown import ID"); }
 
-        $file = stream_get_contents($import->getFile());
+            //Get class record and determinate limit number of imported students
+		$checkStudLimit = FALSE;
+		$newStudLimit = 0;
+		if ($importObj->getClassId()) {
+			$classObj = PropClasQuery::create()->findOneByClassId($importObj->getClassId());
+			if (empty($classObj) === true) { throw new StudentImportException("Unknown class ID"); }
+			$checkStudLimit = TRUE;
+			$newStudLimit = $classObj->getLimit() - $this->ci->class_student_model->count_students_in_class($classObj->getClassId());
+		}
+		//throw new StudentImportException("newStudLimit: " . $newStudLimit);
+
+        $file = stream_get_contents($importObj->getFile());
         $filename = tempnam('/tmp', time() . '.xlsx');
         $fp = fopen($filename, 'w');
         fwrite($fp, base64_decode($file));
@@ -55,6 +66,11 @@ class Studentimportlib {
 	        $studentsSheet = $sheets[0]->toArray();
 	        foreach ($studentsSheet as $rowArr) {
 		        if ($totalRows++) {
+			        if ($checkStudLimit && ($importedRows >= $newStudLimit)) {
+				        $errors[] = '* Reached limit of ' . $classObj->getLimit() . ' students in class ' . $classObj->getName() . ', at row ' . $totalRows;
+				        break;
+			        }
+
 			        $impFirstName = trim($rowArr[0]);
 			        $impLastName = trim($rowArr[1]);
 			        $impGrade = trim($rowArr[2]);
@@ -65,6 +81,10 @@ class Studentimportlib {
 			        if ($impFirstName && $impLastName && $impGrade && $impGender && $impUsername && $impPassword) {
 				        $impGradeId = 0;
 				        $is_unique = $this->ci->users_model->is_unique_username($impUsername);
+						//if (! $is_unique) {
+						//	$impUsername = $this->ci->userslib->generateUniqueUsername($impFirstName . ' ' . $impLastName);
+						//  $is_unique = TRUE;
+						//}
 				        $grade_ok = in_array(strtolower($impGrade), array('pre k', 'k', '1', '2', '3', '4', '5', '6', '7', '8'));
 				        if ($grade_ok) {
 					        //Find grade ID
@@ -97,6 +117,7 @@ class Studentimportlib {
 					        $singleStudent->username = $impUsername;
 					        $singleStudent->password = $impPassword;
 					        $singleStudent->importId = $importId;
+					        $singleStudent->classId = $importObj->getClassId();
 					        $students[] = $singleStudent;
 					        $importedRows++;
 				        }
@@ -144,10 +165,20 @@ class Studentimportlib {
 	 */
     public function import_csv($importId) {
             //Get student import record
-        $import = PropStudentImportQuery::create()->findOneById($importId);
-        if (empty($import) === true) { throw new StudentImportException("Unknown import ID"); }
+        $importObj = PropStudentImportQuery::create()->findOneById($importId);
+        if (empty($importObj) === true) { throw new StudentImportException("Unknown import ID"); }
 
-        $file = stream_get_contents($import->getFile());
+            //Get class record and determinate limit number of imported students
+		$checkStudLimit = FALSE;
+		$newStudLimit = 0;
+		if ($importObj->getClassId()) {
+			$classObj = PropClasQuery::create()->findOneByClassId($importObj->getClassId());
+			if (empty($classObj) === true) { throw new StudentImportException("Unknown class ID"); }
+			$checkStudLimit = TRUE;
+			$newStudLimit = $classObj->getLimit() - $this->ci->class_student_model->count_students_in_class($classObj->getClassId());
+		}
+
+        $file = stream_get_contents($importObj->getFile());
         $filename = tempnam('/tmp', time() . '.csv');
         $fp = fopen($filename, 'w');
         fwrite($fp, base64_decode($file));
@@ -164,6 +195,11 @@ class Studentimportlib {
 			while (!feof($fp)) {
 				$rowArr = fgetcsv($fp);
 				if ($totalRows++) {
+			        if ($checkStudLimit && ($importedRows >= $newStudLimit)) {
+				        $errors[] = '* Reached limit of ' . $classObj->getLimit() . ' students in class ' . $classObj->getName() . ', at row ' . $totalRows;
+				        break;
+			        }
+
 					if ($rowArr[0] !== NULL) {
 						$impFirstName = trim($rowArr[0]);
 						$impLastName = trim($rowArr[1]);
@@ -184,6 +220,10 @@ class Studentimportlib {
 					if ($impFirstName && $impLastName && $impGrade && $impGender && $impUsername && $impPassword) {
 						$impGradeId = 0;
 						$is_unique = $this->ci->users_model->is_unique_username($impUsername);
+						//if (! $is_unique) {
+						//	$impUsername = $this->ci->userslib->generateUniqueUsername($impFirstName . ' ' . $impLastName);
+						//  $is_unique = TRUE;
+						//}
 						$grade_ok = in_array(strtolower($impGrade), array('pre k', 'k', '1', '2', '3', '4', '5', '6', '7', '8'));
 						if ($grade_ok) {
 							//Find grade ID
@@ -218,6 +258,7 @@ class Studentimportlib {
 							$singleStudent->username = $impUsername;
 							$singleStudent->password = $impPassword;
 							$singleStudent->importId = $importId;
+							$singleStudent->classId = $importObj->getClassId();
 							$students[] = $singleStudent;
 							$importedRows++;
 						}

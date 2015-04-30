@@ -46,6 +46,8 @@ class Class_Student extends MY_Controller{
         $this->mapperlib->set_default_order(PropClass_studentPeer::CLASS_ID, Criteria::ASC);
     }
 
+	//Pedja 30.04.2015: I don't know where these methods are used in Teacher panel.
+	//It seems that this is only the stub of functionality, code is just started but not finished.
     public function index(){
         $uri = Mapper_Helper::create_uri_segments();
         if ($uri !== null) {

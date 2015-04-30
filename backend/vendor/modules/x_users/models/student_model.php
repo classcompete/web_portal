@@ -10,12 +10,15 @@ class Student_model extends CI_Model{
     }
 
 	/**
-	 * Save Student record: saving both PropUser and PropStudent objects
+	 * Save Student record: saving both PropUser and PropStudent objects.
+	 * $returnStudentObj is usefull when you need to emediately use returned object
+	 * as PropStudent object – not as PropUser object.
 	 * @param $data
 	 * @param null $id
+	 * @param bool $returnStudentObj
 	 * @return PropUser
 	 */
-    public function save($data, $id = null){
+    public function save($data, $id = null, $returnStudentObj = FALSE){
 	        //1. Save User record
         if (empty($id)) { $user = new PropUser(); }
         else {
@@ -51,7 +54,7 @@ class Student_model extends CI_Model{
 
         $student->save();
 
-        return $user;
+        return ($returnStudentObj) ? $student : $user;
     }
 
         //***************************************************

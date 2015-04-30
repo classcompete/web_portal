@@ -466,7 +466,6 @@ $(document).ready(function () {
 
     $("#addNewClassTeacher").click(function (e) {
         e.preventDefault();
-
         clearFormFields('#addEditClassTeacher');
 
         model.getNewClassCode(function (r) {
@@ -479,6 +478,19 @@ $(document).ready(function () {
                     $(object).removeAttr('disabled');
                 }
             });
+        });
+    });
+
+        // Import Students button on Classroom tab
+    $(".btn-import-students-file").click(function (e) {
+        e.preventDefault();
+        var xClassId = parseInt($(this).data('classId'));
+        clearFormFields('#student_import_form');
+        $('#stud_import_class_id').val(xClassId);
+
+        model.getClassById(xClassId, function (res) {
+            $('#dlgImportStudents span.import-class-name').text(res.name);
+            //$('#licenses').val(res.licenses);
         });
     });
 

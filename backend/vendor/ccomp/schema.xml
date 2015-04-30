@@ -234,6 +234,7 @@
     <table name="student_import" phpName="PropStudentImport">
         <column name="id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true" />
         <column name="teacher_id" type="INTEGER" size="11" required="true" />
+        <column name="class_id" type="INTEGER" size="11" required="false" default="0"/>
         <column name="name" type="VARCHAR" size="100" required="true" />
         <column name="file_ext" type="VARCHAR" size="5"/>
         <column name="file" type="BLOB"/>
@@ -241,6 +242,9 @@
         <column name="result_log" type="CLOB" />
         <foreign-key foreignTable="teachers" onDelete="CASCADE">
             <reference local="teacher_id" foreign="teacher_id" />
+        </foreign-key>
+        <foreign-key foreignTable="classes" onDelete="SETNULL" onUpdate="SETNULL">
+            <reference local="class_id" foreign="class_id" />
         </foreign-key>
         <vendor type="mysql">
             <parameter name="Charset" value="utf8"/>
@@ -336,6 +340,7 @@
             <reference local="class_id" foreign="class_id"/>
         </foreign-key>
     </table>
+
     <table name="challenge_questions" phpName="PropChallengeQuestion">
         <column name="chalquest_id" type="INTEGER" size="11" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="challenge_id" type="INTEGER" size="11" required="true"/>

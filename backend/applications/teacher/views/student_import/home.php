@@ -6,7 +6,7 @@
                 <span class="tools">
                     <a data-backdrop="static" id="addNewImport" href="#" class="btn btn-small" style="color:black"
                        data-toggle="modal" data-target="#addImport" data-original-title="">
-                        Add New
+                        Add new file for import
                     </a>
                 </span>
             </div>
@@ -17,14 +17,18 @@
                         <thead>
 	                        <tr>
 	                            <th class="head1">Import description</th>
-	                            <th class="head1 hidden-phone">Status</th>
+		                        <th class="head1">Class name</th>
+	                            <th class="head1">Status</th>
+		                        <th class="head1">Upload date</th>
 	                            <th class="head0">&nbsp;</th>
 	                        </tr>
                         </thead>
                         <tfoot>
 	                        <tr>
 	                            <th class="head1">Import description</th>
-	                            <th class="head1 hidden-phone">Status</th>
+		                        <th class="head1">Class name</th>
+	                            <th class="head1">Status</th>
+		                        <th class="head1">Upload date</th>
 	                            <th class="head0">&nbsp;</th>
 	                        </tr>
                         </tfoot>
@@ -32,7 +36,22 @@
                         <?php foreach ($imports as $import): ?>
                             <tr>
                                 <td><?php echo $import->getName() ?></td>
-                                <td class="hidden-phone"><?php echo $import->getStatus() ?></td>
+                                <td><?php echo $import->getClassName() ?></td>
+	                            <?php
+		                            switch ($import->getStatus()) {
+			                            case 'pending':
+				                            $statusColor = '#00cf1d';
+				                            break;
+			                            case 'imported':
+				                            $statusColor = '#333333';
+				                            break;
+			                            case 'failed':
+				                            $statusColor = '#ff1a11';
+				                            break;
+		                            }
+	                            ?>
+	                            <td style="color: <?php echo $statusColor ?>;"><?php echo $import->getStatus() ?></td>
+	                            <td><?php echo $import->getCreatedAt('m/d/Y h:i a') ?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
@@ -58,36 +77,15 @@
                         <?php endforeach ?>
                         </tbody>
                     </table>
+
                     <div aria-hidden="false" class="modal hide fade classmodal in"
                          aria-labelledby="addClassLabel" role="dialog" tabindex="-1" id="addImport">
                         <div class="modal-header">
                             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                             <h3>Prepare student import</h3>
                         </div>
-                        <form enctype="multipart/form-data" id="student_import_form" class="form-horizontal no-margin"
-                              method="post" accept-charset="utf-8" action="<?php echo site_url('student_import/save')?>">
-                            <div class="modal-body">
-                                <div class="control-group">
-                                    <label class="control-label">Import description</label>
 
-                                    <div class="controls">
-                                        <input type="text" id="name" name="name">
-                                        <span class="help-inline"></span>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">File to import students</label>
-
-                                    <div class="controls">
-                                        <input type="file" id="file" name="file">
-                                        <span class="help-inline"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="student_import_form_submit" class="btn btn-primary">Upload file</button>
-                            </div>
-                        </form>
+	                    <?php $this->load->view('x_class/' . config_item('teacher_template'). '/form_prepare_import_students'); ?>
                     </div>
                 </div>
             </div>

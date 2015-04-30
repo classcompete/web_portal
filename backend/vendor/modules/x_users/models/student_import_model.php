@@ -17,6 +17,7 @@ class Student_import_model extends CI_Model{
         else { $import = PropStudentImportQuery::create()->findOneById($id); }
 
 	    if (isset($data->teacher_id)) { $import->setTeacherId($data->teacher_id); }
+	    if (isset($data->class_id)) { $import->setClassId($data->class_id); }
         if (isset($data->name)) { $import->setName($data->name); }
 	    if (isset($data->file_ext)) { $import->setFileExt($data->file_ext); }
 	    if (isset($data->file)) { $import->setFile($data->file); }
@@ -36,7 +37,9 @@ class Student_import_model extends CI_Model{
     }
 
     private function prepareListQuery() {
-        $query = PropStudentImportQuery::create();
+        $query = PropStudentImportQuery::create()
+			->joinPropClas()
+			->withColumn('PropClas.Name', 'ClassName');
         return $query;
     }
 

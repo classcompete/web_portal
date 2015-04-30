@@ -384,6 +384,7 @@ CREATE TABLE `student_import`
 (
 	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
 	`teacher_id` INTEGER(11) NOT NULL,
+	`class_id` INTEGER(11) DEFAULT 0,
 	`name` VARCHAR(100) NOT NULL,
 	`file_ext` VARCHAR(5),
 	`file` LONGBLOB,
@@ -393,10 +394,16 @@ CREATE TABLE `student_import`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `student_import_FI_1` (`teacher_id`),
+	INDEX `student_import_FI_2` (`class_id`),
 	CONSTRAINT `student_import_FK_1`
 		FOREIGN KEY (`teacher_id`)
 		REFERENCES `teachers` (`teacher_id`)
-		ON DELETE CASCADE
+		ON DELETE CASCADE,
+	CONSTRAINT `student_import_FK_2`
+		FOREIGN KEY (`class_id`)
+		REFERENCES `classes` (`class_id`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL
 ) ENGINE=MyISAM CHARACTER SET='utf8';
 
 -- ---------------------------------------------------------------------

@@ -24,22 +24,30 @@ class Class_student_model extends CI_Model{
         parent::__construct();
     }
 
-    public function save($data, $id){
+    public function save($data, $id = null){
         if(empty($id) === true){
-            $classStudents = new PropClass_student();
+            $classStudent = new PropClass_student();
         }else{
-            $classStudents = PropClass_studentQuery::create()->findOneByClassstudId($id);
+            $classStudent = PropClass_studentQuery::create()->findOneByClassstudId($id);
         }
+
         if (isset($data->class_id) === true && empty($data->class_id) === false) {
-            $classStudents->setClassId($data->class_id);
+            $classStudent->setClassId($data->class_id);
         }
-        if (isset($data->user_id) === true && empty($data->user_id) === false) {
+
+	        //If user_id is sent - find student_id
+	    if (isset($data->user_id) === true && empty($data->user_id) === false) {
             $student = PropStudentQuery::create()->findOneByUserId($data->user_id);
-            $classStudents->setStudentId($student->getStudentId());
+            $classStudent->setStudentId($student->getStudentId());
         }
-        $classStudents->save();
-        return $classStudents;
+	    else if (isset($data->student_id) && !empty($data->student_id)) { //If student_id is sent, no need to search for student_id
+		    $classStudent->setStudentId($data->student_id);
+	    }
+
+        $classStudent->save();
+        return $classStudent;
     }
+
     public function delete($class_id, $student_id){
         $class_student = PropClass_studentQuery::create()->filterByClassId($class_id)->filterByStudentId($student_id)->findOne();
 
@@ -232,4 +240,12 @@ class Class_student_model extends CI_Model{
                     ->endUse()
                     ->count();
     }
+
+    public function count_students_in_class($class_id){
+        return PropClass_studentQuery::create()
+            ->filterByClassId($class_id)
+            ->filterByIsDeleted(PropClass_studentPeer::IS_DELETED_NO)
+            ->count();
+    }
+
 }
