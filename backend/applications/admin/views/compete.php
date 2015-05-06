@@ -56,8 +56,8 @@
         var BASEURL = '<?php echo base_url() ?>';
     </script>
     <script src="<?php echo AssetHelper::jsUrl('jquery.gritter.min.js') ?>"></script>
-    <script src="<?php echo AssetHelper::jsUrl('admin/controller/model.js') ?>"></script>
-    <script src="<?php echo AssetHelper::jsUrl('admin/init.js?653g') ?>"></script>
+    <script src="<?php echo AssetHelper::jsUrl('admin/controller/model.js?123') ?>"></script>
+    <script src="<?php echo AssetHelper::jsUrl('admin/init.js?653g12') ?>"></script>
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
