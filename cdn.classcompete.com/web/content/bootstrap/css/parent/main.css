@@ -11655,12 +11655,28 @@ div.container-fluid div.span5.margin_bottom.my_challenge div.float_left h5.chall
     width: 100%;
 }
 .feedback-wrapper{
-    margin-right: -65px;
-    position: fixed;
-    right: 50%;
-    top: 0;
-    width: 110px;
-    z-index: 999;
+    height: 130px; margin-top: -65px; position: fixed; right: 0px; top: 50%; width: 39px; z-index: 999;
+}
+.feedback-subwrapper{
+    height: 130px;
+}
+.feedback {
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+
+    /* IE */
+    -ms-transform: rotate(-90deg);
+
+    /* Opera */
+    -o-transform: rotate(-90deg);
+
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+    margin-top: 160%;
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
