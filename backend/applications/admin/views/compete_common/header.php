@@ -1,5 +1,5 @@
 <header>
-    <a href="<?php base_url() ?>" class="logo">
+    <a href="<?php echo site_url() ?>" class="logo">
         <img src="/Admin-Dashboard-Logo.png" alt="Logo"/>
     </a>
 

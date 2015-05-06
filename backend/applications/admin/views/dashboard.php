@@ -62,59 +62,59 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            Top 5 Challenges
+                            Teachers online
                         </div>
                     </div>
                     <div class="widget-body">
                         <div class="easy-pie-charts-container" style="padding: 35px 30px;">
                             <div class="pie-chart">
-                                <div class="chart1 easyPieChart" data-percent="48"
+                                <div class="chart1 easyPieChart" data-percent="<?php echo $teacherOnlineData['15min']['percent'] ?>"
                                      style="width: 140px; height: 140px; line-height: 140px;">
-                                    48%
+                                    <?php echo $teacherOnlineData['15min']['total'] . ' (' . $teacherOnlineData['15min']['percent'] . '%)' ?>
                                     <canvas width="140" height="140"></canvas>
                                 </div>
                                 <p class="name">
-                                    Challenge Name
+                                    Last 15 min
                                 </p>
                             </div>
                             <div class="pie-chart">
-                                <div class="chart2 easyPieChart" data-percent="71"
+                                <div class="chart2 easyPieChart" data-percent="<?php echo $teacherOnlineData['hour']['percent'] ?>"
                                      style="width: 140px; height: 140px; line-height: 140px;">
-                                    71%
+                                    <?php echo $teacherOnlineData['hour']['total'] . ' (' . $teacherOnlineData['hour']['percent'] . '%)' ?>
                                     <canvas width="140" height="140"></canvas>
                                 </div>
                                 <p class="name">
-                                    Challenge Name
+                                    Last hour
                                 </p>
                             </div>
                             <div class="pie-chart">
-                                <div class="chart3 easyPieChart" data-percent="87"
+                                <div class="chart3 easyPieChart" data-percent="<?php echo $teacherOnlineData['day']['percent'] ?>"
                                      style="width: 140px; height: 140px; line-height: 140px;">
-                                    87%
+                                    <?php echo $teacherOnlineData['day']['total'] . ' (' . $teacherOnlineData['day']['percent'] . '%)' ?>
                                     <canvas width="140" height="140"></canvas>
                                 </div>
                                 <p class="name">
-                                    Challenge Name
+                                    Last day
                                 </p>
                             </div>
                             <div class="pie-chart">
-                                <div class="chart4 easyPieChart" data-percent="22"
+                                <div class="chart4 easyPieChart" data-percent="<?php echo $teacherOnlineData['week']['percent'] ?>"
                                      style="width: 140px; height: 140px; line-height: 140px;">
-                                    22%
+                                    <?php echo $teacherOnlineData['week']['total'] . ' (' . $teacherOnlineData['week']['percent'] . '%)' ?>
                                     <canvas width="140" height="140"></canvas>
                                 </div>
                                 <p class="name">
-                                    Challenge Name
+                                    Last week
                                 </p>
                             </div>
                             <div class="pie-chart hidden-tablet">
-                                <div class="chart5 easyPieChart" data-percent="21"
+                                <div class="chart5 easyPieChart" data-percent="<?php echo $teacherOnlineData['month']['percent'] ?>"
                                      style="width: 140px; height: 140px; line-height: 140px;">
-                                    21%
+                                    <?php echo $teacherOnlineData['month']['total'] . ' (' . $teacherOnlineData['month']['percent'] . '%)' ?>
                                     <canvas width="140" height="140"></canvas>
                                 </div>
                                 <p class="name">
-                                    Challenge Name
+                                    Last month
                                 </p>
                             </div>
                             <div class="clearfix">

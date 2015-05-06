@@ -13,6 +13,7 @@ class User_activity_model extends CI_model {
 	protected $totalRows;
 
     protected $filterUpdatedAt = null;
+	protected $filterTeachers = null;
 
     public function __construct() {
         parent::__construct();
@@ -41,6 +42,7 @@ class User_activity_model extends CI_model {
 		$this->totalRows = null;
 
         $this->filterUpdatedAt = null;
+	    $this->filterTeachers = null;
     }
 
     public function getFoundRows() { return (int)$this->totalRows; }
@@ -48,6 +50,12 @@ class User_activity_model extends CI_model {
     private function prepareListQuery() {
         $query = PropUserActivityQuery::create();
 
+	    if ((! empty($this->filterTeachers)) && $this->filterTeachers) {
+		    $query->usePropUserQuery()
+		            ->usePropTeacherQuery()
+		            ->endUse()
+		        ->endUse();
+	    }
         if (! empty($this->filterUpdatedAt)) {
 	        $query->filterByUpdatedAt($this->filterUpdatedAt, Criteria::GREATER_EQUAL);
         }
@@ -74,6 +82,14 @@ class User_activity_model extends CI_model {
 
     public function filterByUpdatedAt($minutesOffset) {
 	    $this->filterUpdatedAt = date('Y-m-d H:i:s', strtotime('-' . $minutesOffset . ' minutes'));
+    }
+
+	/**
+	 * Filter only user activity records for teachers
+	 * @param $onlyTeachers
+	 */
+    public function filterTeachers($onlyTeachers) {
+	    $this->filterTeachers = $onlyTeachers;
     }
 
         //***************************************************
