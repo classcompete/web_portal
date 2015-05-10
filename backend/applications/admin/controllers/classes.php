@@ -60,6 +60,19 @@ class Classes extends MY_Controller
             'data-toggle' => 'modal'
         ));
 
+        $this->mapperlib->add_option('admin_class_stats_increase_month_accordion', array(
+            'title' => array(
+                'base' => 'Class Scores Increase by Month',
+                'field' => 'name',
+            ),
+            'uri' => '#',
+            'params' => array(
+                'id',
+            ),
+            'data-target' => '#adminClassStatsIncreaseMonth',
+            'data-toggle' => 'modal'
+        ));
+
         $this->mapperlib->add_option('edit', array(
             'title' => array(
                 'base' => 'Edit',

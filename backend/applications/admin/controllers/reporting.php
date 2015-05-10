@@ -471,30 +471,50 @@ class Reporting extends MY_Controller{
         $out = array();
 		$out[] = array('Month', 'Average class score');
 
-	    /*$out[] = array('1/14', 48);
-	    $out[] = array('2/14', 57);
-	    $out[] = array('3/14', 130);
-	    $out[] = array('4/14', 54);
-	    $out[] = array('5/14', 69);
-	    $out[] = array('6/14', 110);
-	    $out[] = array('7/14', 122);
-	    $out[] = array('8/14', 170);
-	    $out[] = array('9/14', 154);
-	    $out[] = array('10/14', 134);
-	    $out[] = array('11/14', 210);
-	    $out[] = array('12/14', 227);
-		$out[] = array('1/15', 50);
-	    $out[] = array('2/15', 120);
-	    $out[] = array('3/15', 80);
-	    $out[] = array('4/15', 190);*/
-
 	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId);
 	    if (! empty($avgScores)) {
 		    foreach ($avgScores as $item) {
 			    $out[] = array($item['month'], round($item['month_average'], 2));
 		    }
 	    }
-	    else { $out['error'] = 'This class has no corresponding data'; }
+	    else { $out['error'] = 'This class has no corresponding data.'; }
+
+		$this->output->set_output(json_encode($out));
+    }
+
+	/**
+	 * Statistics: Class Scores Increase by Month
+	 * - Increase of score averages for a given classroom by month. The report will aggregate scores
+	 * across all students and challenges in a given classroom for each month, starting with first
+	 * month which has score data. After that it will calculate increase in every month compared against
+	 * prior month.
+	 */
+    public function ajax_report_class_stats_increase_month(){
+	    $classId = $this->input->post('class_id');
+        $out = array();
+		$out[] = array('Month', 'Increase of average class score (%)');
+
+	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId);
+	    if (! empty($avgScores)) {
+		    if (count($avgScores) == 1) {
+			    $out['error'] = 'Not enough data to calculate score increase: data for only one month is available.';
+		    }
+		    else {
+			    $prevItem = array();
+			    foreach ($avgScores as $item) {
+				    if (empty($prevItem)) {
+					    $out[] = array($item['month'], 0);
+				    }
+				    else {
+					        //X = 100 x (currAvg - prevAvg) / prevAvg
+					    $percent = 100 * ($item['month_average'] - $prevItem['month_average']) / $prevItem['month_average'];
+						$out[] = array($item['month'], round($percent, 2));
+				    }
+				    $prevItem = $item;
+			    }
+		    }
+	    }
+	    else { $out['error'] = 'This class has no corresponding data.'; }
 
 		$this->output->set_output(json_encode($out));
     }

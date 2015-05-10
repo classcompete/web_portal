@@ -38,6 +38,7 @@
                     <?php $this->load->view('form_students_class_stats'); ?>
                 </div>
 
+	                <!-- Dialog: Average class scores by month -->
                 <div class="modal hide fade modal_wide classmodal" id="adminClassStatsAverageMonth" tabindex="-1" role="dialog"
                      aria-labelledby="addClassLabel"
                      aria-hidden="true">
@@ -46,6 +47,17 @@
                         <h3>Average Class Scores by Month</h3>
                     </div>
                     <?php $this->load->view('form_class_stats_average_month'); ?>
+                </div>
+
+	                <!-- Dialog: Class scores increase by month -->
+                <div class="modal hide fade modal_wide classmodal" id="adminClassStatsIncreaseMonth" tabindex="-1" role="dialog"
+                     aria-labelledby="addClassLabel"
+                     aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3>Class Scores Increase by Month</h3>
+                    </div>
+                    <?php $this->load->view('form_class_stats_increase_month'); ?>
                 </div>
 
             </div>
