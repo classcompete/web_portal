@@ -1514,12 +1514,12 @@ var model = {
             }
         });
     },
-    getReportClassStatsAverageMonth: function (class_id, callback) {
+    getReportClassStatsAverageMonth: function (class_id, min_score_average, callback) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: BASEURL + 'reporting/ajax_report_class_stats_average_month/',
-            data: {class_id: class_id},
+            data: {class_id: class_id, min_score_average: min_score_average},
             success: function (r) {
                 eval(callback(r));
             },
@@ -1534,12 +1534,12 @@ var model = {
             }
         });
     },
-    getReportClassStatsIncreaseMonth: function (class_id, callback) {
+    getReportClassStatsIncreaseMonth: function (class_id, min_score_average, callback) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: BASEURL + 'reporting/ajax_report_class_stats_increase_month/',
-            data: {class_id: class_id},
+            data: {class_id: class_id, min_score_average: min_score_average},
             success: function (r) {
                 eval(callback(r));
             },

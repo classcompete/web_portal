@@ -468,10 +468,11 @@ class Reporting extends MY_Controller{
 	 */
     public function ajax_report_class_stats_average_month(){
 	    $classId = $this->input->post('class_id');
+	    $minScoreAverage = floatval($this->input->post('min_score_average'));
         $out = array();
 		$out[] = array('Month', 'Average class score');
 
-	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId);
+	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId, $minScoreAverage);
 	    if (! empty($avgScores)) {
 		    foreach ($avgScores as $item) {
 			    $out[] = array($item['month'], round($item['month_average'], 2));
@@ -491,10 +492,11 @@ class Reporting extends MY_Controller{
 	 */
     public function ajax_report_class_stats_increase_month(){
 	    $classId = $this->input->post('class_id');
+	    $minScoreAverage = floatval($this->input->post('min_score_average'));
         $out = array();
 		$out[] = array('Month', 'Increase of average class score (%)');
 
-	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId);
+	    $avgScores = $this->reportnew_model->getClassAverageScoreByMonths($classId, $minScoreAverage);
 	    if (! empty($avgScores)) {
 		    if (count($avgScores) == 1) {
 			    $out['error'] = 'Not enough data to calculate score increase: data for only one month is available.';

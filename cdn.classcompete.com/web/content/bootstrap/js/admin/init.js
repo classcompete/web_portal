@@ -1897,15 +1897,30 @@ $(document).ready(function () {
         });
     });
 
-    $('.admin_class_stats_average_month_accordion').unbind('click').click(function () {
-        var url = $(this).attr('href').split('#');
-        var id = url[1].split('/');
-        var class_id = id[1];
+    $('.admin_class_stats_average_month_accordion, #btn_stat_average_month_refresh').unbind('click').click(function (e) {
+        e.preventDefault();
+        var url, id, xClassId;
+        var xCaller = $(this);
+        if (xCaller.hasClass('admin_class_stats_average_month_accordion')) {
+            url = xCaller.attr('href').split('#');
+            id = url[1].split('/');
+            xClassId = id[1];
+            $('#btn_stat_average_month_refresh').data('classId', xClassId);
+        }
+        else {
+            xClassId = $('#btn_stat_average_month_refresh').data('classId');
+        }
+
+        var xMinScoreAverage = 0;
+        if (xCaller.attr('id') == 'btn_stat_average_month_refresh') {
+            xMinScoreAverage = parseFloat($('#stat_average_min_score_average').val());
+        }
+        else { $('#stat_average_min_score_average').val('0'); }
         var xWrapper = 'class_stats_average_month_chart_wrap';
         $('#' + xWrapper).empty();
         $('#' + xWrapper + ' img.loader').show();
 
-        model.getReportClassStatsAverageMonth(class_id, function (r) {
+        model.getReportClassStatsAverageMonth(xClassId, xMinScoreAverage, function (r) {
             $('#' + xWrapper + ' img.loader').hide();
             if (r['error']) {
                 alert(r['error']);
@@ -1919,15 +1934,30 @@ $(document).ready(function () {
         });
     });
 
-    $('.admin_class_stats_increase_month_accordion').unbind('click').click(function () {
-        var url = $(this).attr('href').split('#');
-        var id = url[1].split('/');
-        var class_id = id[1];
+    $('.admin_class_stats_increase_month_accordion, #btn_stat_increase_month_refresh').unbind('click').click(function (e) {
+        e.preventDefault();
+        var url, id, xClassId;
+        var xCaller = $(this);
+        if (xCaller.hasClass('admin_class_stats_increase_month_accordion')) {
+            url = xCaller.attr('href').split('#');
+            id = url[1].split('/');
+            xClassId = id[1];
+            $('#btn_stat_increase_month_refresh').data('classId', xClassId);
+        }
+        else {
+            xClassId = $('#btn_stat_increase_month_refresh').data('classId');
+        }
+
+        var xMinScoreAverage = 0;
+        if ($(this).attr('id') == 'btn_stat_increase_month_refresh') {
+            xMinScoreAverage = parseFloat($('#stat_increase_min_score_average').val());
+        }
+        else { $('#stat_increase_min_score_average').val('0'); }
         var xWrapper = 'class_stats_increase_month_chart_wrap';
         $('#' + xWrapper).empty();
         $('#' + xWrapper + ' img.loader').show();
 
-        model.getReportClassStatsIncreaseMonth(class_id, function (r) {
+        model.getReportClassStatsIncreaseMonth(xClassId, xMinScoreAverage, function (r) {
             $('#' + xWrapper + ' img.loader').hide();
             if (r['error']) {
                 alert(r['error']);

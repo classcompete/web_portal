@@ -155,11 +155,11 @@ class Reportnew_model extends CI_Model{
 	/**
 	 * Get classroom average scores by months
 	 */
-    public function getClassAverageScoreByMonths($classId){
+    public function getClassAverageScoreByMonths($classId, $minScoreAverage = 0){
         $res = $this->db
             ->select('AVG(score_average) as month_average, DATE_FORMAT(created, \'%m/%y\') as month', FALSE)
             ->group_by(array('YEAR(created)', 'MONTH(created)'))
-            ->where('class_id', $classId)
+            ->where(array('class_id' => $classId, 'score_average >' => $minScoreAverage))
             ->get('scores')->result_array();
 
         return $res;
