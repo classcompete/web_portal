@@ -3,7 +3,7 @@
         <div class="row-fluid">
             <div class="span6">
                 <div class="widget">
-                    <div class="widget-header">
+                    <div class="widget-header yellow">
                         <div class="title">FAQ</div>
                     </div>
                     <div class="widget-body clearfix">
@@ -34,7 +34,7 @@
             </div>
             <div class="span6">
                 <div class="widget">
-                    <div class="widget-header">
+                    <div class="widget-header green">
                         <div class="title">Ask a question</div>
                     </div>
                     <div class="widget-body clearfix">
@@ -61,17 +61,20 @@
                 </div>
 
                 <div class="widget">
-                    <div class="widget-header">
+                    <div class="widget-header blue">
                         <div class="title">Student Game</div>
                     </div>
                     <div class="widget-body clearfix">
 
+                        <p style="font-size: 16px; padding: 10px">
+                            Create a student account and use a free code to try it
+                        </p>
 
-	                    <div class="wrapper" style="background: none">
+	                    <div class="wrapper" style="background: none;">
 	                        <div class="row-fluid">
 	                            <div class="span6">
 	                                <div class="widget">
-	                                    <div class="widget-header">
+	                                    <div class="widget-header blue">
 	                                        <div class="title"><span data-icon=""></span>  Step 1 - Register</div>
 	                                    </div>
 	                                    <div class="widget-body">
@@ -106,7 +109,7 @@
 
                                 <div class="span6">
 	                                <div class="widget">
-	                                    <div class="widget-header">
+	                                    <div class="widget-header blue">
 	                                        <div class="title"><span data-icon="&#xe0a4;"></span>  Step 2 - Sample Code</div>
 	                                    </div>
 	                                    <div class="widget-body">
@@ -207,5 +210,77 @@
     .start-competing-list li a.kindle {
         background: url("http://parent.classcompete.com/app/images/amazon_kindle.jpg") no-repeat scroll center center / contain #79818c;
         text-indent: -9999px;
+    }
+</style>
+<style type="text/css">
+    .dashboard-wrapper .left-sidebar .widget .widget-header.yellow {
+        background-color: #ffb400;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb400), to(#eda602));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #ffb400, #eda602);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(top, #ffb400, #eda602);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(top, #ffb400, #eda602);
+        /* IE10 */
+        background-image: -o-linear-gradient(top, #ffb400, #eda602);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(top, #ffb400, #eda602);
+    }
+
+    .dashboard-wrapper .left-sidebar .widget .widget-header.blue {
+        background-color: #0daed3;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#0daed3), to(#34A1BA));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #0daed3, #34A1BA);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(top, #0daed3, #34A1BA);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(top, #0daed3, #34A1BA);
+        /* IE10 */
+        background-image: -o-linear-gradient(top, #0daed3, #34A1BA);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(top, #0daed3, #34A1BA);
+    }
+
+    .dashboard-wrapper .left-sidebar .widget .widget-header.green {
+        background-color: #74b749;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#74b749), to(#79A35D));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #74b749, #79A35D);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(top, #74b749, #79A35D);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(top, #74b749, #79A35D);
+        /* IE10 */
+        background-image: -o-linear-gradient(top, #74b749, #79A35D);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(top, #74b749, #79A35D);
+    }
+
+    .dashboard-wrapper .left-sidebar .widget .widget-header.red {
+        background-color: #ed6d49;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#ed6d49), to(#CC755D));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #ed6d49, #CC755D);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(top, #ed6d49, #CC755D);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(top, #ed6d49, #CC755D);
+        /* IE10 */
+        background-image: -o-linear-gradient(top, #ed6d49, #CC755D);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(top, #ed6d49, #CC755D);
+    }
+
+    .dashboard-wrapper .left-sidebar .widget .widget-header.red .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.green .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.yellow .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.blue .title {
+        color: #FFF;
     }
 </style>

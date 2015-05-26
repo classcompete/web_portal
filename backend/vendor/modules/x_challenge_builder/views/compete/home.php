@@ -3,7 +3,7 @@
         <div class="widget">
 
             <div class="widget-header">
-                <div class="title">Build Challenges</div>
+                <div class="title">My Private Challenges</div>
                 <span class="tools">
                     <a class="btn btn-small btn-info" href="#"
                        data-original-title="" data-target="#addEditChallenge"
@@ -59,6 +59,24 @@
                 </div>
 
                 <div class="container-fluid mod-challenge challenge_filter_tab_content" id="challenge_filter_challenges_list">
+
+                    <?php if (empty($challenges) === true): ?>
+                    <div>
+                        <div class="widget info">
+                            <div class="widget-header blue">
+                                <div class="title">Create and Assign challenges</div>
+                            </div>
+                            <div class="widget-body">
+                                <p style="font-size: 14px;">
+                                    To Build a Challenge, Click "<strong>Add new challenge</strong>" above to get started.
+                                    <br/><br/>
+                                    After you are done, your created challenges will show on this page and you can assign to a classroom.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif ?>
+
                     <?php foreach ($challenges as $challenge => $val): ?>
                         <div class="span5 margin_bottom my_challenge challenge" data-subjectid="<?php echo $val['data']['subject_id'] ?>"
                              data-grade="<?php echo $val['data']['level'] ?>"
@@ -272,3 +290,39 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .widget.info {
+        width: 50%;
+        margin: 0px auto;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .widget.info {
+            width: 95%;
+            margin: 0px auto;
+        }
+    }
+
+    .dashboard-wrapper .left-sidebar .widget .widget-header.blue {
+        background-color: #0daed3;
+        /* Fallback Color */
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#0daed3), to(#34A1BA));
+        /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(top, #0daed3, #34A1BA);
+        /* Chrome 10+, Saf5.1+, iOS 5+ */
+        background-image: -moz-linear-gradient(top, #0daed3, #34A1BA);
+        /* FF3.6 */
+        background-image: -ms-linear-gradient(top, #0daed3, #34A1BA);
+        /* IE10 */
+        background-image: -o-linear-gradient(top, #0daed3, #34A1BA);
+        /* Opera 11.10+ */
+        background-image: linear-gradient(top, #0daed3, #34A1BA);
+    }
+    .dashboard-wrapper .left-sidebar .widget .widget-header.red .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.green .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.yellow .title,
+    .dashboard-wrapper .left-sidebar .widget .widget-header.blue .title {
+        color: #FFF;
+    }
+</style>

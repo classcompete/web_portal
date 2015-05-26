@@ -55,24 +55,50 @@ class Student_import extends MY_Controller {
 		    $data->file = $file;
 		    $data->teacher_id = $teacherId;
 		    if ($importClassId) { $data->class_id = $importClassId; }
-		    $this->student_import_model->save($data);
-	    }
+		    $studentImport = $this->student_import_model->save($data);
 
-        redirect('student_import');
+            $importId = $studentImport->getId();
+            $this->do_import($importId, true);
+
+            $studentImport = PropStudentImportQuery::create()->findOneById($importId);
+            if ($studentImport->getStatus() === PropStudentImportPeer::STATUS_FAILED) {
+                redirect('classes/?failure=' . base64_encode($studentImport->getResultLog()));
+            } else if ($studentImport->getStatus() === PropStudentImportPeer::STATUS_IMPORTED) {
+                redirect('classes/?success=' . base64_encode($studentImport->getResultLog()));
+            }
+	    }
+    }
+
+    public function delete_for_import($importId)
+    {
+        // find all imported students
+        $students = PropStudentQuery::create()->filterByImportId($importId)->find();
+        $userIds = array();
+        $studentIds = array();
+        foreach ($students as $student) {
+            $userIds[] = $student->getUserId();
+            $studentIds[] = $student->getStudentId();
+        }
+
+        PropStudentTokenQuery::create()->filterByStudentId($studentIds, Criteria::IN)->delete();
+        PropClass_studentQuery::create()->filterByStudentId($studentIds, Criteria::IN)->delete();
+        PropStudentQuery::create()->filterByImportId($importId)->delete();
+        PropUserQuery::create()->filterByUserId($userIds, Criteria::IN)->delete();
+
+        PropStudentImportQuery::create()->filterById($importId)->delete();
     }
 
 	/**
 	 * Do actuall importing of students from uploaded spreadsheet file
 	 * @param $importId
 	 */
-    public function do_import($importId) {
+    public function do_import($importId, $return = false) {
         $students = $this->studentimportlib->import_smart($importId);
 
-	    /*foreach ($students as $s) {
-		    echo $s->firstName . ' - ' . $s->lastName . ' - ' . $s->gradeId . ' - ' . $s->gender . ' - ' .
-	            $s->username . ' - ' . $s->password . ' - ' . $s->classId . '<br/>';
-	    }
-		exit;*/
+        // get default male student data for updating student table
+        $defaultMaleStudent = $this->studentlib->getDefaultMaleStudentData();
+        // get default male student data for updating student table
+        $defaultFemaleStudent = $this->studentlib->getDefaultFemaleStudentData();
 
         foreach ($students as $s) {
 	        $studentData = new stdClass();
@@ -83,6 +109,17 @@ class Student_import extends MY_Controller {
 	        $studentData->username = $s->username;
 	        $studentData->password = $this->studentlib->encodePassword($s->password);
 	        $studentData->import_id = $s->importId;
+
+            if($studentData->gender === PropStudentPeer::GENDER_MALE){
+                $studentData->avatar_settings = $defaultMaleStudent->getAvatarSettings();
+                $studentData->avatar_image = $defaultMaleStudent->getAvatarImage();
+                $studentData->avatar_thumbnail = $defaultMaleStudent->getAvatarThumbnail();
+            }else{
+                $studentData->avatar_settings = $defaultFemaleStudent->getAvatarSettings();
+                $studentData->avatar_image = $defaultFemaleStudent->getAvatarImage();
+                $studentData->avatar_thumbnail = $defaultFemaleStudent->getAvatarThumbnail();
+            }
+
 	        $userObj = $this->student_model->save($studentData);
 	            //Doesn't work! Propel won't return student id emidietly after save, for unknown reason...
 	        //$studentObj = $this->student_model->save($studentData, null, TRUE); //Return result as PropStudent object
@@ -94,7 +131,12 @@ class Student_import extends MY_Controller {
 	        $this->class_student_model->save($classStudData);
         }
 
-        redirect('student_import');
+        if ($return === false) {
+            redirect('student_import');
+        } else {
+            return $importId;
+        }
+
     }
 
 	/**

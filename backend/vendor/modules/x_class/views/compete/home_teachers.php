@@ -11,10 +11,10 @@
                                data-original-title="" data-target="#addEditClassTeacher"
                                data-toggle="modal" id="addNewClassTeacher" data-backdrop="static">+ Add new class
                             </a>
-                            <a href="<?php echo site_url('student_import') ?>"
+                            <?php /* <a href="<?php echo site_url('student_import') ?>"
                                class="btn btn-small btn-info">
                                List of student imports
-                            </a>
+                            </a>*/ ?>
                         </span>
                     </div>
 
@@ -57,7 +57,7 @@
                                                     <?php echo $class['licenses_text'] ?> | Add More
                                                 </a>
 
-					                            <a class="btn btn-small btn-info btn-import-students-file" href="#"
+                                                <a class="btn btn-small btn-info btn-import-students-file" href="#"
 					                               style="background: #ed6d49; font-weight: bold"
 					                               data-original-title="" data-target="#dlgImportStudents"
 					                               data-toggle="modal" data-backdrop="static"
@@ -321,4 +321,18 @@
     $(document).ready(function() {
 	    $('a.accordion-toggle:first').trigger('click');
     });
+
+    <?php if(isset($_GET['failure']) && empty($_GET['failure']) === false): ?>
+        setTimeout(function(){
+            var error = '<?php echo str_replace("\n",'\n', base64_decode($_GET['failure']))?>';
+            alert(error.replace('\n', "\n"));
+        }, 500);
+    <?php endif ?>
+
+    <?php if(isset($_GET['success']) && empty($_GET['success']) === false): ?>
+    setTimeout(function(){
+        var error = '<?php echo str_replace("\n",'\n', base64_decode($_GET['success']))?>';
+        alert(error.replace('\n', "\n"));
+    }, 500);
+    <?php endif ?>
 </script>

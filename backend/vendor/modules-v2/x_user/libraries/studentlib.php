@@ -25,7 +25,6 @@ class Studentlib{
         return $mysqlPass->mySqlPass;
     }
 
-
     public function getDefaultFemaleStudentData (){
         return $this->ci->student_model->getStudent($this->defaultFemaleStudentId);
     }

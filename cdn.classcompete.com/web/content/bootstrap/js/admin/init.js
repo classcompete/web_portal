@@ -1920,17 +1920,24 @@ $(document).ready(function () {
         $('#' + xWrapper).empty();
         $('#' + xWrapper + ' img.loader').show();
 
-        model.getReportClassStatsAverageMonth(xClassId, xMinScoreAverage, function (r) {
-            $('#' + xWrapper + ' img.loader').hide();
-            if (r['error']) {
-                alert(r['error']);
-                return;
-            }
-            else {
-                setTimeout(function(){
-                    do_chart(r, xWrapper, 'line');
-                },250);
-            }
+        model.getClassById(xClassId, function(classroom){
+
+            $('#stat_average_month_form table .class-name').html(classroom.name);
+            model.getUserById(classroom.user_id, function(user){
+                $('#stat_average_month_form table .teacher-name').html(user.firstname + ' ' + user.lastname);
+            })
+            model.getReportClassStatsAverageMonth(xClassId, xMinScoreAverage, function (r) {
+                $('#' + xWrapper + ' img.loader').hide();
+                if (r['error']) {
+                    alert(r['error']);
+                    return;
+                }
+                else {
+                    setTimeout(function(){
+                        do_chart(r, xWrapper, 'line');
+                    },250);
+                }
+            });
         });
     });
 
@@ -2036,12 +2043,24 @@ $(document).ready(function () {
                 }
             }
 
-            var data = google.visualization.arrayToDataTable(stats);
+            //var data = google.visualization.arrayToDataTable(stats);
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Average class score');
+            data.addColumn({type: 'number', role: 'annotation'});
+            stats.shift();
+            for (var i in stats) {
+                row = stats[i];
+                row.push(row[1]);
+                data.addRow(row);
+            }
+
             var options = {
                 width: 'auto',
                 height: '160',
                 backgroundColor: 'transparent',
                 colors: color_set,
+                pointSize: 4,
                 tooltip: {
                     textStyle: {
                         color: '#666666',

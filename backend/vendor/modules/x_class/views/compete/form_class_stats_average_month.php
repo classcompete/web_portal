@@ -10,6 +10,25 @@
 	        </div>
 	    </div>
 
+        <table style="width: 100%; border: 0; margin: 5px; font-size: 14px" cellspacing="0" cellpadding="5">
+            <tr>
+                <td style="width: 30%">
+                    Classroom Name:
+                </td>
+                <td>
+                    <span class="class-name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Teacher Name:
+                </td>
+                <td>
+                    <span class="teacher-name"></span>
+                </td>
+            </tr>
+        </table>
+
 	    <div id="class_stats_average_month_chart_wrap">
 		    <img src="<?php echo AssetHelper::imageUrl('loading.gif') ?>" class="loader">
 	    </div>
