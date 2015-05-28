@@ -16,7 +16,7 @@ var AccountValidation = function(BaseValidation){
     this.run = function(obj){
         if(angular.isDefined(obj.password) || angular.isDefined(obj.retypePassword)){
             rules.push({ name: 'password'       ,   display:    'Password'          ,   rules:  'required|min_length[6]'});
-            rules.push({ name: 'retypePassword' ,   display:    'Retype password'   ,   rules:  'required|matches[password]|min_length[6]'});
+            //rules.push({ name: 'retypePassword' ,   display:    'Retype password'   ,   rules:  'required|matches[password]|min_length[6]'});
             if(angular.isUndefined(obj.password))obj.password = '';
             if(angular.isUndefined(obj.retypePassword))obj.retypePassword = '';
         }

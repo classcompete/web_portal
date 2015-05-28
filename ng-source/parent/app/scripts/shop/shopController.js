@@ -10,8 +10,6 @@ var ShopCtrl = function(NavigationService, ENV, classes, UnusedStudentsFactory, 
     this.students = null;
     this.UnusedStudentsFactory = UnusedStudentsFactory;
     this.cart = ShoppingCart;
-
-
 };
 
 ShopCtrl.prototype.openShopModal = function(_selectedClass){
@@ -113,7 +111,6 @@ ShopCtrl.prototype.openConnectionModal = function(_selectedClass){
     );
     this.selectedClass = _selectedClass;
 };
-
 
 ShopCtrl.resolve = {
     classes: ['$q','ClassesFactory', function($q, ClassesFactory){

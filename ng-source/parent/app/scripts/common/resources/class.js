@@ -3,7 +3,7 @@ angular.module('resources.classes',['ngResource']);
 
 var Classes = function($resource, ENV){
 
-    var classes = $resource(ENV.url + '/classes');
+    var classes = $resource(ENV.url + '/classes_grouped');
 
 
     return classes;
