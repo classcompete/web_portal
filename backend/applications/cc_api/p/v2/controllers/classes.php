@@ -23,13 +23,26 @@ class Classes extends REST_Controller {
         $classes = $this->class_model->getList();
 
         $respond = array();
+        $tmpRespond = array();
 
         foreach($classes as $class) {
+            $detailsId = $class->getPropClassDetails()->getFirst()->getClassDetailsId();
+
             $single = new stdClass();
             $single->classId = $class->getClassId();
             $single->price = $class->getPrice();
             $single->name = $class->getName();
             $single->details = array();
+            $single->details['group'] = 0;
+            $single->details['group_name'] = '';
+            if ($detailsId >= 10 && $detailsId < 20) {
+                $single->details['group'] = 1;
+                $single->details['group_name'] = 'Summer Games 2015';
+            }
+            if ($detailsId >= 20 && $detailsId < 30) {
+                $single->details['group'] = 2;
+                $single->details['group_name'] = 'Math Games by Learn It Systems';
+            }
             $single->details['description'] = $class->getPropClassDetails()->getFirst()->getDescription();
             // try to get quantity of activations
             $parentActivations = PropParentActivationQuery::create()->filterByParentId(ParentHelper::getId())->filterByClassId($class->getClassId())->findOne();
@@ -39,7 +52,12 @@ class Classes extends REST_Controller {
                 $single->quantity = $parentActivations->getQuantity();
             }
 
-            array_push($respond, $single);
+            $tmpRespond[$class->getPropClassDetails()->getFirst()->getClassDetailsId()] = $single;
+        }
+        ksort($tmpRespond);
+
+        foreach ($tmpRespond as $row) {
+            array_push($respond, $row);
         }
 
         $this->response($respond, 200);

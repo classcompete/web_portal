@@ -19,7 +19,7 @@
                     <div class="row-fluid">
                         <select id="challenge_filter_grade_selector">
                             <option id="grade_all_option" value="all" selected="selected">All</option>
-                            <option value="-2">Pre K</option>
+                            <!--<option value="-2">Pre K</option>-->
                             <option value="K">K</option>
                             <option value="1">1</option>
                             <option value="2">2</option>

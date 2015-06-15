@@ -5,6 +5,7 @@
  * Date: 4/1/14
  * Time: 4:10 PM
  */
+error_reporting(E_ALL);
 class Registration extends REST_Controller{
 
     public function __construct(){
@@ -24,7 +25,7 @@ class Registration extends REST_Controller{
         $responseData->data = array();
 
         if($this->form_validation->run('parent.registration') === false){
-            $this->response(null, 400);
+            $this->response('All fields are mandatory', 400);
         }
 
         $email = $this->post('email');

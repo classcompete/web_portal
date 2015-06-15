@@ -61,7 +61,7 @@
 
                 <div class="controls">
                     <select name="level" id="level_edit">
-                        <option value="-2">Pre k</option>
+                        <!--<option value="-2">Pre k</option>-->
                         <option value="-1">K</option>
                         <option value="1">1</option>
                         <option value="2">2</option>

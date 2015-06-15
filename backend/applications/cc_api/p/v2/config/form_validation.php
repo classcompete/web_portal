@@ -57,16 +57,16 @@ $config = array(
         )
     ),
     'parent.registration' => array(
-        array(
+        /*array(
             'field' => 'country',
             'label' => 'Country',
             'rules' => 'required|trim'
-        ),
-        array(
+        ),*/
+        /*array(
             'field' => 'postalCode',
             'label' => 'Postal Code',
             'rules' => 'trim|required'
-        ),
+        ),*/
         array(
             'field' => 'firstName',
             'label' => 'First name',
@@ -87,11 +87,11 @@ $config = array(
             'label' => 'Password',
             'rules' => 'trim|required|min_length[6]'
         ),
-        array(
+        /*array(
             'field' => 'retypePassword',
             'label' => 'Retype password',
             'rules' => 'trim|required|min_length[6]|matches[password]'
-        )
+        )*/
     ),
     'parent.wp.registration' => array(
         array(
