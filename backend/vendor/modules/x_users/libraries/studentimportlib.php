@@ -113,7 +113,8 @@ class Studentimportlib
                                 $grade_ok = FALSE;
                             }
                         }
-                        $gender_ok = (strtolower($impGender) == 'male') || (strtolower($impGender) == 'female');
+                        $gender_ok = (strtolower($impGender) == 'male') || (strtolower($impGender) == 'female')
+                                        || (strtolower($impGender) == 'm') || (strtolower($impGender) == 'f');
                         $pass_ok = strlen($impPassword) >= 6;
 
                         if (!$is_unique) {
@@ -130,7 +131,7 @@ class Studentimportlib
                             $singleStudent->firstName = $impFirstName;
                             $singleStudent->lastName = $impLastName;
                             $singleStudent->gradeId = $impGradeId;
-                            $singleStudent->gender = (strtolower($impGender) == 'male') ? PropStudentPeer::GENDER_MALE : PropStudentPeer::GENDER_FEMALE;
+                            $singleStudent->gender = (strtolower($impGender) == 'male' || strtolower($impGender) == 'm') ? PropStudentPeer::GENDER_MALE : PropStudentPeer::GENDER_FEMALE;
                             $singleStudent->username = $impUsername;
                             $singleStudent->password = $impPassword;
                             $singleStudent->importId = $importId;

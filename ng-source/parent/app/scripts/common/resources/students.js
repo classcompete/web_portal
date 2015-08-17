@@ -10,7 +10,8 @@ var Students = function($resource, ENV){
     });
 
     students.prototype.canEdit = function(){
-        return (new Date().getFullYear() - new Date(this.birthday).getFullYear()) < 12;
+        //return (new Date().getFullYear() - new Date(this.birthday).getFullYear()) < 12;
+        return true;
     };
 
     return students;

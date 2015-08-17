@@ -69,6 +69,15 @@ class Store extends MY_Controller
                 $teacherLicense->setCount($newLicenseCount);
                 $teacherLicense->save();
 
+                $teacher = PropTeacherQuery::create()->findOneByTeacherId($order->getTeacherId());
+                $user = $teacher->getPropUser();
+
+                $mailerData = new stdClass();
+                $mailerData->email = $user->getEmail();
+
+                $this->load->library('mailer/mailerlib');
+                $this->mailerlib->sendOrderSuccessful($mailerData);
+
                 redirect('store?success=' . base64_encode("Thank you for your order"));
             } else {
                 $payLog->setStatus(PropTeacherPayLogPeer::STATUS_ERROR);

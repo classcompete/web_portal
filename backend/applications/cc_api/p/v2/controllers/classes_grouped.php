@@ -49,7 +49,7 @@ class Classes_grouped extends REST_Controller
                 'group_id' => 3,
                 'id_from' => 30,
                 'id_to' => 40,
-                'group_name' => 'English Language Arts Games - Coming Soon',
+                'group_name' => 'English Language Arts Games',
                 'group_description' => '',
                 'classes' => array(),
                 'background' => '#B7D064',

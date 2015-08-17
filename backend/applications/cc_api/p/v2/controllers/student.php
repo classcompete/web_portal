@@ -34,7 +34,6 @@ class Student extends REST_Controller{
             $respond[$i]['studentId'] = $tmpStudent->getStudentId();
             $respond[$i]['firstName'] = $tmpStudent->getPropStudent()->getPropUser()->getFirstName();
             $respond[$i]['lastName'] = $tmpStudent->getPropStudent()->getPropUser()->getLastName();
-            $respond[$i]['birthday'] = date('m/d/y', strtotime($tmpStudent->getPropStudent()->getDob()));
             $respond[$i]['email'] = $tmpStudent->getPropStudent()->getPropUser()->getEmail();
             $respond[$i]['username'] = $tmpStudent->getPropStudent()->getPropUser()->getLogin();
             $respond[$i]['grade'] =$tmpStudent->getPropStudent()->getGradeId();
@@ -54,7 +53,6 @@ class Student extends REST_Controller{
         $this->form_validation->set_rules('lastName','Last name', 'required|min_length[3]');
         $this->form_validation->set_rules('username','Username', 'required|min_length[6]');
         $this->form_validation->set_rules('grade','Grade', 'required');
-        $this->form_validation->set_rules('birthday','Birthday', 'required');
 
         $password = $this->put('password');
         $retypePassword = $this->put('retypePassword');
@@ -68,9 +66,7 @@ class Student extends REST_Controller{
             if(form_error('lastName')!='')$errorData['lastName'] = form_error('lastName');
             if(form_error('username')!='')$errorData['username'] = form_error('username');
             if(form_error('grade')!='')$errorData['grade'] = form_error('grade');
-            if(form_error('birthday')!='')$errorData['birthday'] = form_error('birthday');
             if(form_error('password')!='')$errorData['password'] = form_error('password');
-            if(form_error('birthday')!='')$errorData['birthday'] = form_error('birthday');
             $this->response($errorData,400);
         }
 
@@ -102,7 +98,6 @@ class Student extends REST_Controller{
 
         // *** update student table
         $student = new stdClass();
-        $student->dob = $this->put('birthday');
         $student->gradeId = $this->put('grade');
         $student->gender = $this->put('gender') === PropStudentPeer::GENDER_FEMALE ? PropStudentPeer::GENDER_FEMALE : PropStudentPeer::GENDER_MALE;
         $savedStudent = $this->student_model->save($student, $studentId);
@@ -165,12 +160,8 @@ class Student extends REST_Controller{
             $data['password'] = $students[$i]['password'];
             $data['firstName'] = $students[$i]['firstName'];
             $data['lastName'] = $students[$i]['lastName'];
-//            $data['email'] = $students[$i]['email'];
-            $data['dob'] = $students[$i]['birthday'];
 
-            // check if user is less then 12 and add parentEmail
-            $_age = floor( (strtotime(date('Y-m-d')) - strtotime($students[$i]['birthday'])) / 31556926);
-
+            $_age = 0;
             if($_age < floatval(12)){
                 $data['parentEmail'] = ParentHelper::getEmail();
             }else{
@@ -202,7 +193,6 @@ class Student extends REST_Controller{
 
                 $studentData = new stdClass();
                 $studentData->userId = $userData->getUserId();
-                $studentData->dob = $data['dob'];
                 $studentData->studentId = $this->studentlib->getNextStudentId();
                 
                 if(isset($data['parentEmail'])){
@@ -262,8 +252,6 @@ class Student extends REST_Controller{
         if($this->form_validation->run('parent.add-new-student') === false){
             if(form_error('firstName')!='')$error['firstName'] = form_error('firstName');
             if(form_error('lastName')!='')$error['lastName'] = form_error('lastName');
-//            if(form_error('email')!='')$error['email'] = form_error('email');
-            if(form_error('birthday')!='')$error['birthday'] = form_error('birthday');
             if(form_error('grade')!='')$error['grade'] = form_error('grade');
             if(form_error('password')!='')$error['password'] = form_error('password');
             if(form_error('retypePassword')!='')$error['retypePassword'] = form_error('retypePassword');
@@ -295,9 +283,8 @@ class Student extends REST_Controller{
         $data['firstName'] = $this->post('firstName');
         $data['lastName'] = $this->post('lastName');
         $data['email'] = $this->post('email');
-        $data['dob'] = $this->post('birthday');
         // check if user is less then 12 and add parentEmail
-        $_age = floor( (strtotime(date('Y-m-d')) - strtotime($this->post('birthday'))) / 31556926);
+        $_age = 0;
 
         if($_age < floatval(12)){
             $data['parentEmail'] = ParentHelper::getEmail();
@@ -330,7 +317,6 @@ class Student extends REST_Controller{
 
             $studentData = new stdClass();
             $studentData->userId = $userData->getUserId();
-            $studentData->dob = $data['dob'];
             $studentData->studentId = $this->studentlib->getNextStudentId();
             if(isset($data['parentEmail'])){
                 $studentData->parentEmail = $data['parentEmail'];
@@ -371,7 +357,6 @@ class Student extends REST_Controller{
         $respond['studentId'] = $newStudent->getStudentId();
         $respond['firstName'] = $newStudent->getPropUser()->getFirstName();
         $respond['lastName'] = $newStudent->getPropUser()->getLastName();
-        $respond['birthday'] = date('m/d/y', strtotime($newStudent->getDob()));
         $respond['email'] = $newStudent->getPropUser()->getEmail();
         $respond['username'] = $newStudent->getPropUser()->getLogin();
         $respond['grade'] = $newStudent->getGradeId();
@@ -416,7 +401,6 @@ class Student extends REST_Controller{
         $respond['studentId'] = $student->getStudentId();
         $respond['firstName'] = $student->getPropUser()->getFirstName();
         $respond['lastName'] = $student->getPropUser()->getLastName();
-        $respond['birthday'] = $student->getDob();
         $respond['email'] = $student->getPropUser()->getEmail();
         $respond['username'] = $student->getPropUser()->getLogin();
         $respond['grade'] =$student->getGradeId();

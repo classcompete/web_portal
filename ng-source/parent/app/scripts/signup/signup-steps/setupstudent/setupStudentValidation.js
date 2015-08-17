@@ -13,7 +13,7 @@ var SetupStudentValidation = function(BaseValidation, $q, $http, ENV){
     rules.push({ name: 'retypePassword' ,   display:    'Retype password'   ,   rules:  'required|min_length[6]|matches[password]'});
     rules.push({ name: 'grade'          ,   display:    'Grade'             ,   rules:  'required'});
     rules.push({ name: 'gender'         ,   display:    'Gender'            ,   rules:  'required'});
-    rules.push({ name: 'birthday'       ,   display:    'Birthday'          ,   rules:  'required'});
+    //rules.push({ name: 'birthday'       ,   display:    'Birthday'          ,   rules:  'required'});
 
     var validate = new BaseValidation(rules);
 

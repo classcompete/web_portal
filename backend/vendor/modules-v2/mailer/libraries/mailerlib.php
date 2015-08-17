@@ -55,7 +55,7 @@ class Mailerlib
 
     public function sendParentOrderCompletedExistingAccount($data)
     {
-        $subject = 'Your Classes are Ready';
+        $subject = 'Your Purchase at Class Compete';
         $message = $this->_ci->load->view('mailer/parent-v2/order-completed-existing-account', $data, true);
 
         $this->initialize();

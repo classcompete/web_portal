@@ -171,6 +171,10 @@ class Classes extends MY_Controller
 
         $studentsInClass = PropClass_studentQuery::create()->filterByClassId($class_id)->count();
         $availableLicenses = TeacherHelper::getAvailableLicenses();
+        if (empty($class) === false) {
+            // add class licences count to available
+            $availableLicenses += $class->getLimit();
+        }
         if (empty($classLicences) === true) {
             $classLicences = 0;
         } else {

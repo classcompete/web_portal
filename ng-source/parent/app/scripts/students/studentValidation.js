@@ -11,9 +11,6 @@ var StudentValidation = function(BaseValidation, $http, ENV, $q){
     rules.push({ name: 'username'       ,   display:    'Username'          ,   rules:  'required|min_length[6]'});
     rules.push({ name: 'grade'          ,   display:    'Grade'             ,   rules:  'required'});
 
-    rules.push({ name: 'birthday'       ,   display:    'Birthday'          ,   rules:  'required|valid_date'});
-
-
     var validate = null;
 
     this.run = function(obj){
