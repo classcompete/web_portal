@@ -6028,15 +6028,16 @@ $(document).ready(function () {
             to_date = (to_date_arr.length == 3) ? to_date_arr[2] + '-' + to_date_arr[0] + '-' + to_date_arr[1] : '';
         //alert('change 1 - class_id: ' + class_id + '; period_type: ' + period_type);
 
-        var newUri = '/reporting/classroom_stats/class_id/' + class_id;
+        var newUri = 'class_id/' + class_id;
         newUri += '/period_type/' + period_type;
         if ((period_type == 6) && (from_date) && (to_date)) {
             newUri += '/from/' + from_date + '/to/' + to_date;
         }
-        window.history.replaceState({}, null, newUri);
+        window.history.replaceState({}, null, '/reporting/classroom_stats/' + newUri);
 
         model.getReportStatsChallengeClass(newUri, function (res) {
             //TODO: Insert table rows with challenge names and score wheels
+            alert('Inserting table data...');
         });
 
         /*model.getReportStudentStatsClassroom(class_id, function (r) {

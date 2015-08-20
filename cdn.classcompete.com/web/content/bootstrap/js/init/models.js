@@ -1652,14 +1652,15 @@ var model = {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: BASEURL + 'reporting/ajax_report_stats_challenge_class' + uri,
+            url: BASEURL + 'reporting/ajax_report_stats_challenge_class/' + uri,
             data: {},
             success: function (r) {
                 eval(callback(r));
             },
             error: function (jqXHR, text, error) {
                 if (text === 'parsererror') {
-                    window.location.reload();
+                    //window.location.reload();
+                    alert('Parse error')
                 } else {
                     error = $.parseJSON(jqXHR.responseText);
                     eval(callback(error));

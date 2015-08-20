@@ -241,7 +241,7 @@ class reporting extends MY_Controller{
 			$class_id = $filters['class_id'];
 	        $this->challenge_class_model->filterByClassId($class_id);
 	        $classChallenges = $this->challenge_class_model->getList();
-			foreach ($classChallenged as $challenge) {
+			foreach ($classChallenges as $challenge) {
 				$row = array();
 				$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
 				$row['class_avg'] = $this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id);
