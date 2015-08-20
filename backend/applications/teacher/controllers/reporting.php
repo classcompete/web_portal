@@ -211,6 +211,48 @@ class reporting extends MY_Controller{
         $this->load->view(config_item('teacher_template'), $data);
     }
 
+	/**
+	 * Shows reporting of classroom statistic:
+	 * 1. Classroom & USA average score for time period
+	 * 2. Student average score for time period
+	 */
+    public function classroom_stats(){
+        $uri = Mapper_Helper::create_uri_segments();
+        if ($uri !== null) {
+            redirect('question/basic/'. $uri);
+        }
+
+        $data = new stdClass();
+
+	        //Get list of all classrooms
+        $this->class_model->filterByTeacherId(TeacherHelper::getId());
+        $teacher_classes = $this->class_model->getList();
+        $data->teacher_classes = $teacher_classes;
+
+        $data->content = $this->prepareView('x_reporting', 'classroom_stats_reporting', $data);
+        $this->load->view(config_item('teacher_template'), $data);
+    }
+
+	public function ajax_report_stats_challenge_class() {
+		$filters = $this->uri->uri_to_assoc();
+		$out = array();
+
+		if (isset($filters['class_id'])) {
+			$class_id = $filters['class_id'];
+	        $this->challenge_class_model->filterByClassId($class_id);
+	        $classChallenges = $this->challenge_class_model->getList();
+			foreach ($classChallenged as $challenge) {
+				$row = array();
+				$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
+				$row['class_avg'] = $this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id);
+				$row['overall_avg'] = $this->challenge_model->getGlobalClassScoreByChallenge($challenge->getChallengeId());;
+				$out[] = $row;
+			}
+		}
+		else { $out['error'] = 'Class id not set'; }
+
+		$this->output->set_output(json_encode($out));
+	}
 
     /** Functions for getting statistic for 1. report     */
 

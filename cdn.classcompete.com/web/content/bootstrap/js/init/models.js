@@ -1647,6 +1647,27 @@ var model = {
             }
         });
     },
+        //Get data for challenge average scores for statistics of classroom
+    getReportStatsChallengeClass: function (uri, callback) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: BASEURL + 'reporting/ajax_report_stats_challenge_class' + uri,
+            data: {},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    window.location.reload();
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
+    },
     changeStudentProfile: function(data, callback){
         $.ajax({
             type: 'POST',

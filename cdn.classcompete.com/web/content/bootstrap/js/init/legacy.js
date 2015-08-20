@@ -5987,6 +5987,93 @@ $(document).ready(function () {
         pie_chart();
     }
 
+    if (url_segments[1] === 'classroom_stats') {
+        //alert('my pie');
+        tab_pie_chart();
+    }
+
+    $('#report_stats_challenge_datepicker_from').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        //if (ev.date.valueOf() < startDate.valueOf()){
+        //}
+        $(this).datepicker('hide');
+        apply_report_stats_challenge_filters();
+    });
+
+    $('#report_stats_challenge_datepicker_to').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        $(this).datepicker('hide');
+        apply_report_stats_challenge_filters();
+    });
+
+    $('#report_stats_challenge_class_select, #report_stats_challenge_period_select').unbind('change').change(function () {
+        apply_report_stats_challenge_filters();
+    });
+
+
+    function apply_report_stats_challenge_filters() {
+        var class_id = $('#report_stats_challenge_class_select').val(),
+            period_type = $('#report_stats_challenge_period_select').val();
+        if (period_type == 6) { $('.report-stats-date').show(); }
+        else { $('.report-stats-date').hide(); }
+        var from_date_input = (period_type == 6) ? $('#report_stats_challenge_datepicker_from').val() : '',
+            to_date_input = (period_type == 6) ? $('#report_stats_challenge_datepicker_to').val() : '';
+        var from_date_arr = from_date_input.split('/'),
+            to_date_arr = to_date_input.split('/');
+        var from_date = (from_date_arr.length == 3) ? from_date_arr[2] + '-' + from_date_arr[0] + '-' + from_date_arr[1] : '',
+            to_date = (to_date_arr.length == 3) ? to_date_arr[2] + '-' + to_date_arr[0] + '-' + to_date_arr[1] : '';
+        //alert('change 1 - class_id: ' + class_id + '; period_type: ' + period_type);
+
+        var newUri = '/reporting/classroom_stats/class_id/' + class_id;
+        newUri += '/period_type/' + period_type;
+        if ((period_type == 6) && (from_date) && (to_date)) {
+            newUri += '/from/' + from_date + '/to/' + to_date;
+        }
+        window.history.replaceState({}, null, newUri);
+
+        model.getReportStatsChallengeClass(newUri, function (res) {
+            //TODO: Insert table rows with challenge names and score wheels
+        });
+
+        /*model.getReportStudentStatsClassroom(class_id, function (r) {
+            if (r.error) {
+                $('#students_in_class_stats').html(r.error);
+            } else {
+                do_chart(r, 'students_in_class_stats');
+            }
+        });*/
+    }
+
+        //Draw pie charts in tabel for classroom statistic
+    function tab_pie_chart() {
+        $(function () {
+            $('.chart-score-class-tab').easyPieChart({
+                animate: 2000,
+                barColor: '#ffb400',
+                trackColor: '#dddddd',
+                scaleColor: '#ffb400',
+                size: 140,
+                lineWidth: 6
+            });
+        });
+
+        $(function () {
+            $('.chart-score-overall-tab').easyPieChart({
+                animate: 2000,
+                barColor: '#74b749',
+                trackColor: '#dddddd',
+                scaleColor: '#74b749',
+                size: 140,
+                lineWidth: 6
+            });
+        });
+
+    }
+
     function pie_chart() {
         $(function () {
             //create instance

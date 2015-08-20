@@ -42,6 +42,7 @@
     <link href="<?php echo AssetHelper::cssUrl('jquery.gritter.css')?>" rel="stylesheet">
     <link href="<?php echo AssetHelper::cssUrl('jquery.powertip.css')?>" rel="stylesheet">
     <link href="<?php echo AssetHelper::cssUrl('jquery_ui/jquery-ui-1.10.3.min.css') ?>" rel="stylesheet">
+	<link href="<?php echo AssetHelper::cssUrl('bootstrap-datepicker.css')?>" rel="stylesheet">
     <link href="<?php echo AssetHelper::cssUrl('bootstrap-slider.css')?>" rel="stylesheet">
 
     <script src="<?php echo AssetHelper::jsUrl('jquery.min.js') ?>"></script>
@@ -51,6 +52,7 @@
     <script src="<?php echo AssetHelper::jsUrl('jquery.gritter.min.js') ?>"></script>
     <script src="<?php echo AssetHelper::jsUrl('jquery.powertip.min.js') ?>"></script>
     <script src="<?php echo AssetHelper::jsUrl('jquery.easy-pie-chart.js') ?>"></script>
+	<script src="<?php echo AssetHelper::jsUrl('bootstrap-datepicker.js') ?>"></script>
     <script src="<?php echo AssetHelper::jsUrl('bootstrap-slider.js') ?>"></script>
     <script src="<?php echo AssetHelper::jsUrl('jscolor/jscolor.js') ?>"></script>
 

@@ -33,10 +33,11 @@
                                                data-original-title=""></i>&nbsp;<?php echo $class['class_name'] ?>
                                         </a>
                                         <span class="tools">
-                                            <a data-toggle="modal" data-target="#studentsInClassStats" data-icon="&#xe096"
-                                               aria-hidden="true" class="fs1 students_in_class_stats_accordion"
+                                            <a data-toggle="modal" data-icon="&#xe096"
+                                               aria-hidden="true" class="fs1"
                                                data-class-id="<?php echo $class['class_id'] ?>" data-backdrop="static"
-                                               title="Stats for students in this class" href="#"></a>
+                                               title="Stats for students in this class"
+                                               href="<?php echo site_url('reporting/classroom_stats/class_id/' . $class['class_id']) ?>"></a>
 
                                             <a href="<?php echo site_url('#classes/refresh') . '/' . $class['class_id'] ?>"
                                                class="refresh" data-icon="&#xe11c;" title="Refresh Class"></a>
