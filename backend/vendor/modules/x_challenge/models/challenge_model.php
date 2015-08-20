@@ -413,12 +413,27 @@ class Challenge_model extends CI_Model
         return $challenge->getReadImage();
     }
 
-    public function getClassScoreByChallengeAndClass($challengeId, $classId){
-        $classScore = $this->db->select_avg('score_average')
+    public function getClassScoreByChallengeAndClass($challengeId, $classId, $fromDate = null, $toDate = null){
+        /*$classScore = $this->db->select_avg('score_average')
                                 ->where('challenge_Id', $challengeId)
                                 ->where('class_id',$classId)
                                 ->get('scores')->row();
-        return $classScore->score_average;
+        return $classScore->score_average;*/
+
+        $this->db->select_avg('score_average')
+            ->where('challenge_Id', $challengeId)
+            ->where('class_id',$classId);
+
+	    if ($fromDate) {
+		    $this->db->where('created >=', $fromDate);
+	    }
+
+	    if ($toDate) {
+		    $this->db->where('created <=', $toDate);
+	    }
+
+	    $query = $this->db->get('scores')->row();
+        return $query->score_average;
     }
 
     public function getGlobalClassScoreByChallenge($challengeId){

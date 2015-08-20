@@ -89,6 +89,7 @@
 	                                </tr>
                                 </thead>
 								<tbody>
+									<?php /*
 									<tr>
 										<td>Challenge</td>
 										<td>
@@ -110,6 +111,7 @@
 				                            </div>
 										</td>
 									</tr>
+									*/ ?>
 								</tbody>
 			                </table>
 		                </div>

@@ -1660,7 +1660,7 @@ var model = {
             error: function (jqXHR, text, error) {
                 if (text === 'parsererror') {
                     //window.location.reload();
-                    alert('Parse error')
+                    alert('Parse error');
                 } else {
                     error = $.parseJSON(jqXHR.responseText);
                     eval(callback(error));

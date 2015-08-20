@@ -6037,7 +6037,35 @@ $(document).ready(function () {
 
         model.getReportStatsChallengeClass(newUri, function (res) {
             //TODO: Insert table rows with challenge names and score wheels
-            alert('Inserting table data...');
+            //alert('Inserting table data...');
+
+            $('#report_stats_challenge_table tbody').empty();
+
+            $.each(res, function (k, v) {
+                var xHtml =
+                    '<tr>' +
+                    '    <td>' + v.challenge_name + '</td>' +
+                    '    <td>' +
+                    '        <div class="pie-chart">' +
+                    '            <div class="chart-score-class-tab easyPieChart" data-percent="20" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    v.class_avg + '%' +
+                    '                <canvas width="140" height="140"></canvas>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </td>' +
+                    '    <td>' +
+                    '        <div class="pie-chart">' +
+                    '            <div class="chart-score-overall-tab easyPieChart" data-percent="10" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    v.overall_avg + '%' +
+                    '                <canvas width="140" height="140"></canvas>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </td>' +
+                    '</tr>';
+
+                $('#report_stats_challenge_table tbody').append(xHtml);
+                tab_pie_chart();
+            });
         });
 
         /*model.getReportStudentStatsClassroom(class_id, function (r) {
