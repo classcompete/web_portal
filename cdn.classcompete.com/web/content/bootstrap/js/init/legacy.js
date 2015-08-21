@@ -5987,8 +5987,12 @@ $(document).ready(function () {
         pie_chart();
     }
 
-    if (url_segments[1] === 'classroom_stats') {
-        apply_report_stats_challenge_filters();
+        //******************************************************
+        //*** Statistics / classroom stuff...
+        //******************************************************
+
+    if (url_segments[1] === 'classroom') {
+        apply_statistics_classroom_filters();
     }
 
     $('#report_stats_challenge_datepicker_from').datepicker({
@@ -5997,7 +6001,7 @@ $(document).ready(function () {
     .on('changeDate', function(ev){
         //if (ev.date.valueOf() < startDate.valueOf()){}
         $(this).datepicker('hide');
-        apply_report_stats_challenge_filters();
+        apply_statistics_classroom_filters();
     });
 
     $('#report_stats_challenge_datepicker_to').datepicker({
@@ -6005,17 +6009,18 @@ $(document).ready(function () {
     })
     .on('changeDate', function(ev){
         $(this).datepicker('hide');
-        apply_report_stats_challenge_filters();
+        apply_statistics_classroom_filters();
     });
 
     $('#report_stats_challenge_class_select, #report_stats_challenge_period_select').unbind('change').change(function () {
-        apply_report_stats_challenge_filters();
+        apply_statistics_classroom_filters();
     });
 
 
-    function apply_report_stats_challenge_filters() {
-        var class_id = $('#report_stats_challenge_class_select').val(),
-            period_type = $('#report_stats_challenge_period_select').val();
+    function apply_statistics_classroom_filters() {
+        var class_id = $('#report_stats_challenge_class_select').val();
+        if (! parseInt(class_id)) { return; }
+        var period_type = $('#report_stats_challenge_period_select').val();
         if (period_type == 6) { $('.report-stats-date').show(); }
         else { $('.report-stats-date').hide(); }
         var from_date_input = (period_type == 6) ? $('#report_stats_challenge_datepicker_from').val() : '',
@@ -6031,12 +6036,9 @@ $(document).ready(function () {
         if ((period_type == 6) && (from_date) && (to_date)) {
             newUri += '/from/' + from_date + '/to/' + to_date;
         }
-        window.history.replaceState({}, null, '/reporting/classroom_stats/' + newUri);
+        window.history.replaceState({}, null, '/statistics/classroom/' + newUri);
 
-        model.getReportStatsChallengeClass(newUri, function (res) {
-            //TODO: Insert table rows with challenge names and score wheels
-            //alert('Inserting table data...');
-
+        model.getStatisticsClassroom(newUri, function (res) {
             $('#report_stats_challenge_table tbody').empty();
 
             $.each(res, function (k, v) {
@@ -6045,7 +6047,7 @@ $(document).ready(function () {
                     '    <td>' + v.challenge_name + '</td>' +
                     '    <td>' +
                     '        <div class="pie-chart">' +
-                    '            <div class="chart-score-class-tab easyPieChart" data-percent="20" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    '            <div class="chart-score-class-tab easyPieChart" data-percent="' + v.class_avg + '" style="width: 140px; height: 140px; line-height: 140px;">' +
                     v.class_avg + '%' +
                     '                <canvas width="140" height="140"></canvas>' +
                     '            </div>' +
@@ -6053,7 +6055,7 @@ $(document).ready(function () {
                     '    </td>' +
                     '    <td>' +
                     '        <div class="pie-chart">' +
-                    '            <div class="chart-score-overall-tab easyPieChart" data-percent="10" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    '            <div class="chart-score-overall-tab easyPieChart" data-percent="' + v.overall_avg + '" style="width: 140px; height: 140px; line-height: 140px;">' +
                     v.overall_avg + '%' +
                     '                <canvas width="140" height="140"></canvas>' +
                     '            </div>' +
@@ -6075,8 +6077,122 @@ $(document).ready(function () {
         });*/
     }
 
-        //Draw pie charts in tabel for classroom statistic
+        //******************************************************
+        //*** Statistics / student stuff...
+        //******************************************************
+
+    if (url_segments[1] === 'student') {
+        apply_statistics_student_filters();
+    }
+
+    $('#stats_student_datepicker_from').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        $(this).datepicker('hide');
+        apply_statistics_student_filters();
+    });
+
+    $('#stats_student_datepicker_to').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        $(this).datepicker('hide');
+        apply_statistics_student_filters();
+    });
+
+    $('#stats_student_class_select').unbind('change').change(function () {
+        var class_id = $(this).val();
+        if (! parseInt(class_id)) { return; }
+
+        model.getStudentsFromClassByClassId(class_id, function (r) {
+            if (r.students.length > 0) {
+                $('#stats_student_student_select').empty().removeAttr('disabled');
+                $.each(r.students, function (k, v) {
+                    $('#stats_student_student_select').append("<option value=" + v.student_id + ">" + v.first_name + ' ' + v.last_name + "</option>");
+                });
+            }
+            else {
+                $('#stats_student_student_select').html('<option selected="selected">No students in this class</option>').attr('disabled', 'disabled');
+            }
+            apply_statistics_student_filters();
+        });
+    });
+
+    $('#stats_student_student_select, #stats_student_period_select').unbind('change').change(function () {
+        apply_statistics_student_filters();
+    });
+
+
+    function apply_statistics_student_filters() {
+        var class_id = $('#stats_student_class_select').val();
+        if (! parseInt(class_id)) {
+            $('.report-stats-date').hide();
+            return;
+        }
+        var student_id = $('#stats_student_student_select').val();
+        if (! parseInt(student_id)) { return; }
+        var period_type = $('#stats_student_period_select').val();
+        if (period_type == 6) { $('.report-stats-date').show(); }
+        else { $('.report-stats-date').hide(); }
+        var from_date_input = (period_type == 6) ? $('#stats_student_datepicker_from').val() : '',
+            to_date_input = (period_type == 6) ? $('#stats_student_datepicker_to').val() : '';
+        var from_date_arr = from_date_input.split('/'),
+            to_date_arr = to_date_input.split('/');
+        var from_date = (from_date_arr.length == 3) ? from_date_arr[2] + '-' + from_date_arr[0] + '-' + from_date_arr[1] : '',
+            to_date = (to_date_arr.length == 3) ? to_date_arr[2] + '-' + to_date_arr[0] + '-' + to_date_arr[1] : '';
+        //alert('change 1 - class_id: ' + class_id + '; student_id: ' + student_id + '; period_type: ' + period_type);
+
+        var newUri = 'class_id/' + class_id;
+        newUri += '/student_id/' + student_id;
+        newUri += '/period_type/' + period_type;
+        if ((period_type == 6) && (from_date) && (to_date)) {
+            newUri += '/from/' + from_date + '/to/' + to_date;
+        }
+        window.history.replaceState({}, null, '/statistics/student/' + newUri);
+
+        model.getStatisticsStudent(newUri, function (res) {
+            $('#stats_student_table tbody').empty();
+
+            $.each(res, function (k, v) {
+                var xHtml =
+                    '<tr>' +
+                    '    <td>' + v.challenge_name + '<br/>- played ' + v.total_played + ((v.total_played == 1) ? ' time' : ' times') + '</td>' +
+                    '    <td>' +
+                    '        <div class="pie-chart">' +
+                    '            <div class="chart-stats-student-first-tab easyPieChart" data-percent="' + v.first_score + '" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    v.first_score + '%' +
+                    '                <canvas width="140" height="140"></canvas>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </td>' +
+                    '    <td>' +
+                    '        <div class="pie-chart">' +
+                    '            <div class="chart-stats-student-average-tab easyPieChart" data-percent="' + v.student_avg + '" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    v.student_avg + '%' +
+                    '                <canvas width="140" height="140"></canvas>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </td>' +
+                    '    <td>' +
+                    '        <div class="pie-chart">' +
+                    '            <div class="chart-stats-student-class-tab easyPieChart" data-percent="' + v.class_avg + '" style="width: 140px; height: 140px; line-height: 140px;">' +
+                    v.class_avg + '%' +
+                    '                <canvas width="140" height="140"></canvas>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </td>' +
+                    '</tr>';
+
+                $('#stats_student_table tbody').append(xHtml);
+                tab_pie_chart();
+            });
+        });
+    }
+
+        //Draw pie charts in tabel for classroom and student statistic
     function tab_pie_chart() {
+            //Classroom pies
         $(function () {
             $('.chart-score-class-tab').easyPieChart({
                 animate: 2000,
@@ -6094,6 +6210,40 @@ $(document).ready(function () {
                 barColor: '#74b749',
                 trackColor: '#dddddd',
                 scaleColor: '#74b749',
+                size: 140,
+                lineWidth: 6
+            });
+        });
+
+            //Student pies
+        $(function () {
+            $('.chart-stats-student-first-tab').easyPieChart({
+                animate: 2000,
+                barColor: '#ffb400',
+                trackColor: '#dddddd',
+                scaleColor: '#ffb400',
+                size: 140,
+                lineWidth: 6
+            });
+        });
+
+        $(function () {
+            $('.chart-stats-student-average-tab').easyPieChart({
+                animate: 2000,
+                barColor: '#74b749',
+                trackColor: '#dddddd',
+                scaleColor: '#74b749',
+                size: 140,
+                lineWidth: 6
+            });
+        });
+
+        $(function () {
+            $('.chart-stats-student-class-tab').easyPieChart({
+                animate: 2000,
+                barColor: '#ed6d49',
+                trackColor: '#dddddd',
+                scaleColor: '#ed6d49',
                 size: 140,
                 lineWidth: 6
             });

@@ -26,13 +26,14 @@
                 <div class="span12">
                     <div class="widget">
                         <div class="widget-header">
-                            <div class="title">Statistics for challenges by classroom</div>
+                            <div class="title">Statistics for classroom by challenges</div>
                         </div>
                         <div class="widget-body clearfix">
 	                        <div id="challenge_filter_selector_holder">
 		                        <span class="challenge_filter_caption">Class: </span>
 		                        <div class="row-fluid">
 		                            <select id="report_stats_challenge_class_select">
+			                            <option value="0">Choose classroom</option>
 		                                <?php foreach ($teacher_classes as $class => $val): ?>
 		                                    <option value="<?php echo $val->getClassId() ?>"><?php echo $val->getName()?></option>
 		                                <?php endforeach;?>
@@ -125,33 +126,3 @@
     </div>
 
 </div>
-
-<script>
-    var challenge_class_statistic = <?php echo json_encode($challenge_class_statistic)?>;
-
-    /* function geochart() {
-        google.load('visualization', '1', {'packages': ['geochart']});
-        google.setOnLoadCallback(drawRegionsMap);
-
-
-        function drawRegionsMap() {
-
-            var data = google.visualization.arrayToDataTable(
-                <?php echo json_encode($geoChartData)?>
-            );
-
-
-            var options = {
-                region: 'US',
-                enableRegionInteractivity: true,
-                resolution: 'provinces'
-            };
-
-            var chart = new google.visualization.GeoChart(document.getElementById('geo_chart'));
-            chart.draw(data, options);
-
-
-        }
-    }
-    geochart(); */
-</script>

@@ -415,13 +415,13 @@ class Challenge_model extends CI_Model
 
     public function getClassScoreByChallengeAndClass($challengeId, $classId, $fromDate = null, $toDate = null){
         /*$classScore = $this->db->select_avg('score_average')
-                                ->where('challenge_Id', $challengeId)
+                                ->where('challenge_id', $challengeId)
                                 ->where('class_id',$classId)
                                 ->get('scores')->row();
         return $classScore->score_average;*/
 
         $this->db->select_avg('score_average')
-            ->where('challenge_Id', $challengeId)
+            ->where('challenge_id', $challengeId)
             ->where('class_id',$classId);
 
 	    if ($fromDate) {
@@ -455,5 +455,75 @@ class Challenge_model extends CI_Model
 
         $query = $this->db->get('scores')->row();
         return $query->score_average;
+    }
+
+    public function getStudentAverageScoreByChallengeAndClass($studentId, $challengeId, $classId, $fromDate = null, $toDate = null){
+        $this->db->select_avg('score_average')
+            ->where('student_id', $studentId)
+            ->where('challenge_id', $challengeId)
+            ->where('class_id',$classId);
+
+	    if ($fromDate) {
+		    $this->db->where('created >=', $fromDate);
+	    }
+
+	    if ($toDate) {
+		    $this->db->where('created <=', $toDate);
+	    }
+
+	    $query = $this->db->get('scores')->row();
+        return $query->score_average;
+    }
+
+    public function getStudentFirstScoreByChallengeAndClass($studentId, $challengeId, $classId, $fromDate = null, $toDate = null){
+        $this->db->where('student_id', $studentId)
+            ->where('challenge_id', $challengeId)
+            ->where('class_id',$classId)
+	        ->order_by('created', 'asc')
+	        ->limit(1);
+
+	    if ($fromDate) {
+		    $this->db->where('created >=', $fromDate);
+	    }
+
+	    if ($toDate) {
+		    $this->db->where('created <=', $toDate);
+	    }
+
+	    $res = $this->db->get('scores');
+	    if ($res->num_rows() > 0) {
+		    $row = $res->row();
+		    return $row->score_average;
+	    }
+        else {
+	        return 0;
+        }
+    }
+
+	public function hasStudentPlayedChallenge($studentId, $challengeId) {
+        $this->db->select('score_id')
+            ->where('student_id', $studentId)
+            ->where('challenge_id', $challengeId)
+            ->limit(1);
+		$res = $this->db->get('scores');
+		if ($res->num_rows() > 0) { return true;}
+		else { return false; }
+	}
+
+	public function getStudentTotalPlayedChallenge($studentId, $challengeId, $classId, $fromDate = null, $toDate = null){
+        $this->db->select('score_id')
+            ->where('student_id', $studentId)
+            ->where('challenge_id', $challengeId)
+            ->where('class_id',$classId);
+
+	    if ($fromDate) {
+		    $this->db->where('created >=', $fromDate);
+	    }
+
+	    if ($toDate) {
+		    $this->db->where('created <=', $toDate);
+	    }
+
+	    return $this->db->count_all_results('scores');
     }
 }

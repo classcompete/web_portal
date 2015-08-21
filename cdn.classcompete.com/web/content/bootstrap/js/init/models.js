@@ -1647,12 +1647,34 @@ var model = {
             }
         });
     },
-        //Get data for challenge average scores for statistics of classroom
-    getReportStatsChallengeClass: function (uri, callback) {
+        //Get data for classroom average scores by challenges
+    getStatisticsClassroom: function (uri, callback) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: BASEURL + 'reporting/ajax_report_stats_challenge_class/' + uri,
+            url: BASEURL + 'statistics/ajax_stats_classroom/' + uri,
+            data: {},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    //window.location.reload();
+                    alert('Parse error');
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
+    },
+        //Get data for student average scores by challenges
+    getStatisticsStudent: function (uri, callback) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: BASEURL + 'statistics/ajax_stats_student/' + uri,
             data: {},
             success: function (r) {
                 eval(callback(r));

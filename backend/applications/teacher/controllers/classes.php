@@ -273,6 +273,7 @@ class Classes extends MY_Controller
                 ->findOne();
             $out['students_count']++;
             $out['students'][$k]['user_id'] = $v->getUserId();
+	        $out['students'][$k]['student_id'] = $v->getPropStudent()->getStudentId();
             $out['students'][$k]['first_name'] = $v->getFirstName();
             $out['students'][$k]['last_name'] = $v->getLastName();
             $out['students'][$k]['is_active'] = $classStudent->getIsActive();

@@ -29,6 +29,12 @@
             </a>
         </li>
         <li>
+            <a href="<?php echo base_url('statistics/classroom') ?>" <?php echo ($this->uri->segment(1) === 'statistics') ? 'class="selected"' : '' ?>>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe097;"></div>
+                Statistics
+            </a>
+        </li>
+        <li>
             <a href="<?php echo base_url('store') ?>" <?php echo ($this->uri->segment(1) === 'store') ? 'class="selected"' : '' ?>>
                 <div class="fs1" aria-hidden="true" data-icon="&#xe1c7;"></div>
                 Licenses
@@ -70,6 +76,17 @@
             </li>
             <li>
                 <a href="<?php echo base_url('reporting/statistic')?>" <?php echo($this->uri->segment(2) === 'statistic')?'class="sub-nav-selected"':''?>>Statistic</a>
+            </li>
+        <?php endif;?>
+        <?php if($this->uri->segment(1) === 'statistics'):?>
+            <li>
+                <a href="" class="heading">Statistics Management</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('statistics/classroom')?>" <?php echo($this->uri->segment(2) === 'classroom')?'class="sub-nav-selected"':''?>>Classroom</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('statistics/student')?>" <?php echo($this->uri->segment(2) === 'student')?'class="sub-nav-selected"':''?>>Student</a>
             </li>
         <?php endif;?>
         <?php if($this->uri->segment(1) === 'profile'):?>
