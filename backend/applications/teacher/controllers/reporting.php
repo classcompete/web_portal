@@ -257,17 +257,22 @@ class reporting extends MY_Controller{
 			$toDateStr = '';
 			switch ($period_type) {
 				case 1: //Current week
+						//$sunday = strtotime('-' . date('w', $date) . ' days', $date);
+						//$monday = strtotime('-' . (date('N', $date) - 1) . ' days', $date);
+					$fromDateStr = date('Y-m-d', strtotime('-' . (date('N') - 1) . ' days'));
 					break;
 				case 2: //Last week
-					$fromDateStr = date('Y-m-d', strtotime("today -7 days"));
+					$fromDateStr = date('Y-m-d', strtotime("-7 days"));
 					break;
 				case 3: //Current month
+						//$fromDateStr = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+					$fromDateStr = date('Y-m-01');
 					break;
 				case 4: //Last month
-					$fromDateStr = date('Y-m-d', strtotime("today -30 days"));
+					$fromDateStr = date('Y-m-d', strtotime("-30 days"));
 					break;
 				case 5: //Last 3 months
-					$fromDateStr = date('Y-m-d', strtotime("today -90 days"));
+					$fromDateStr = date('Y-m-d', strtotime("-90 days"));
 					break;
 				case 6: //Custom
 					$fromDateSent = isset($filters['from']) ? $filters['from'] : 'now';
@@ -281,7 +286,7 @@ class reporting extends MY_Controller{
 				$row = array();
 				$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
 				$row['class_avg'] = round($this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr));
-				$row['overall_avg'] = round($this->challenge_model->getGlobalClassScoreByChallenge($challenge->getChallengeId()));
+				$row['overall_avg'] = round($this->challenge_model->getGlobalClassScoreByChallenge($challenge->getChallengeId(), $fromDateStr, $toDateStr));
 				$out[] = $row;
 			}
 		}

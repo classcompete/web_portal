@@ -436,10 +436,24 @@ class Challenge_model extends CI_Model
         return $query->score_average;
     }
 
-    public function getGlobalClassScoreByChallenge($challengeId){
-        $globalScore = $this->db->select_avg('score_average')
+    public function getGlobalClassScoreByChallenge($challengeId, $fromDate = null, $toDate = null){
+        /*$globalScore = $this->db->select_avg('score_average')
             ->where('challenge_id', $challengeId)
             ->get('scores')->row();
-        return $globalScore->score_average;
+        return $globalScore->score_average;*/
+
+        $this->db->select_avg('score_average')
+            ->where('challenge_id', $challengeId);
+
+	    if ($fromDate) {
+		    $this->db->where('created >=', $fromDate);
+	    }
+
+	    if ($toDate) {
+		    $this->db->where('created <=', $toDate);
+	    }
+
+        $query = $this->db->get('scores')->row();
+        return $query->score_average;
     }
 }

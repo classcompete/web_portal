@@ -5988,16 +5988,14 @@ $(document).ready(function () {
     }
 
     if (url_segments[1] === 'classroom_stats') {
-        //alert('my pie');
-        tab_pie_chart();
+        apply_report_stats_challenge_filters();
     }
 
     $('#report_stats_challenge_datepicker_from').datepicker({
         format: 'mm/dd/yyyy'
     })
     .on('changeDate', function(ev){
-        //if (ev.date.valueOf() < startDate.valueOf()){
-        //}
+        //if (ev.date.valueOf() < startDate.valueOf()){}
         $(this).datepicker('hide');
         apply_report_stats_challenge_filters();
     });
