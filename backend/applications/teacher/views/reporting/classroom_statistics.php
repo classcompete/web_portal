@@ -35,20 +35,35 @@
 		                            <select id="report_stats_challenge_class_select">
 			                            <option value="0">Choose classroom</option>
 		                                <?php foreach ($teacher_classes as $class => $val): ?>
-		                                    <option value="<?php echo $val->getClassId() ?>"><?php echo $val->getName()?></option>
-		                                <?php endforeach;?>
+	                                        <option value="<?php echo $val->getClassId() ?>"
+	                                            <?php echo ($val->getClassId() === intval(@$params['class_id'])) ? 'selected="selected"' : '' ?>>
+	                                            <?php echo $val->getName() ?>
+	                                        </option>
+	                                    <?php endforeach; ?>
 		                            </select>
 		                        </div>
 
 		                        <span class="challenge_filter_caption">Period: </span>
 		                        <div class="row-fluid">
 		                            <select id="report_stats_challenge_period_select">
-			                            <option value="1">Current week</option>
-			                            <option value="2">Last week</option>
-			                            <option value="3">Current month</option>
-			                            <option value="4">Last month</option>
-			                            <option value="5">Last 3 months</option>
-			                            <option value="6">Custom period</option>
+	                                    <option value="1" <?php echo (intval(@$params['period_type']) === 1) ? 'selected="selected"' : '' ?>>
+	                                        Current week
+	                                    </option>
+	                                    <option value="2" <?php echo (intval(@$params['period_type']) === 2) ? 'selected="selected"' : '' ?>>
+	                                        Last week
+	                                    </option>
+	                                    <option value="3" <?php echo (intval(@$params['period_type']) === 3) ? 'selected="selected"' : '' ?>>
+	                                        Current month
+	                                    </option>
+	                                    <option value="4" <?php echo (intval(@$params['period_type']) === 4) ? 'selected="selected"' : '' ?>>
+	                                        Last month
+	                                    </option>
+	                                    <option value="5" <?php echo (intval(@$params['period_type']) === 5) ? 'selected="selected"' : '' ?>>
+	                                        Last 3 months
+	                                    </option>
+	                                    <option value="6" <?php echo (intval(@$params['period_type']) === 6) ? 'selected="selected"' : '' ?>>
+	                                        Custom period
+	                                    </option>
 		                            </select>
 		                        </div>
 
@@ -56,7 +71,9 @@
 	                            <div class="row-fluid report-stats-date">
 	                                <div class="input-prepend">
 	                                    <span class="add-on" data-icon="&#xe053;" style="line-height: 24px"></span>
-	                                    <input type="text" placeholder="Date From" name="from" id="report_stats_challenge_datepicker_from"/>
+	                                    <input type="text" placeholder="Date From" name="from"
+	                                           id="report_stats_challenge_datepicker_from"
+	                                           value="<?php echo @$params['from']?>"/>
 	                                </div>
 	                            </div>
 
@@ -64,7 +81,9 @@
 	                            <div class="row-fluid report-stats-date">
 	                                <div class="input-prepend">
 	                                    <span class="add-on" data-icon="&#xe053;" style="line-height: 24px"></span>
-	                                    <input type="text" placeholder="Date To" name="to" id="report_stats_challenge_datepicker_to"/>
+	                                    <input type="text" placeholder="Date To" name="to"
+	                                           id="report_stats_challenge_datepicker_to"
+	                                           value="<?php echo @$params['to']?>"/>
 	                                </div>
 	                            </div>
 

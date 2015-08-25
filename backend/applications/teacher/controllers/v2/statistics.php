@@ -24,12 +24,14 @@ class Statistics extends MY_Controller{
 	 * - Challenge average score for classroom & USA, for time period
 	 */
     public function classroom(){
-        $uri = Mapper_Helper::create_uri_segments();
-        if ($uri !== null) {
-            redirect('question/basic/'. $uri);
-        }
-
         $data = new stdClass();
+        $data->params = $this->uri->uri_to_assoc();
+        if (isset($data->params['from']) === true) {
+            $data->params['from'] = date("m/d/Y", strtotime($data->params['from']));
+        }
+        if (isset($data->params['to']) === true) {
+            $data->params['to'] = date("m/d/Y", strtotime($data->params['to']));
+        }
 
 	        //Get list of all classrooms
         $this->class_model->filterByTeacherId(TeacherHelper::getId());
@@ -93,11 +95,13 @@ class Statistics extends MY_Controller{
 			}
 
 			foreach ($classChallenges as $challenge) {
-				$row = array();
-				$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
-				$row['class_avg'] = round($this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr));
-				$row['overall_avg'] = round($this->challenge_model->getGlobalClassScoreByChallenge($challenge->getChallengeId(), $fromDateStr, $toDateStr));
-				$out[] = $row;
+				if (round($this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr)) > 0) {
+					$row = array();
+					$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
+					$row['class_avg'] = round($this->challenge_model->getClassScoreByChallengeAndClass($challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr));
+					$row['overall_avg'] = round($this->challenge_model->getGlobalClassScoreByChallenge($challenge->getChallengeId(), $fromDateStr, $toDateStr));
+					$out[] = $row;
+				}
 			}
 		}
 		else { $out['error'] = 'Class id not set'; }
@@ -112,17 +116,27 @@ class Statistics extends MY_Controller{
 	 * - Challenge average score for student, for time period
 	 */
     public function student(){
-        $uri = Mapper_Helper::create_uri_segments();
-        if ($uri !== null) {
-            redirect('question/basic/'. $uri);
-        }
-
         $data = new stdClass();
+        $data->params = $this->uri->uri_to_assoc();
+        if (isset($data->params['from']) === true) {
+            $data->params['from'] = date("m/d/Y", strtotime($data->params['from']));
+        }
+        if (isset($data->params['to']) === true) {
+            $data->params['to'] = date("m/d/Y", strtotime($data->params['to']));
+        }
 
 	        //Get list of all classrooms
         $this->class_model->filterByTeacherId(TeacherHelper::getId());
         $teacher_classes = $this->class_model->getList();
         $data->teacher_classes = $teacher_classes;
+
+        if (intval(@$data->params['class_id']) > 0) {
+            $students = $this->class_model->get_students_from_class($data->params['class_id']);
+        } else {
+            $students = array();
+        }
+
+        $data->students = $students;
 
 	    $data->content = $this->load->view('reporting/student_statistics', $data, true);
 	    $this->load->view(config_item('teacher_template'), $data);
@@ -182,7 +196,7 @@ class Statistics extends MY_Controller{
 			}
 
 			foreach ($classChallenges as $challenge) {
-				if ($this->challenge_model->hasStudentPlayedChallenge($student_id, $challenge->getChallengeId())) {
+				if ($this->challenge_model->getStudentTotalPlayedChallenge($student_id, $challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr) > 0) {
 					$row = array();
 					$row['challenge_name'] = $this->challenge_model->get_challenge_name($challenge->getChallengeId());
 					$row['total_played'] = $this->challenge_model->getStudentTotalPlayedChallenge($student_id, $challenge->getChallengeId(), $class_id, $fromDateStr, $toDateStr);
