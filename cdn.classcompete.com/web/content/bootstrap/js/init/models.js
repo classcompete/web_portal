@@ -1824,5 +1824,45 @@ var model = {
                 eval(callback(r));
             }
         });
+    },
+    getQuestionsTableForTeacher: function (exclude_challenge_id, subject_id, topic_id, grade, callback) {
+        $.ajax({
+            type: 'POST',
+            //dataType: 'json',
+            url: BASEURL + 'question/ajax_get_questions_table_for_teacher/',
+            data: {exclude_challenge_id: exclude_challenge_id, subject_id: subject_id, topic_id: topic_id, grade: grade},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    window.location.reload();
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
+    },
+    addExistingQuestionToChallenge: function (challenge_id, question_id, callback) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: BASEURL + 'question/ajax_add_existing_question/',
+            data: {challenge_id: challenge_id, question_id: question_id},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    window.location.reload();
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
     }
 };

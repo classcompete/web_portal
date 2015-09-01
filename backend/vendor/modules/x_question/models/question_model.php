@@ -373,4 +373,52 @@ class Question_model extends CI_Model
     public function count_questions_in_challenge($challenge_id){
         return PropChallengeQuestionQuery::create()->filterByChallengeId($challenge_id)->count();
     }
+
+	/**
+	 * Get list of teacher's questions filtered by specified params
+	 * @param $teacherUserId
+	 * @param $excludeChallengeId
+	 * @param $subjectId
+	 * @param $topicId
+	 * @param $grade
+	 */
+	public function getQuestionsByTeacher($teacherUserId, $excludeChallengeId, $subjectId = null, $topicId = null, $grade = null) {
+        $questions = $this->db->select('question_id')
+								->where('challenge_id', $excludeChallengeId)
+								->get('challenge_questions')->result();
+        $curr_questions_array = array();
+        foreach($questions as $q){
+            $curr_questions_array[] = $q->question_id;
+        }
+
+        $this->db->distinct()
+			->select('q.*, su.name as subject_name, sk.name as topic_name')
+			->from('questions q')
+	        ->join('challenge_questions cq', 'q.question_id = cq.question_id')
+	        ->join('challenges c', 'c.challenge_id = cq.challenge_id')
+	        ->join('subjects su', 'q.subject_id = su.subject_id')
+	        ->join('skills sk', 'q.skill_id = sk.skill_id')
+	        ->where('c.user_id', $teacherUserId)
+            //->where('cq.challenge_id <>', $excludeChallengeId)
+	        ->order_by('q.level, subject_name');
+
+		if (!empty($curr_questions_array)) {
+			$this->db->where_not_in('q.question_id', $curr_questions_array);
+		}
+
+		if ($subjectId) {
+			$this->db->where('q.subject_id', $subjectId);
+		}
+
+		if ($topicId) {
+			$this->db->where('q.skill_id', $topicId);
+		}
+
+		if ($grade) {
+			$this->db->where('q.level', $grade);
+		}
+
+        $query = $this->db->get()->result_array();
+        return $query;
+	}
 }

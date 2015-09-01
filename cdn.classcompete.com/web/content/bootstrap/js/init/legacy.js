@@ -622,7 +622,12 @@ $(document).ready(function () {
         clearDropDownBoxAll('#addEditChallenge');
         clearFormFields('#addEditChallenge');
 
-        // make sure you are on first tab of wizard
+            //Hide conditional tabs
+        $('#inverse').bootstrapWizard('hide', 1);
+            //Show initial tabs, they are always visible
+        $('#inverse').bootstrapWizard('display', 2);
+        $('#inverse').bootstrapWizard('display', 3);
+            //make sure you are on first tab of wizard
         $('#inverse').bootstrapWizard('show', 0);
         $('.save').hide();
         $('.nextnext').show();
@@ -4023,7 +4028,7 @@ $(document).ready(function () {
         onShow: function (tab, navigation, index) {
         },
         onNext: function (tab, navigation, index) {
-            if (index == 1) {
+            if (index == 1) {   // Challenge Info - #inverse-tab1_challenge
                 $('.error').removeClass('error');
 
                 var error = false;
@@ -4066,23 +4071,55 @@ $(document).ready(function () {
                             title: 'Error',
                             text: error_msg
                         });
-                    } else {
+                    }
+                    else {
                         if ($('#is_read_passage').is(':checked')) {
                             $('#inverse').bootstrapWizard('display', 1);
                             $('#inverse').bootstrapWizard('show', 1);
-                        } else {
-                            $('#inverse').bootstrapWizard('show', 2);
+                        }
+                        else {
+                            if ($('#is_use_existing_questions').is(':checked')) {
+                                    //If save & close -> add_question = 0, if save & add question -> add_question = 1
+                                    //We want to add existing question, so we send "1" for add_question to get back newly created challenge ID
+                                $('#add_question').val('1');
+                                var data = $('#challenge_form').serialize();
+                                model.saveChallengeWizard(data, function (r) {
+                                    if (typeof r.challenge_id !== 'undefined') {
+                                        //alert('Novi challenge upisan 1. ID: ' + r.challenge_id);
+                                        window.location.href = BASEURL + 'question/add_existing_to_challenge/' + r.challenge_id;
+                                    }
+                                });
+                            }
+                            else {
+                                $('#inverse').bootstrapWizard('show', 2);
+                            }
                         }
                     }
                 });
                 return false;
-//
             }
-            if (index == 3) {
+            else if (index == 2) {  //Challenge Read Passage Info - #inverse-tab1_rc
+                $('.error').removeClass('error');
+                if ($('#is_use_existing_questions').is(':checked')) {
+                        //If save & close -> add_question = 0, if save & add question -> add_question = 1
+                        //We want to add existing question, so we send "1" for add_question to get back newly created challenge ID
+                    $('#add_question').val('1');
+                    var data = $('#challenge_form').serialize();
+                    model.saveChallengeWizard(data, function (r) {
+                        if (typeof r.challenge_id !== 'undefined') {
+                            window.location.href = BASEURL + 'question/add_existing_to_challenge/' + r.challenge_id;
+                        }
+                    });
+                }
+                else {
+                    $('#inverse').bootstrapWizard('show', 2);
+                }
+                return false;
+            }
+            else if (index == 3) {  //Question Type - #inverse-tab2
                 $('.question_type').hide();
-                // Make sure we entered the name
+                    //Make sure we entered the name
                 if (!$('#question_type_selected').val()) {
-
                     $.gritter.add({
                         title: 'Error',
                         text: 'You need to choose question type'
@@ -4097,9 +4134,7 @@ $(document).ready(function () {
             }
 
 //            if (index == 3) {
-//
 //                var selected_question_type = $('#question_type_selected').val().replace('question_type_', '');
-//
 //                var data = $('#challenge_form').serialize();
 //
 //                model.validateQuestionTypeByTypeIndex(selected_question_type, data, function (r) {
@@ -4134,7 +4169,6 @@ $(document).ready(function () {
 //                            $('#challenge_form').submit();
 //                        });
 //                    }
-//
 //                });
 //                return false;
 //            }
@@ -4149,216 +4183,37 @@ $(document).ready(function () {
             return false;
         },
         onTabShow: function (tab, navigation, index) {
-            var $total = navigation.find('li').length;
+            var $total = navigation.find('li:visible').length;
+            if ($total == 0) { $total = 3; }
             var $current = index + 1;
+            //alert('a href: ' + tab.find('a:first').attr('href'));
+            var xAnchorHRef = tab.find('a:first').attr('href');
+            if (xAnchorHRef == '#inverse-tab1_challenge') {
+                $total = 3;
+                $current = 1;
+            }
+            else if (xAnchorHRef == '#inverse-tab1_rc') {
+                $total = 4;
+                $current = 2;
+            }
+            else if (xAnchorHRef == '#inverse-tab2') {
+                $total = 3;
+                $current = 2;
+            }
+
             var $percent = ($current / $total) * 100;
             $('#inverse').find('.bar').css({
                 width: $percent + '%'
             });
         }
     });
+        //Add challenge wizard: hide tab "Challenge Read Passage Info" on startup
     $('#inverse').bootstrapWizard('hide', 1);
 
-    // if save and add new question is selected
+        //If save and add new question is selected
     if (url_segments[0] === 'question' && url_segments[1] === 'challenge' && url_segments[3] === 'add_new') {
         $('#addEditQuestion2').modal('show');
     }
-
-//    $('#inverse').bootstrapWizard({
-//        'tabClass': 'nav',
-//        'debug': false,
-//        onShow: function (tab, navigation, index) {
-//        },
-//        onNext: function (tab, navigation, index) {
-//            if (index == 1) {
-//                $('.error').removeClass('error');
-//
-//                var error = false;
-//                if (!$('#challenge_name').val()) {
-//                    $('#challenge_name').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//
-//                //$('#dl_subject_id').val() === null
-//                if (!$('#dl_subject_id').val()) {
-//                    $('#dl_subject_id').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//                if (!$('#dl_skill_id').val()) {
-//                    $('#dl_skill_id').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//                if (!$('#dl_topic_id').val()) {
-//                    $('#dl_topic_id').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//                if (!$('#level').val()) {
-//                    $('#level').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//                if (!$('#dl_game_id').val()) {
-//                    $('#dl_game_id').parents('.control-group').addClass('error');
-//                    error = true;
-//                }
-//                if (error === true) {
-//                    $.gritter.add({
-//                        title: 'Error',
-//                        text: 'You need to fill all fields on this page'
-//                    });
-//                    return false;
-//                } else {
-//                    $('#inverse .pager .save').show();
-//                    $('#inverse .pager .nextnext').hide();
-//
-////                    $('#inverse #inverse-tab1').hide();
-////                    $('#inverse #inverse-tab2').show();
-//
-//                    model.getClassesForChallengeBuilder(function (c) {
-//                        $.each(c, function (k, v) {
-//                            $('#class_id').append("<option value=" + v.class_id + ">" + v.class_name + "</option>");
-//                        });
-//                    });
-//
-//                    $('#save_challenge_wizard').unbind('click').click(function (e) {
-//                        e.preventDefault();
-//
-//                        // if save & close -> add_question = 0, if save & add question -> add_question = 1
-//                        $('#add_question').val('0');
-//
-//                        var data = $('#challenge_form').serialize();
-//                        model.saveChallengeWizard(data, function (r) {
-//
-//                            if (r.save_and_close === true) {
-//                                window.location.reload();
-//                            }
-//                        });
-//                    });
-//
-//                    $('#save_challenge_add_question_wizard').unbind('click').click(function (e) {
-//                        e.preventDefault();
-//
-//                        // if save & close -> add_question = 0, if save & add question -> add_question = 1
-//                        $('#add_question').val('1');
-//
-//                        var data = $('#challenge_form').serialize();
-//                        model.saveChallengeWizard(data, function (r) {
-//
-//                            if (typeof r.challenge_id !== 'undefined') {
-//
-//                                $('#addEditChallenge').modal('hide');
-//
-//                                $('#addQuestion').modal('show');
-//                                $('#inverse2 #inverse-tab1').show();
-//                                $('#challenge_id').val(r.challenge_id);
-//                            }
-//                        });
-//                    });
-//                }
-//            }
-////            if (index == 2) {
-////                $('.question_type').hide();
-////                // Make sure we entered the name
-////                if (!$('#question_type_selected').val()) {
-////
-////                    $.gritter.add({
-////                        title: 'Error',
-////                        text: 'You need to choose question type'
-////                    });
-////                    return false;
-////                } else {
-////                    var selected = $('#question_type_selected').val();
-////                    //$('#' + selected).show();
-////                    var selected_index = selected.replace('question_type_', '');
-////                    question_type(selected_index, true);
-////                }
-////            }
-//
-////            if (index == 3) {
-////
-////                var selected_question_type = $('#question_type_selected').val().replace('question_type_', '');
-////
-////                var data = $('#challenge_form').serialize();
-////
-////                model.validateQuestionTypeByTypeIndex(selected_question_type, data, function (r) {
-////
-////                    if (r.validation !== true) {
-////
-////                        switch (parseInt(selected_question_type)) {
-////                            case 1:
-////                                question_type_1_validation(r);
-////                                break;
-////                            case 2:
-////                                question_type_2_validation(r);
-////                                break;
-////                            case 3:
-////                                question_type_3_validation(r);
-////                                break;
-////                            case 4:
-////                                question_type_4_validation(r);
-////                                break;
-////                            case 5:
-////                                question_type_5_validation(r);
-////                                break;
-////                            case 6:
-////                                question_type_6_validation(r);
-////                                break;
-////                            case 7:
-////                                question_type_7_validation(r);
-////                                break;
-////                            case 8:
-////                                question_type_8_validation(r);
-////                                break;
-////                            case 9:
-////                                question_type_9_validation(r);
-////                                // TODO: this
-////                                break;
-////                        }
-////
-////                    } else {
-////
-////                        // going to fourth tab
-////                        $('#inverse .pager .save').show();
-////                        $('#inverse .pager .nextnext').hide();
-////
-////                        // go to tab 4
-////                        $('#inverse').bootstrapWizard('show', 3);
-////                        model.getClassesForChallengeBuilder(function (c) {
-////                            $.each(c, function (k, v) {
-////                                $('#class_id').append("<option value=" + v.class_id + ">" + v.class_name + "</option>");
-////                            });
-////                        });
-////
-////                        $('#save_challenge_wizard').unbind('click').click(function (e) {
-////                            e.preventDefault();
-////                            $('#challenge_form').submit();
-////                        });
-////                    }
-////
-////                });
-////                return false;
-////            }
-//        },
-//        onPrevious: function (tab, navigation, index) {
-//            $('#inverse .pager .save').hide();
-//            $('#inverse .pager .nextnext').show();
-//
-////            $('#inverse #inverse-tab1').show();
-////            $('#inverse #inverse-tab2').hide();
-//        },
-//        onLast: function (tab, navigation, index) {
-//        },
-//        onTabClick: function (tab, navigation, index) {
-//            return false;
-//        },
-//        onTabShow: function (tab, navigation, index) {
-//            var $total = navigation.find('li').length;
-//            var $current = index + 1;
-//            var $percent = ($current / $total) * 100;
-//            $('#inverse').find('.bar').css({
-//                width: $percent + '%'
-//            });
-//        }
-//    });
 
     $('#inverse .question_thumbs .thumbnail').unbind('click').click(function () {
         var index = $(this).parents('li').index() + 1;
@@ -5851,6 +5706,7 @@ $(document).ready(function () {
     $('#challenges_class_table').dataTable(datatable_settings);
     $('#student_class_challenge_table').dataTable(datatable_settings);
     $('#class_student_stats_table').dataTable(datatable_settings);
+    $('#add_question_table').dataTable(datatable_settings);
 
     $('#stats_class_id').unbind('change').change(function () {
         var t = $(this);
@@ -6717,7 +6573,7 @@ $(document).ready(function () {
         }
     });
 
-// alert that you reached maxlenght on inputs
+        // alert that you reached maxlenght on inputs
     $('textarea[maxlength],:text[maxlength]').keyup(function () {
         var t = $(this);
         var max_length = parseInt(t.attr('maxlength'));
@@ -6782,8 +6638,63 @@ $(document).ready(function () {
         });
     }
 
-})
-;
+        //*** Add existing questions to challenge - events
+    $('#add_existing_question_subject_id').change(function (e) {
+        e.preventDefault();
+        var xTopicSel = $('#add_existing_question_topic_id');
+        xTopicSel.empty();
+        xTopicSel.append('<option value="0" selected="selected">Select topic...</option>');
+        var xSubjectId = $(this).find('option:selected').attr('value');
+
+        if (parseInt(xSubjectId) == 0) {
+            xTopicSel.attr('disabled', 'disabled');
+            add_existing_questions_load_questions();
+        }
+        else {
+            model.getSkillBySkillIdFromChallenge(xSubjectId, function (r) {
+                $.each(r, function (key, value) {
+                    xTopicSel.append("<option value=" + value.skill_id + ">" + value.name + "</option>");
+                });
+                xTopicSel.removeAttr('disabled');
+                add_existing_questions_load_questions();
+            });
+        }
+    });
+
+    $('#add_existing_question_topic_id, #add_existing_question_grade').change(function () {
+        add_existing_questions_load_questions();
+    });
+
+    $(document).on('click', '.btn-add-existing-question', function() {
+        var xQuestionId = $(this).data('questionId'),
+            xChallengeId = ((typeof url_segments[2] !== 'undefined') && (url_segments[2] !== null)) ? url_segments[2] : 0;
+        if (! xQuestionId || ! xChallengeId) { return false; }
+
+        model.addExistingQuestionToChallenge(xChallengeId, xQuestionId, function (res) {
+            add_existing_questions_load_questions();
+        });
+    });
+
+        //*** Add existing questions to challenge - show all questions on open page
+    if (url_segments[0] === 'question' && url_segments[1] === 'add_existing_to_challenge') {
+        add_existing_questions_load_questions();
+    }
+
+    function add_existing_questions_load_questions() {
+        var xExcludeChallengeId = ((typeof url_segments[2] !== 'undefined') && (url_segments[2] !== null)) ? url_segments[2] : 0,
+            xSubjectId = $('#add_existing_question_subject_id').find('option:selected').attr('value'),
+            xTopicId = $('#add_existing_question_topic_id').find('option:selected').attr('value'),
+            xGrade = $('#add_existing_question_grade').find('option:selected').attr('value');
+        if (! xExcludeChallengeId) { return false; }
+
+        model.getQuestionsTableForTeacher(xExcludeChallengeId, xSubjectId, xTopicId, xGrade, function (res) {
+            $('#add_question_table_wrapper').empty().html(res);
+            datatable_settings.bSort = false;   //By not allowing sorting in the table, we are forcing server sorting by grade and subject name
+            $('#add_question_table').dataTable(datatable_settings);
+        });
+    }
+
+});   //End $(document).ready()
 
 jQuery.fn.dotdotdot = function (length) {
     if (typeof length === 'undefined') {

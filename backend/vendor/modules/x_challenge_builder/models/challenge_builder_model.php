@@ -519,8 +519,14 @@ class Challenge_builder_model extends CI_Model{
 
     }
 
+	/**
+	 * Save only new challenge data - without question data
+	 * @param $data
+	 * @return PropChallenge
+	 * @throws Exception
+	 * @throws PropelException
+	 */
     public function save_challenge($data){
-
         $ch = new PropChallenge();
 
         if (isset($data->name) === true && empty($data->name) === false) {
@@ -550,23 +556,27 @@ class Challenge_builder_model extends CI_Model{
         if(isset($data->is_public) === true ){
                 $ch->setIsPublic($data->is_public);
         }
-        $challenge = $ch->save();
-        $challenge_id = $challenge->getChallengeId();
+	    $ch->save();
+	    $challenge_id = $ch->getChallengeId();
 
-        /*
-       * Add challenge to challenge classroom table
-       * */
+	        //Add challenge to challenge classroom table
         if (isset($data->class_id) === true && empty($data->class_id) === false) {
             $challenge_class = new PropChallengeClass();
             $challenge_class->setChallengeId($challenge_id);
-
             $challenge_class->setClassId($data->class_id);
-
-
             $challenge_class->save();
         }
         return $ch;
     }
+
+	/**
+	 * Save new or existing challenge record - with question data
+	 * @param $data
+	 * @param $challenge_id
+	 * @return PropChallenge
+	 * @throws Exception
+	 * @throws PropelException
+	 */
     public function save($data,$challenge_id){
         if(empty($challenge_id) === true){
             $ch = new PropChallenge();
