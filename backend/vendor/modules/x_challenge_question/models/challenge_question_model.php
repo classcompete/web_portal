@@ -1548,16 +1548,25 @@ class Challenge_question_model extends CI_Model
         $data->delete();
     }
 
-    /*
-     * Private function's
-     * */
-    private function update_challenge_question_table($question_id, $challenge_id, $seq_num){
+	/**
+	 * Save new record to the challenge_questions table when we already have existing question
+	 * @param $question_id
+	 * @param $challenge_id
+	 * @param int $seq_num
+	 * @throws Exception
+	 * @throws PropelException
+	 */
+    public function update_challenge_question_table($question_id, $challenge_id, $seq_num = 0){
         $challenge_question = new PropChallengeQuestion();
         $challenge_question->setQuestionId($question_id);
         $challenge_question->setChallengeId($challenge_id);
-        $challenge_question->setSeqNum('ne znam');
+        $challenge_question->setSeqNum($seq_num);
         $challenge_question->save();
     }
+
+    /*
+     * Private function's
+     * */
     private function update_correct_choice_hack($data, $question_id){
         $question_choice = PropQuestionChoiceQuery::create()->findByQuestionId($question_id);
 

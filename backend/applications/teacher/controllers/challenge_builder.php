@@ -66,7 +66,6 @@ class Challenge_builder extends MY_Controller{
     /*
      * Content part
      * */
-
     public function index(){
         $uri = Mapper_Helper::create_uri_segments();
         if ($uri !== null) {
@@ -114,61 +113,75 @@ class Challenge_builder extends MY_Controller{
 
     }
 
+	/**
+	 * Save basic challenge data through ajax call
+	 */
     public function ajax_save_challenge(){
+	    $out = array();
 
+	    try {
+		    if ($this->form_validation->run('challenge_builder') === false) {
+			    $this->output->set_status_header('400');
+				$out['error'] = 'Data not valid';
+			    $this->output->set_output(json_encode($out));
+			    exit;
+			}
 
-        $add_question = $this->input->post('add_question');
+		        //Pedja: when saving challenge it doesn't need to be assigned to any class
+		    /*if($this->form_validation->run('challenge_builder_class') == false){
+				redirect();
+			}*/
+		    $challenge = new stdClass();
 
-        if ($this->form_validation->run('challenge_builder') === false) {
-            redirect();
-        }
+		    $challenge->name = $this->input->post('challenge_name');
+		    $challenge->subject_id = $this->input->post('subject_id');
+		    $challenge->skill_id = $this->input->post('skill_id');
+		    $challenge->topic_id = $this->input->post('topic_id');
+		    $challenge->level = $this->input->post('level');
+		    $challenge->game_id = $this->input->post('game_id');
+		    $challenge->description = $this->input->post('description');
+		    $challenge->user_id = TeacherHelper::getUserId();
+		    $challenge->read_title = $this->input->post('read_title');
+		    $challenge->read_text = $this->input->post('read_text');
 
-        if($this->form_validation->run('challenge_builder_class') == false){
-            redirect();
-        }
+		    $readImageName = $this->input->post('read_image');
+		    if (empty($readImageName) === false) {
+			    $imageLink = X_TEACHER_UPLOAD_PATH . '/' . $readImageName;
 
-        $challenge = new stdClass();
+			    $fp = fopen($imageLink, 'r');
+			    $challenge->read_image = base64_encode(fread($fp, filesize($imageLink)));
+			    fclose($fp);
+		    }
 
-        $challenge->name = $this->input->post('challenge_name');
-        $challenge->subject_id = $this->input->post('subject_id');
-        $challenge->skill_id = $this->input->post('skill_id');
-        $challenge->topic_id = $this->input->post('topic_id');
-        $challenge->level = $this->input->post('level');
-        $challenge->game_id = $this->input->post('game_id');
-        $challenge->description = $this->input->post('description');
-        $challenge->user_id = TeacherHelper::getUserId();
-        $challenge->read_title = $this->input->post('read_title');
-        $challenge->read_image_url = $this->input->post('read_image_url');
-        $challenge->read_text = $this->input->post('read_text');
-        $is_public = $this->input->post('public_challenge');
+		    $is_public = $this->input->post('public_challenge');
 
+		    if ($is_public === PropChallengePeer::IS_PUBLIC_YES) {
+			    $challenge->is_public = PropChallengePeer::IS_PUBLIC_YES;
+		    } else {
+			    $challenge->is_public = PropChallengePeer::IS_PUBLIC_NO;
+		    }
 
-        if($is_public === PropChallengePeer::IS_PUBLIC_YES){
-            $challenge->is_public = PropChallengePeer::IS_PUBLIC_YES;
-        } else {
-            $challenge->is_public = PropChallengePeer::IS_PUBLIC_NO;
-        }
+		    if (intval($this->input->post('class_id')) > 0) {
+			    $challenge->class_id = $this->input->post('class_id');
+		    }
+		    $ch = $this->challenge_builder_model->save_challenge($challenge);
 
+		    $add_question = $this->input->post('add_question');
+		    if (intval($add_question) === 1) {
+			    $out = array(
+			        'challenge_id' => $ch->getChallengeId()
+			    );
+		    } else {
+			    $out = array(
+			        'save_and_close' => true
+			    );
+		    }
+	    } catch (Exception $e) {
+		    $this->output->set_status_header('400');
+			$out['error'] = $e->getMessage();
+	    }
 
-
-        /*
-        * Prepare class date for save
-        * */
-        if (intval($this->input->post('class_id')) > 0){
-            $challenge->class_id = $this->input->post('class_id');
-        }
-        $ch = $this->challenge_builder_model->save_challenge($challenge);
-        if(intval($add_question) === 1){
-            $out = array(
-                'challenge_id' => $ch->getChallengeId()
-            );
-        }else {
-            $out = array(
-                'save_and_close' => true
-            );
-        }
         $this->output->set_output(json_encode($out));
-
     }
 
     public function ajax_save_question(){
@@ -1110,6 +1123,11 @@ class Challenge_builder extends MY_Controller{
 
         $this->output->set_output(json_encode($out));
     }
+
+	/**
+	 * Get all topics (skills) for specified subject
+	 * @param $subject_id
+	 */
     public function ajax_get_skill($subject_id){
 
         $skill = $this->challenge_builder_model->get_skill($subject_id);

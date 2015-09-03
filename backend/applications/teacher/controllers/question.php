@@ -14,6 +14,7 @@ class Question extends MY_Controller{
         $this->load->library('x_challenge_question/challenge_questionlib');
         $this->load->library('x_challenge/challengelib');
         $this->load->library('x_question/questionlib');
+	    $this->load->library('x_challenge_builder/challenge_builderlib');
         $this->load->library('propellib');
         $this->load->library('x_plupload/pluploadlib_new');
         $this->load->library('x_image_crop/image_crop_lib');
@@ -1732,4 +1733,216 @@ class Question extends MY_Controller{
         $this->output->set_output(json_encode($out));
 
     }
+
+	/**
+	 * Show page with the list of all questions in all challenges of teacher
+	 * @param $challenge_id
+	 */
+	public function add_existing_to_challenge($challenge_id = null){
+	    $data = new stdClass();
+
+	    $data->challenge = $this->challenge_model->getChallengeById($challenge_id);
+	    $data->subjects = $this->challenge_builder_model->get_subject();
+	    $data->content = $this->prepareView('x_challenge_question', 'add_existing_question', $data);
+        $this->load->view(config_item('teacher_template'), $data);
+
+	    /*
+	           //If parametes are sent as POST data, repack them as GET data
+        $uri = Mapper_Helper::create_uri_segments();
+        if ($uri !== null) {
+            redirect('question/challenge/'.$challenge_id.'/' . $uri);
+        }
+
+        $this->mapperlib->set_default_base_page('question/challenge/'.$challenge_id);
+        $this->mapperlib->set_breaking_segment(4);
+
+
+        $data = new stdClass();
+        $this->challenge_question_model->setChallenge_id($challenge_id);
+
+        $data->challange_id = $challenge_id;
+
+        $challengeQuestions = $this->challenge_question_model->getList();
+        $questionIds = array();
+        foreach ($challengeQuestions as $cq) {
+            // @var $cq PropChallengeQuestion
+            $questionIds[] = $cq->getQuestionId();
+        }
+		*/
+
+        /**
+         * Nem's hack - this should be moved to question_model once
+         */
+        /*
+	    $questions = PropQuestionQuery::create()
+            ->filterByQuestionId($questionIds)
+            ->filterByIsDeleted(PropQuestionPeer::IS_DELETED_NO)
+            ->find();
+
+        $data->questions = array();
+
+        foreach($questions as $k => $question){
+                $data->questions[$k]['question_name'] = $question->getText();
+                $question_id = $question->getQuestionId();
+                $data->questions[$k]['question_id'] = $question_id;
+                $data->questions[$k]['question_type'] = $this->challenge_questionlib->get_question_type($question_id);
+                $data->questions[$k]['question_image'] = $this->challenge_questionlib->get_question_image_type($question_id);
+
+                $question_data = $this->get_question_details($question_id);
+                $data->questions[$k]['data'] = $question_data;
+        }
+		*/
+
+        //$data->content = $this->prepareView('x_challenge_question', 'home_challenge_question', $data);
+        //$this->load->view(config_item('teacher_template'), $data);
+
+		//****************************************************
+
+	    /*
+        $uri = Mapper_Helper::create_uri_segments();
+        if ($uri !== null) {
+            redirect('reporting/index/' . $uri);
+        }
+
+        $data = new stdClass();
+
+        $this->challenge_model->setTeacherId(TeacherHelper::getId());
+        $challenges = $this->challenge_model->getListForTeacher();
+
+            //getting data for challenge statistic by played times
+        $data->played_times = array();
+        foreach($challenges as $challenge=>$val){
+            $data->played_times[$challenge]['challenge_name']   = $val->getPropChallenge()->getName();
+            $data->played_times[$challenge]['played_times']     = $this->challenge_model->get_challenge_played_times($val->getChallengeId(), $val->getClassId());
+            $data->played_times[$challenge]['class_name']      = $val->getPropclas()->getName();
+        }
+
+            //getting data for student statistic in classroom & each challenge
+
+        $this->class_model->filterByTeacherId(TeacherHelper::getId());
+        $class_list = $this->class_model->getList();
+
+        if($class_list->getFirst() != null){
+            foreach($class_list as $class=>$val){
+                $data->classrom[$class]['class_id'] = $val->getClassId();
+                $data->classrom[$class]['class_name'] = $val->getName();
+            }
+
+            $students = $this->class_model->get_students_from_class($class_list->getFirst()->getClassId());
+
+            foreach($students as $student=>$v){
+
+                $data->student_statistic_class_student[$student]['user_id'] = $v->getUserId();
+                $data->student_statistic_class_student[$student]['first_name'] = $v->getFirstName();
+                $data->student_statistic_class_student[$student]['last_name'] = $v->getLastName();
+            }
+
+            if ($students->getFirst() !== null){
+                $student_id = $this->report_model->get_student_id($students->getFirst()->getUserId());
+
+                $challenges_in_classroom = $this->report_model->get_student_classrooms($class_list->getFirst()->getClassId(),$student_id );
+
+                foreach($challenges_in_classroom as $k=>$v){
+                    $answers                        = $this->reportlib->get_student_classrooms_answers($v['challenge_id'], $student_id);
+                    $data->student_statistic[$k]['challenge_name']     =  $v['name'];
+                    $data->student_statistic[$k]['challenge_id']       =  $v['challenge_id'];
+                    $data->student_statistic[$k]['correct_answers']    = $answers['correct'];
+                    $data->student_statistic[$k]['incorrect_answers']  = $answers['incorrect'];
+                    $data->student_statistic[$k]['total_duration']     = $this->report_model->get_student_classrooms_duration($student_id, $v['challenge_id']);
+                    $data->student_statistic[$k]['coins_collected']    = $this->report_model->get_student_coins_by_challenge($student_id,$v['challenge_id']);
+                }
+            }
+
+                //getting data for student statistic by played times
+
+            $students_in_class  = $this->report_model->get_students_in_class($class_list->getFirst()->getClassId());
+            // @var $user PropUser
+            // @var $student_data PropStudent
+            foreach($students_in_class as $k=>$v){
+                $data->student_played_times[$k]['user_id']                  = $v->getPropStudent()->getPropUser()->getUserId();
+                $data->student_played_times[$k]['student_firstname']        = $v->getPropStudent()->getPropUser()->getFirstName();
+                $data->student_played_times[$k]['student_lastname']         =  $v->getPropStudent()->getPropUser()->getLastName();
+                $data->student_played_times[$k]['number_of_challenges']     = $this->report_model->count_students_challenges_by_class_id($v->getPropStudent()->getStudentId(),$class_list->getFirst()->getClassId());
+            }
+        }
+
+        $data->content = $this->prepareView('x_reporting', 'statistic_reporting', $data);
+        $this->load->view(config_item('teacher_template'), $data);
+	    */
+    }
+
+	/**
+	 * Get filtered questions for teacher - ajax
+	 */
+	public function ajax_get_questions_table_for_teacher() {
+		$excludeChallengeId = $this->input->post('exclude_challenge_id');
+        $subjectId = $this->input->post('subject_id');
+        $topicId = $this->input->post('topic_id');
+		$grade = $this->input->post('grade');
+		$teacherUserId = TeacherHelper::getUserId();
+
+		$questions = $this->question_model->getQuestionsByTeacher($teacherUserId, $excludeChallengeId, $subjectId, $topicId, $grade);
+        $out = $this->create_table_questions_for_teacher($questions);
+        $this->output->set_output($out);
+	}
+
+	/**
+	 * @param $questions
+	 * @return string
+	 */
+	private function create_table_questions_for_teacher($questions) {
+        ob_start();
+        ?>
+
+            <table id="add_question_table" class="table table-condensed table-striped table-hover table-bordered pull-left dataTable">
+                <thead>
+                    <tr role="row">
+                        <th style="width: 200px;" class="sorting" rowspan="1" colspan="1">
+                            Subject
+                        </th>
+                        <th style="width: 200px;" class="sorting" rowspan="1" colspan="1">
+                            Topic
+                        </th>
+                        <th style="width: 100px;" class="sorting" rowspan="1" colspan="1">
+                            Grade
+                        </th>
+                        <th class="sorting" rowspan="1" colspan="1">
+                            Text
+                        </th>
+                        <th style="width: 100px;" rowspan="1" colspan="1">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($questions as $q): ?>
+	                    <tr class="gradeA info">
+	                        <td><?php echo $q['subject_name']?></td>
+	                        <td><?php echo $q['topic_name']?></td>
+	                        <td><?php echo ($q['level'] == -2) ? 'Pre K' : (($q['level'] == -1) ? 'K' : $q['level'])?></td>
+	                        <td><?php echo $q['text']?></td>
+	                        <td>
+								<button class="btn btn-success btn-mini btn-add-existing-question" data-question-id="<?php echo $q['question_id'] ?>">Add to challenge</button>
+	                        </td>
+	                    </tr>
+					<?php endforeach; ?>
+                </tbody>
+            </table>
+
+        <?php
+        $out =  ob_get_clean();
+        return $out;
+	}
+
+	/**
+	 * Add existing question to teacher's challenge - ajax
+	 */
+	public function ajax_add_existing_question() {
+		$challengeId = $this->input->post('challenge_id');
+        $questionId = $this->input->post('question_id');
+
+		$this->challenge_question_model->update_challenge_question_table($questionId, $challengeId, 0);
+        $out = array('success' => true);
+        $this->output->set_output(json_encode($out));
+	}
 }
