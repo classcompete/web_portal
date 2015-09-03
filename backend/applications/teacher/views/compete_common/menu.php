@@ -28,12 +28,13 @@
                 Reporting
             </a>
         </li>
-        <li>
-            <a href="<?php echo base_url('statistics/classroom') ?>" <?php echo ($this->uri->segment(1) === 'statistics') ? 'class="selected"' : '' ?>>
-                <div class="fs1" aria-hidden="true" data-icon="&#xe097;"></div>
-                Statistics
-            </a>
-        </li>
+
+<!--        <li>-->
+<!--            <a href="--><?php //echo base_url('statistics/classroom') ?><!--" --><?php //echo ($this->uri->segment(1) === 'statistics') ? 'class="selected"' : '' ?><!-->-->
+<!--                <div class="fs1" aria-hidden="true" data-icon="&#xe097;"></div>-->
+<!--                Statistics-->
+<!--            </a>-->
+<!--        </li>-->
         <li>
             <a href="<?php echo base_url('store') ?>" <?php echo ($this->uri->segment(1) === 'store') ? 'class="selected"' : '' ?>>
                 <div class="fs1" aria-hidden="true" data-icon="&#xe1c7;"></div>
