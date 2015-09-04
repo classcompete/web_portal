@@ -291,6 +291,7 @@
 	            </div>
 	        <?php endif;?>
 
+			<?php if(TeacherHelper::isPublisher()):?>
 	        <div class="control-group">
 	            <label class="control-label">I want to use existing questions </label>
 	            <div class="controls" style="margin-top: 5px">
@@ -298,6 +299,7 @@
 	                       name="is_use_existing_questions" style="bottom: 3px; margin-right: 5px; position: relative;">
 	            </div>
 	        </div>
+			<?php endif;?>
 
 	    </div>
 	    <input type="hidden" name="add_question" id="add_question"/>
