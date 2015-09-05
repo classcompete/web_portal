@@ -102,17 +102,18 @@
                     <!-- Challenges score wheels table -->
                     <div class="widget-body clearfix">
                         <table id="stats_student_table"
-                               class="table table-condensed table-striped table-hover table-bordered pull-left dataTable">
+                               class="table table-condensed table-striped table-hover table-bordered pull-left dataTable"
+                               style="font-size:14px">
                             <thead>
                             <tr role="row">
                                 <th style="width: 200px;" rowspan="1" colspan="1">
                                     Challenge Name
                                 </th>
                                 <th style="width: 250px;" rowspan="1" colspan="1">
-                                    Student first score
+                                    Pre-test Score
                                 </th>
                                 <th style="width: 250px;" rowspan="1" colspan="1">
-                                    Student average score
+                                    Average Score
                                 </th>
                                 <th style="width: 250px;" rowspan="1" colspan="1">
                                     Classroom average

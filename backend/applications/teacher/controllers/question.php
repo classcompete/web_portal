@@ -73,6 +73,7 @@ class Question extends MY_Controller{
         $this->challenge_question_model->setChallenge_id($challenge_id);
 
         $data->challange_id = $challenge_id;
+	    $data->challenge = $this->challenge_model->getChallengeById($challenge_id);
 
         $challengeQuestions = $this->challenge_question_model->getList();
         $questionIds = array();

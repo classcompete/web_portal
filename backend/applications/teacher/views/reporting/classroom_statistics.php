@@ -98,7 +98,8 @@
                     <!-- Challenges score wheels table -->
                     <div class="widget-body clearfix">
                         <table id="report_stats_challenge_table"
-                               class="table table-condensed table-striped table-hover table-bordered pull-left dataTable">
+                               class="table table-condensed table-striped table-hover table-bordered pull-left dataTable"
+                               style="font-size:14px">
                             <thead>
                             <tr role="row">
                                 <th style="width: 258px;" rowspan="1" colspan="1">
@@ -108,7 +109,7 @@
                                     Classroom average
                                 </th>
                                 <th style="width: 242px;" rowspan="1" colspan="1">
-                                    Overall average
+                                    State average
                                 </th>
                             </tr>
                             </thead>

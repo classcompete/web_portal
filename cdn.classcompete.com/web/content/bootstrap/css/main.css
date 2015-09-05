@@ -7685,7 +7685,7 @@ footer {
 
 .reporting .pie-chart {
   width: 31% !important;
-  margin: 0 1%;
+  margin: 0 auto; /* 1%;*/
 }
 
 .reporting .easyPieChart {

@@ -3,11 +3,13 @@
 <div class="widget">
 
 <div class="widget-header">
-    <div class="title">Challenge Questions</div>
+    <div class="title">Challenge Questions - <span style="color:#ed6d49"><?php echo $challenge->getName()?></span></div>
     <span class="tools">
         <a class="btn btn-small btn-info" href="#"
            data-original-title="" data-target="#addEditQuestion2"
            data-toggle="modal" id="addNewQuestion2" data-backdrop="static">+ Add new question</a>
+        <a class="btn btn-small btn-success" href="<?php echo site_url('question/add_existing_to_challenge/' . $challenge->getId()) ?>"
+           data-backdrop="static">+ Add existing questions</a>
     </span>
 </div>
 

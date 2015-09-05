@@ -5900,7 +5900,7 @@ $(document).ready(function () {
             $.each(res, function (k, v) {
                 var xHtml =
                     '<tr>' +
-                    '    <td>' + v.challenge_name + '</td>' +
+                    '    <td style="vertical-align: middle">' + v.challenge_name + '</td>' +
                     '    <td>' +
                     '        <div class="pie-chart">' +
                     '            <div class="chart-score-class-tab easyPieChart" data-percent="' + v.class_avg + '" style="width: 140px; height: 140px; line-height: 140px;">' +
@@ -6013,7 +6013,7 @@ $(document).ready(function () {
             $.each(res, function (k, v) {
                 var xHtml =
                     '<tr>' +
-                    '    <td>' + v.challenge_name + '<br/>- played ' + v.total_played + ((v.total_played == 1) ? ' time' : ' times') + '</td>' +
+                    '    <td style="vertical-align: middle">' + v.challenge_name + '<br/>- played ' + v.total_played + ((v.total_played == 1) ? ' time' : ' times') + '</td>' +
                     '    <td>' +
                     '        <div class="pie-chart">' +
                     '            <div class="chart-stats-student-first-tab easyPieChart" data-percent="' + v.first_score + '" style="width: 140px; height: 140px; line-height: 140px;">' +
