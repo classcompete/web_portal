@@ -6,6 +6,10 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">Statistics for student by challenges</div>
+		                <span class="tools">
+		                    <a class="btn btn-small btn-info" href="<?php echo site_url('statistics/drilldown') ?>"
+		                       id="btnShowStatsDrilldown">Statistics</a>
+		                </span>
                     </div>
                     <div class="widget-body clearfix">
                         <div id="challenge_filter_selector_holder">

@@ -5923,14 +5923,6 @@ $(document).ready(function () {
                 tab_pie_chart();
             });
         });
-
-        /*model.getReportStudentStatsClassroom(class_id, function (r) {
-            if (r.error) {
-                $('#students_in_class_stats').html(r.error);
-            } else {
-                do_chart(r, 'students_in_class_stats');
-            }
-        });*/
     }
 
         //******************************************************
@@ -6006,6 +5998,7 @@ $(document).ready(function () {
             newUri += '/from/' + from_date + '/to/' + to_date;
         }
         window.history.replaceState({}, null, '/statistics/student/' + newUri);
+        $('#btnShowStatsDrilldown').attr('href', BASEURL + 'statistics/drilldown/' + newUri);
 
         model.getStatisticsStudent(newUri, function (res) {
             $('#stats_student_table tbody').empty();
