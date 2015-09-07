@@ -1691,6 +1691,28 @@ var model = {
             }
         });
     },
+        //Get data for student drilldown table
+    getStatisticsDrilldownTable: function (uri, callback) {
+        $.ajax({
+            type: 'POST',
+            //dataType: 'json',
+            url: BASEURL + 'statistics/ajax_stats_drilldown/' + uri,
+            data: {},
+            success: function (r) {
+                eval(callback(r));
+            },
+            error: function (jqXHR, text, error) {
+                if (text === 'parsererror') {
+                    //window.location.reload();
+                    alert('Parse error');
+                } else {
+                    error = $.parseJSON(jqXHR.responseText);
+                    eval(callback(error));
+                }
+
+            }
+        });
+    },
     changeStudentProfile: function(data, callback){
         $.ajax({
             type: 'POST',

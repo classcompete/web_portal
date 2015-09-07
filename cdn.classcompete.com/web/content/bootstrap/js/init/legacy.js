@@ -5934,7 +5934,7 @@ $(document).ready(function () {
     }
 
         //******************************************************
-        //*** Statistics / student stuff...
+        //*** Statistics / student by challenge stuff...
         //******************************************************
 
     if (url_segments[1] === 'student') {
@@ -6043,6 +6043,87 @@ $(document).ready(function () {
                 $('#stats_student_table tbody').append(xHtml);
                 tab_pie_chart();
             });
+        });
+    }
+
+        //******************************************************
+        //*** Statistics / student drilldown stuff...
+        //******************************************************
+
+    if (url_segments[1] === 'drilldown') {
+        apply_statistics_drilldown_filters();
+    }
+
+    $('#stats_drilldown_datepicker_from').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        $(this).datepicker('hide');
+        apply_statistics_drilldown_filters();
+    });
+
+    $('#stats_drilldown_datepicker_to').datepicker({
+        format: 'mm/dd/yyyy'
+    })
+    .on('changeDate', function(ev){
+        $(this).datepicker('hide');
+        apply_statistics_drilldown_filters();
+    });
+
+    $('#stats_drilldown_class_select').unbind('change').change(function () {
+        var class_id = $(this).val();
+        if (! parseInt(class_id)) { return; }
+
+        model.getStudentsFromClassByClassId(class_id, function (r) {
+            if (r.students.length > 0) {
+                $('#stats_drilldown_student_select').empty().removeAttr('disabled');
+                $.each(r.students, function (k, v) {
+                    $('#stats_drilldown_student_select').append("<option value=" + v.student_id + ">" + v.first_name + ' ' + v.last_name + "</option>");
+                });
+            }
+            else {
+                $('#stats_drilldown_student_select').html('<option selected="selected">No students in this class</option>').attr('disabled', 'disabled');
+            }
+            apply_statistics_drilldown_filters();
+        });
+    });
+
+    $('#stats_drilldown_student_select, #stats_drilldown_period_select').unbind('change').change(function () {
+        apply_statistics_drilldown_filters();
+    });
+
+
+    function apply_statistics_drilldown_filters() {
+        var class_id = $('#stats_drilldown_class_select').val();
+        if (! parseInt(class_id)) {
+            $('.report-stats-date').hide();
+            return;
+        }
+        var student_id = $('#stats_drilldown_student_select').val();
+        if (! parseInt(student_id)) { return; }
+        var period_type = $('#stats_drilldown_period_select').val();
+        if (period_type == 6) { $('.report-stats-date').show(); }
+        else { $('.report-stats-date').hide(); }
+        var from_date_input = (period_type == 6) ? $('#stats_drilldown_datepicker_from').val() : '',
+            to_date_input = (period_type == 6) ? $('#stats_drilldown_datepicker_to').val() : '';
+        var from_date_arr = from_date_input.split('/'),
+            to_date_arr = to_date_input.split('/');
+        var from_date = (from_date_arr.length == 3) ? from_date_arr[2] + '-' + from_date_arr[0] + '-' + from_date_arr[1] : '',
+            to_date = (to_date_arr.length == 3) ? to_date_arr[2] + '-' + to_date_arr[0] + '-' + to_date_arr[1] : '';
+        //alert('change 1 - class_id: ' + class_id + '; student_id: ' + student_id + '; period_type: ' + period_type);
+
+        var newUri = 'class_id/' + class_id;
+        newUri += '/student_id/' + student_id;
+        newUri += '/period_type/' + period_type;
+        if ((period_type == 6) && (from_date) && (to_date)) {
+            newUri += '/from/' + from_date + '/to/' + to_date;
+        }
+        window.history.replaceState({}, null, '/statistics/drilldown/' + newUri);
+
+        model.getStatisticsDrilldownTable(newUri, function (res) {
+            $('#stats_drilldown_table_wrapper').empty().html(res);
+            //datatable_settings.bFilter = false;
+            $('#stats_drilldown_table').dataTable(datatable_settings);
         });
     }
 

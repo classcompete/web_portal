@@ -89,6 +89,9 @@
             <li>
                 <a href="<?php echo base_url('statistics/student')?>" <?php echo($this->uri->segment(2) === 'student')?'class="sub-nav-selected"':''?>>Student</a>
             </li>
+            <li>
+                <a href="<?php echo base_url('statistics/drilldown')?>" <?php echo($this->uri->segment(2) === 'drilldown')?'class="sub-nav-selected"':''?>>Drilldown</a>
+            </li>
         <?php endif;?>
         <?php if($this->uri->segment(1) === 'profile'):?>
             <li>

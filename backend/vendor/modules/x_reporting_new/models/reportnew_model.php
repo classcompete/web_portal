@@ -16,6 +16,8 @@ class Reportnew_model extends CI_Model{
     private $filterStudentId = null;
     private $filterChallengeId = null;
     private $filterClassId = null;
+	private $filterDateFrom = null;
+	private $filterDateTo = null;
 
     public function __construct(){
         parent::__construct();
@@ -40,7 +42,8 @@ class Reportnew_model extends CI_Model{
         $this->filterStudentId = null;
         $this->filterChallengeId = null;
         $this->filterClassId = null;
-
+		$this->filterDateFrom = null;
+	    $this->filterDateTo = null;
 
         $this->total_rows = null;
     }
@@ -61,6 +64,13 @@ class Reportnew_model extends CI_Model{
         if(empty($this->filterClassId) === false){
             $query->filterByClassId($this->filterClassId);
         }
+        if(empty($this->filterDateFrom) === false){
+            $query->filterByCreated(array('min' => $this->filterDateFrom));
+        }
+        if(empty($this->filterDateTo) === false){
+            $query->filterByCreated(array('max' => $this->filterDateTo));
+        }
+
         return $query;
     }
 
@@ -212,6 +222,14 @@ class Reportnew_model extends CI_Model{
 
     public function filterByChallengeId($id){
         $this->filterChallengeId = $id;
+    }
+
+    public function filterByDateFrom($dateFrom){
+        $this->filterDateFrom = $dateFrom;
+    }
+
+    public function filterByDateTo($dateTo){
+        $this->filterDateTo = $dateTo;
     }
 
 }
