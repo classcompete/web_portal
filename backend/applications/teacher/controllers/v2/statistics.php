@@ -142,7 +142,11 @@ class Statistics extends MY_Controller
         if (intval(@$data->params['class_id']) > 0) {
             $students = $this->class_model->get_students_from_class($data->params['class_id']);
         } else {
-            $students = array();
+            if (empty($teacher_classes) === false) {
+                $students = $this->class_model->get_students_from_class($teacher_classes[0]->getClassId());
+            } else {
+                $students = array();
+            }
         }
 
         $data->students = $students;
@@ -251,7 +255,11 @@ class Statistics extends MY_Controller
         if (intval(@$data->params['class_id']) > 0) {
             $students = $this->class_model->get_students_from_class($data->params['class_id']);
         } else {
-            $students = array();
+            if (empty($teacher_classes) === false) {
+                $students = $this->class_model->get_students_from_class($teacher_classes[0]->getClassId());
+            } else {
+                $students = array();
+            }
         }
 
         $data->students = $students;

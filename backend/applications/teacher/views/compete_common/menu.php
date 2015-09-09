@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="<?php echo base_url('reporting/basic') ?>" <?php echo ($this->uri->segment(1) === 'reporting') ? 'class="selected"' : '' ?>>
+            <a href="<?php echo base_url('statistics/classroom') ?>" <?php echo ($this->uri->segment(1) === 'statistics') ? 'class="selected"' : '' ?>>
                 <div class="fs1" aria-hidden="true" data-icon="&#xe097;"></div>
                 Reporting
             </a>
@@ -90,7 +90,7 @@
                 <a href="<?php echo base_url('statistics/student')?>" <?php echo($this->uri->segment(2) === 'student')?'class="sub-nav-selected"':''?>>Student</a>
             </li>
             <li>
-                <a href="<?php echo base_url('statistics/drilldown')?>" <?php echo($this->uri->segment(2) === 'drilldown')?'class="sub-nav-selected"':''?>>Drilldown</a>
+                <a href="<?php echo base_url('statistics/drilldown')?>" <?php echo($this->uri->segment(2) === 'drilldown')?'class="sub-nav-selected"':''?>>Details</a>
             </li>
         <?php endif;?>
         <?php if($this->uri->segment(1) === 'profile'):?>

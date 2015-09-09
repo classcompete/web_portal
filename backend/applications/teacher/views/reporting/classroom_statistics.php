@@ -37,7 +37,7 @@
                                     <option value="0">Choose classroom</option>
                                     <?php foreach ($teacher_classes as $class => $val): ?>
                                         <option value="<?php echo $val->getClassId() ?>"
-                                            <?php echo ($val->getClassId() === intval(@$params['class_id'])) ? 'selected="selected"' : '' ?>>
+                                            <?php echo ($val->getClassId() === intval(@$params['class_id'])) ? 'selected="selected"' : (@empty($params['class_id']) === true && $class === 0) ? 'selected="selected"' : '' ?>>
                                             <?php echo $val->getName() ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -60,7 +60,7 @@
                                     <option value="4" <?php echo (intval(@$params['period_type']) === 4) ? 'selected="selected"' : '' ?>>
                                         Last month
                                     </option>
-                                    <option value="5" <?php echo (intval(@$params['period_type']) === 5) ? 'selected="selected"' : '' ?>>
+                                    <option value="5" <?php echo (intval(@$params['period_type']) === 5) ? 'selected="selected"' : (@empty($params['period_type']) === true) ? 'selected="selected"' : '' ?>>
                                         Last 3 months
                                     </option>
                                     <option value="6" <?php echo (intval(@$params['period_type']) === 6) ? 'selected="selected"' : '' ?>>
