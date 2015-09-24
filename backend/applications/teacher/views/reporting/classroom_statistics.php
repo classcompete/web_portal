@@ -26,7 +26,7 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header">
-                        <div class="title">Statistics for classroom by challenges</div>
+                        <div class="title">Statistics for Classroom by Challenges</div>
                     </div>
                     <div class="widget-body clearfix">
                         <div id="challenge_filter_selector_holder">
@@ -105,11 +105,11 @@
                                 <th style="width: 258px;" rowspan="1" colspan="1">
                                     Challenge Name
                                 </th>
-                                <th style="width: 305px;" rowspan="1" colspan="1">
-                                    Classroom average
+                                <th style="width: 305px; text-align: center" rowspan="1" colspan="1">
+                                    Classroom Average
                                 </th>
-                                <th style="width: 242px;" rowspan="1" colspan="1">
-                                    State average
+                                <th style="width: 242px; text-align: center" rowspan="1" colspan="1">
+                                    State Average
                                 </th>
                             </tr>
                             </thead>

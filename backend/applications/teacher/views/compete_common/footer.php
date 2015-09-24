@@ -8,7 +8,7 @@
 
 <footer>
     <p>
-        &copy; Class Compete 2013 |
+        &copy; Class Compete <?php echo date("Y") ?> |
         <a class="footer-links" href="http://www.classcompete.com/privacy" target="_blank">Privacy Policy</a><span> | </span>
         <a class="footer-links" href="http://www.classcompete.com/terms" target="_blank">Terms of Services</a><span> | </span>
     </p>

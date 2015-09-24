@@ -5,7 +5,7 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header">
-                        <div class="title">Statistics for student by challenges</div>
+                        <div class="title">Statistics for Student by Challenges</div>
 		                <span class="tools">
 		                    <a class="btn btn-small btn-info" href="<?php echo site_url('statistics/drilldown') ?>"
 		                       id="btnShowStatsDrilldown">Details</a>
@@ -113,14 +113,14 @@
                                 <th style="width: 200px;" rowspan="1" colspan="1">
                                     Challenge Name
                                 </th>
-                                <th style="width: 250px;" rowspan="1" colspan="1">
+                                <th style="width: 250px; text-align: center" rowspan="1" colspan="1">
                                     Pre-test Score
                                 </th>
-                                <th style="width: 250px;" rowspan="1" colspan="1">
+                                <th style="width: 250px; text-align: center" rowspan="1" colspan="1">
                                     Average Score
                                 </th>
-                                <th style="width: 250px;" rowspan="1" colspan="1">
-                                    Classroom average
+                                <th style="width: 250px; text-align: center" rowspan="1" colspan="1">
+                                    Classroom Average
                                 </th>
                             </tr>
                             </thead>
